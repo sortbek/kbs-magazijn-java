@@ -26,6 +26,11 @@ public class TSPSimulatorGUI extends JFrame {
 
 	private void stopButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
+		
+
+		
+	
+
 	}
 	
 
@@ -64,6 +69,7 @@ public class TSPSimulatorGUI extends JFrame {
 		// ======== paintPanel ========
 		{
 			paintPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+			
 		}
 
 		// ======== tabbedPanel ========
@@ -302,7 +308,7 @@ public class TSPSimulatorGUI extends JFrame {
 		// ---- stopButton ----
 		stopButton.setText("Stop the process");
 		stopButton.addActionListener(e -> stopButtonActionPerformed(e));
-		stopButton.setBackground(Color.RED);
+
 		
 
 		GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -386,6 +392,8 @@ public class TSPSimulatorGUI extends JFrame {
 										.addContainerGap(21, Short.MAX_VALUE)));
 		setSize(825, 600);
 		setLocationRelativeTo(getOwner());
+		
+		
 
 	}
 
