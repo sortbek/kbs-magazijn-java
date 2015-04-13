@@ -2,9 +2,8 @@ package tsp;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
@@ -28,6 +27,7 @@ public class TSPSimulatorGUI extends JFrame {
 	private void stopButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
 	}
+	
 
 	private void initComponents() {
 
@@ -53,7 +53,10 @@ public class TSPSimulatorGUI extends JFrame {
 		stopButton = new JButton();
 
 		// ======== this ========
+	
 		setTitle("TSP-Simulator");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		setIconImage(((ImageIcon) UIManager.getIcon("FileView.computerIcon"))
 				.getImage());
 		Container contentPane = getContentPane();
@@ -299,6 +302,8 @@ public class TSPSimulatorGUI extends JFrame {
 		// ---- stopButton ----
 		stopButton.setText("Stop the process");
 		stopButton.addActionListener(e -> stopButtonActionPerformed(e));
+		stopButton.setBackground(Color.RED);
+		
 
 		GroupLayout contentPaneLayout = new GroupLayout(contentPane);
 		contentPane.setLayout(contentPaneLayout);
