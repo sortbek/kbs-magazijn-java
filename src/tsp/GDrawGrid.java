@@ -3,7 +3,6 @@ package tsp;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -14,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class GDrawGrid extends JPanel {
 	
@@ -46,6 +47,7 @@ public class GDrawGrid extends JPanel {
 
               }
           };
+          
           addMouseMotionListener(mouseHandler);
       }
 
@@ -118,9 +120,14 @@ public class GDrawGrid extends JPanel {
           if (selectedCell != null) {
 
               int index = selectedCell.x + (selectedCell.y * columnCount);
-              Rectangle cell = cells.get(index);
-              g2d.setColor(Color.BLUE);
-              g2d.fill(cell);
+              try {
+            	  Rectangle cell = cells.get(index);
+            	  g2d.setColor(Color.BLUE);
+                  g2d.fill(cell);
+              } catch (IndexOutOfBoundsException ex) {
+              }
+              
+              
 
           }
 
