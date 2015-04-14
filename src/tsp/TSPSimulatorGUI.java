@@ -12,20 +12,13 @@ import javax.swing.event.*;
 
 
 /**
- * @author Kubilay Durmusoglu
+ * @author Kubilay Durmusoglu & Anouk van der Veer
  */
 public class TSPSimulatorGUI extends JFrame {
 	public TSPSimulatorGUI() {
 		initComponents();
 	}
 
-	private void rowsSpinnerStateChanged(ChangeEvent e) {
-		// TODO add your code here
-	}
-
-	private void columnsSpinnerStateChanged(ChangeEvent e) {
-		// TODO add your code here
-	}
 
 	private void stopButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
@@ -37,11 +30,17 @@ public class TSPSimulatorGUI extends JFrame {
 
 	private void applyButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
+		
+		int row = (Integer)rowsSpinner.getValue();
+		int column = (Integer)columnsSpinner.getValue();
+		
+		System.out.println("Rows: "+row+" Columns: "+column);
+		
+		repaint();
 	}
 
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Kubilay Durmusoglu
+
 		tabbedPanel = new JTabbedPane();
 		orderPanel = new JPanel();
 		productsPanel = new JPanel();
@@ -131,11 +130,9 @@ public class TSPSimulatorGUI extends JFrame {
 
 				//---- rowsSpinner ----
 				rowsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
-				rowsSpinner.addChangeListener(e -> rowsSpinnerStateChanged(e));
 
 				//---- columnsSpinner ----
 				columnsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
-				columnsSpinner.addChangeListener(e -> columnsSpinnerStateChanged(e));
 
 				//---- applyButton ----
 				applyButton.setText("Apply");
