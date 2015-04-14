@@ -19,13 +19,6 @@ public class TSPSimulatorGUI extends JFrame {
 		initComponents();
 	}
 
-	private void rowsSpinnerStateChanged(ChangeEvent e) {
-		// TODO add your code here
-	}
-
-	private void columnsSpinnerStateChanged(ChangeEvent e) {
-		// TODO add your code here
-	}
 
 	private void stopButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
