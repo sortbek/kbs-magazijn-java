@@ -2,21 +2,19 @@ package tsp;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import java.beans.*;
 import javax.swing.*;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle;
 import javax.swing.border.*;
 import javax.swing.event.*;
-/*
- * Created by JFormDesigner on Mon Apr 13 14:55:24 CEST 2015
- */
 
 
 
 /**
  * @author Kubilay Durmusoglu
  */
-public class TSPSimulatorGUI extends JFrame implements ActionListener {
-	
+public class TSPSimulatorGUI extends JFrame {
 	public TSPSimulatorGUI() {
 		initComponents();
 	}
@@ -31,13 +29,19 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 
 	private void stopButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
-
-		repaint();
 	}
 
-	
+	private void paintPanelPropertyChange(PropertyChangeEvent e) {
+		// TODO add your code here
+	}
+
+	private void applyButtonActionPerformed(ActionEvent e) {
+		// TODO add your code here
+	}
 
 	private void initComponents() {
+		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+		// Generated using JFormDesigner Evaluation license - Kubilay Durmusoglu
 		tabbedPanel = new JTabbedPane();
 		orderPanel = new JPanel();
 		productsPanel = new JPanel();
@@ -46,6 +50,7 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 		label2 = new JLabel();
 		rowsSpinner = new JSpinner();
 		columnsSpinner = new JSpinner();
+		applyButton = new JButton();
 		scrollPanel = new JScrollPane();
 		informationPanel = new JPanel();
 		standardLabel1 = new JLabel();
@@ -59,13 +64,14 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 		stopButton = new JButton();
 		paintPanel = new JPanel();
 
-
 		//======== this ========
 		setTitle("TSP-Simulator");
 		setIconImage(((ImageIcon)UIManager.getIcon("FileView.computerIcon")).getImage());
 		Container contentPane = getContentPane();
 		this.setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
 
 		//======== tabbedPanel ========
 		{
@@ -85,7 +91,7 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 				orderPanel.setLayout(orderPanelLayout);
 				orderPanelLayout.setHorizontalGroup(
 					orderPanelLayout.createParallelGroup()
-						.addGap(0, 254, Short.MAX_VALUE)
+						.addGap(0, 248, Short.MAX_VALUE)
 				);
 				orderPanelLayout.setVerticalGroup(
 					orderPanelLayout.createParallelGroup()
@@ -102,7 +108,7 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 				productsPanel.setLayout(productsPanelLayout);
 				productsPanelLayout.setHorizontalGroup(
 					productsPanelLayout.createParallelGroup()
-						.addGap(0, 254, Short.MAX_VALUE)
+						.addGap(0, 248, Short.MAX_VALUE)
 				);
 				productsPanelLayout.setVerticalGroup(
 					productsPanelLayout.createParallelGroup()
@@ -131,6 +137,10 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 				columnsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
 				columnsSpinner.addChangeListener(e -> columnsSpinnerStateChanged(e));
 
+				//---- applyButton ----
+				applyButton.setText("Apply");
+				applyButton.addActionListener(e -> applyButtonActionPerformed(e));
+
 				GroupLayout settingsPanelLayout = new GroupLayout(settingsPanel);
 				settingsPanel.setLayout(settingsPanelLayout);
 				settingsPanelLayout.setHorizontalGroup(
@@ -144,7 +154,11 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 							.addGroup(settingsPanelLayout.createParallelGroup()
 								.addComponent(rowsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 								.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(139, Short.MAX_VALUE))
+							.addContainerGap(133, Short.MAX_VALUE))
+						.addGroup(GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
+							.addContainerGap(179, Short.MAX_VALUE)
+							.addComponent(applyButton)
+							.addContainerGap())
 				);
 				settingsPanelLayout.setVerticalGroup(
 					settingsPanelLayout.createParallelGroup()
@@ -157,6 +171,8 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 								.addComponent(label2)
 								.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+							.addComponent(applyButton)
 							.addContainerGap())
 				);
 			}
@@ -318,10 +334,7 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 					.addGap(21, 21, 21))
 		);
 		setSize(825, 600);
-
-		
 		setLocationRelativeTo(getOwner());
-
 	}
 
 	private JTabbedPane tabbedPanel;
@@ -332,6 +345,7 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 	private JLabel label2;
 	private JSpinner rowsSpinner;
 	private JSpinner columnsSpinner;
+	private JButton applyButton;
 	private JScrollPane scrollPanel;
 	private JPanel informationPanel;
 	private JLabel standardLabel1;
@@ -344,10 +358,5 @@ public class TSPSimulatorGUI extends JFrame implements ActionListener {
 	private JLabel statusLabel;
 	private JButton stopButton;
 	private JPanel paintPanel;
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }
