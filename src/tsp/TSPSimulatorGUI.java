@@ -29,15 +29,12 @@ public class TSPSimulatorGUI extends JFrame {
 	}
 
 	private void applyButtonActionPerformed(ActionEvent e) {
-		// TODO add your code here
+		// drawGrid Heigth: 528, Width 526:
 		
 		int row = (Integer)rowsSpinner.getValue();
 		int column = (Integer)columnsSpinner.getValue();
-		
-		System.out.println("Rows: "+row+" Columns: "+column);
-		
-		
-		
+		drawGrid.invalidate();
+		drawGrid.reDraw(row, column);
 		repaint();
 	}
 
@@ -63,7 +60,7 @@ public class TSPSimulatorGUI extends JFrame {
 		statusPanel = new JPanel();
 		statusLabel = new JLabel();
 		stopButton = new JButton();
-		drawGrid = new GDrawGrid();
+		drawGrid = new GDrawGrid(5,5);
 		
 
 		//======== this ========
@@ -132,10 +129,11 @@ public class TSPSimulatorGUI extends JFrame {
 				label2.setHorizontalAlignment(SwingConstants.RIGHT);
 
 				//---- rowsSpinner ----
-				rowsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
+				rowsSpinner.setModel(new SpinnerNumberModel(5, 0, null, 1));
+	
 
 				//---- columnsSpinner ----
-				columnsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
+				columnsSpinner.setModel(new SpinnerNumberModel(5, 0, null, 1));
 
 				//---- applyButton ----
 				applyButton.setText("Apply");
