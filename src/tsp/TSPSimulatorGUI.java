@@ -30,6 +30,13 @@ public class TSPSimulatorGUI extends JFrame {
 
 	private void applyButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
+		
+		int row = (Integer)rowsSpinner.getValue();
+		int column = (Integer)columnsSpinner.getValue();
+		
+		System.out.println("Rows: "+row+" Columns: "+column);
+		
+		repaint();
 	}
 
 	private void initComponents() {
@@ -123,11 +130,9 @@ public class TSPSimulatorGUI extends JFrame {
 
 				//---- rowsSpinner ----
 				rowsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
-				rowsSpinner.addChangeListener(e -> rowsSpinnerStateChanged(e));
 
 				//---- columnsSpinner ----
 				columnsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
-				columnsSpinner.addChangeListener(e -> columnsSpinnerStateChanged(e));
 
 				//---- applyButton ----
 				applyButton.setText("Apply");
