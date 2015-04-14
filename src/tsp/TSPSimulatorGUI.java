@@ -29,13 +29,12 @@ public class TSPSimulatorGUI extends JFrame {
 	}
 
 	private void applyButtonActionPerformed(ActionEvent e) {
-		// TODO add your code here
+		// drawGrid Heigth: 528, Width 526:
 		
 		int row = (Integer)rowsSpinner.getValue();
 		int column = (Integer)columnsSpinner.getValue();
-		
-		System.out.println("Rows: "+row+" Columns: "+column);
-		
+		drawGrid.invalidate();
+		drawGrid.reDraw(row, column);
 		repaint();
 	}
 
@@ -61,7 +60,8 @@ public class TSPSimulatorGUI extends JFrame {
 		statusPanel = new JPanel();
 		statusLabel = new JLabel();
 		stopButton = new JButton();
-		paintPanel = new JPanel();
+		drawGrid = new GDrawGrid(5,5);
+		
 
 		//======== this ========
 		setTitle("TSP-Simulator");
@@ -129,10 +129,11 @@ public class TSPSimulatorGUI extends JFrame {
 				label2.setHorizontalAlignment(SwingConstants.RIGHT);
 
 				//---- rowsSpinner ----
-				rowsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
+				rowsSpinner.setModel(new SpinnerNumberModel(5, 0, null, 1));
+	
 
 				//---- columnsSpinner ----
-				columnsSpinner.setModel(new SpinnerNumberModel(0, 0, null, 1));
+				columnsSpinner.setModel(new SpinnerNumberModel(5, 0, null, 1));
 
 				//---- applyButton ----
 				applyButton.setText("Apply");
@@ -283,10 +284,10 @@ public class TSPSimulatorGUI extends JFrame {
 
 		//======== paintPanel ========
 		{
-			paintPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+			drawGrid.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
 
-			GroupLayout paintPanelLayout = new GroupLayout(paintPanel);
-			paintPanel.setLayout(paintPanelLayout);
+			GroupLayout paintPanelLayout = new GroupLayout(drawGrid);
+			drawGrid.setLayout(paintPanelLayout);
 			paintPanelLayout.setHorizontalGroup(
 				paintPanelLayout.createParallelGroup()
 					.addGap(0, 520, Short.MAX_VALUE)
@@ -303,7 +304,7 @@ public class TSPSimulatorGUI extends JFrame {
 			contentPaneLayout.createParallelGroup()
 				.addGroup(contentPaneLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(paintPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(drawGrid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
 					.addGroup(contentPaneLayout.createParallelGroup()
 						.addGroup(contentPaneLayout.createSequentialGroup()
@@ -319,7 +320,7 @@ public class TSPSimulatorGUI extends JFrame {
 				.addGroup(contentPaneLayout.createSequentialGroup()
 					.addGap(23, 23, 23)
 					.addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-						.addComponent(paintPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(drawGrid, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(contentPaneLayout.createSequentialGroup()
 							.addComponent(tabbedPanel, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
@@ -354,6 +355,6 @@ public class TSPSimulatorGUI extends JFrame {
 	private JPanel statusPanel;
 	private JLabel statusLabel;
 	private JButton stopButton;
-	private JPanel paintPanel;
+	private GDrawGrid drawGrid;
 
 }
