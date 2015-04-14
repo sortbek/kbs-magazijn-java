@@ -12,7 +12,7 @@ import javax.swing.event.*;
 
 
 /**
- * @author Kubilay Durmusoglu
+ * @author Kubilay Durmusoglu & Anouk van der Veer
  */
 public class TSPSimulatorGUI extends JFrame {
 	public TSPSimulatorGUI() {
@@ -40,8 +40,7 @@ public class TSPSimulatorGUI extends JFrame {
 	}
 
 	private void initComponents() {
-		// JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-		// Generated using JFormDesigner Evaluation license - Kubilay Durmusoglu
+
 		tabbedPanel = new JTabbedPane();
 		orderPanel = new JPanel();
 		productsPanel = new JPanel();
