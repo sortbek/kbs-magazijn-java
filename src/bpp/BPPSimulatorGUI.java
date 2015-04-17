@@ -24,7 +24,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         setTitle("BPP-simulator");
         setResizable(false);
 
-        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A1", "A2", "A3" }));
+        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Volledige Enumeratie", "Simpel Gretig", "MaxRects" }));
         algorithmPicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 algorithmPickerActionPerformed(evt);
