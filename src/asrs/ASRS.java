@@ -16,6 +16,7 @@ public class ASRS {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MainFrame test = new MainFrame();
+        test.setVisible(true);       
     }
-    
 }
