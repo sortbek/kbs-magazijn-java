@@ -5,11 +5,8 @@ import javax.swing.*;
 
 public class BPPSimulatorBoxPanel extends JPanel {
 
-    private BPPSimulatorGUI gui;
-    private int height, width, space;
-
     public BPPSimulatorBoxPanel() {
-        this.setPreferredSize(new Dimension(489, 200));
+        this.setPreferredSize(new Dimension(489, 140));
         setLayout(new FlowLayout());
         setVisible(true);
     }
@@ -17,14 +14,13 @@ public class BPPSimulatorBoxPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawRect(50, 90, 100, 100);
-        g.drawRect(200, 90, 100, 100);
-        g.drawRect(350, 90, 100, 100);
+        g.drawRect(50, 10, 100, 100);
+        g.drawRect(200, 10, 100, 100);
+        g.drawRect(350, 10, 100, 100);
         
-        g.drawString("Box A", 85, 135);
-        g.drawString("Box B", 235, 135);
-        g.drawString("Box C", 385, 135);
-    
+        g.drawString("Box A", 85, 125);
+        g.drawString("Box B", 235, 125);
+        g.drawString("Box C", 385, 125);    
     }
 
     public static void main(String args[]) {
