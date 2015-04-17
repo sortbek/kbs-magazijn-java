@@ -27,50 +27,35 @@ public class GDrawGrid extends JPanel {
     	  this.columnCount = columnCount;
     	  this.rowCount = rowCount;
           cells = new ArrayList<>(columnCount * rowCount);
-          MouseAdapter mouseHandler;
-          mouseHandler = new MouseAdapter() {
-              @Override
-              public void mouseMoved(MouseEvent e) {
-                  Point point = e.getPoint();
-
-                  int width = getWidth();
-                  int height = getHeight();
-
-                  int cellWidth = width / columnCount;
-                  int cellHeight = height / rowCount;
-
-                  int column = e.getX() / cellWidth;
-                  int row = e.getY() / cellHeight;
-
-                  selectedCell = new Point(column, row);
-                  repaint();
-
-              }
-          };
-          
-          addMouseMotionListener(mouseHandler);
+          mouseFix();
+          repaint();
+         
       }
 
       public GDrawGrid(int columnCount, int rowCount) {
     	  this.columnCount = columnCount;
     	  this.rowCount = rowCount;
-          cells = new ArrayList<>(columnCount * rowCount);
-          MouseAdapter mouseHandler;
+          cells = new ArrayList<>(columnCount * rowCount); 
+          mouseFix();
+      }
+      
+      public void mouseFix(){
+    	  MouseAdapter mouseHandler;
           mouseHandler = new MouseAdapter() {
               @Override
               public void mouseMoved(MouseEvent e) {
                   Point point = e.getPoint();
 
-                  int width = getWidth();
-                  int height = getHeight();
+                  double width = getWidth();
+                  double height = getHeight();
 
-                  int cellWidth = width / columnCount;
-                  int cellHeight = height / rowCount;
+                  double cellWidth = width / columnCount;
+                  double cellHeight = height / rowCount;
 
-                  int column = e.getX() / cellWidth;
-                  int row = e.getY() / cellHeight;
+                  double column = e.getX() / cellWidth;
+                  double row = e.getY() / cellHeight;
 
-                  selectedCell = new Point(column, row);
+                  selectedCell = new Point((int)column, (int)row);
                   repaint();
 
               }
@@ -78,10 +63,6 @@ public class GDrawGrid extends JPanel {
           addMouseMotionListener(mouseHandler);
       }
 
-      @Override
-      public Dimension getPreferredSize() {
-          return new Dimension(520, 520);
-      }
 
       @Override
       public void invalidate() {
@@ -94,24 +75,30 @@ public class GDrawGrid extends JPanel {
       protected void paintComponent(Graphics g) {
           super.paintComponent(g);
           Graphics2D g2d = (Graphics2D) g.create();
+          
+          // Height & Width of panel
 
-          int width = getWidth();
-          int height = getHeight();
+          double width = getWidth();
+          double height = getHeight();
+          
+          // Heigth & Width of every cell
 
-          int cellWidth = width / columnCount;
-          int cellHeight = height / rowCount;
+          double cellWidth = width/ columnCount;
+          double cellHeight= height/ rowCount;
+          
+          // Begin of offset X & Y
 
-          int xOffset = (width - (columnCount * cellWidth)) / 2;
-          int yOffset = (height - (rowCount * cellHeight)) / 2;
+          double xOffset = (width - (columnCount * cellWidth)) / 2;
+          double yOffset = (height - (rowCount * cellHeight)) / 2;
 
           if (cells.isEmpty()) {
               for (int row = 0; row < rowCount; row++) {
                   for (int col = 0; col < columnCount; col++) {
                       Rectangle cell = new Rectangle(
-                              xOffset + (col * cellWidth),
-                              yOffset + (row * cellHeight),
-                              cellWidth,
-                              cellHeight);
+                              (int)(xOffset + (col * cellWidth)),
+                              (int)(yOffset + (row * cellHeight)),
+                              (int)cellWidth,
+                              (int)cellHeight);
                       cells.add(cell);
                   }
               }
