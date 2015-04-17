@@ -38,6 +38,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         algorithmPicker = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
+<<<<<<< HEAD
         jLabel1 = new javax.swing.JLabel();
         bPPSimulatorBoxPanel3 = new bpp.BPPSimulatorBoxPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -57,16 +58,34 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         );
 
         jLabel3.setText("Box A");
+=======
+        jScrollPane3 = new javax.swing.JScrollPane();
+>>>>>>> 24701ab33dac7787eca2a3fa3d1409b6da8ea786
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("BPP-simulator");
         setResizable(false);
 
+<<<<<<< HEAD
+=======
+        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Volledige Enumeratie", "Simpel Gretig", "MaxRects" }));
+        algorithmPicker.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                algorithmPickerActionPerformed(evt);
+            }
+        });
+
+>>>>>>> 24701ab33dac7787eca2a3fa3d1409b6da8ea786
         forceStopBtn.setBackground(new java.awt.Color(255, 0, 0));
         forceStopBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         forceStopBtn.setForeground(new java.awt.Color(255, 255, 255));
         forceStopBtn.setText("STOP THE PROCESS");
         forceStopBtn.setToolTipText("");
+        forceStopBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forceStopBtnMouseClicked(evt);
+            }
+        });
         forceStopBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 forceStopBtnActionPerformed(evt);
@@ -76,7 +95,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         boxData.setColumns(20);
         boxData.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         boxData.setRows(5);
-        boxData.setText("Packing Width:\nPacking Height:\nArea Covered:");
+        boxData.setText("Box : \nPacking Width: \nPacking Height: \nArea Covered:");
         jScrollPane1.setViewportView(boxData);
 
         progressLabel1.setText("Progress");
@@ -91,17 +110,26 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         productTable.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Product 1", "20", "50"},
-                {"Product 2", "50", "30"},
-                {"Product 3", "40", "40"}
+                {"Product 1", "20", "50", null, null},
+                {"Product 2", "50", "30", null, null},
+                {"Product 3", "40", "40",  new Boolean(false), null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Product", "Width", "Height"
+                "Product", "Width", "Height", "Check", "Box"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -142,6 +170,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -162,11 +191,33 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                         .addContainerGap(21, Short.MAX_VALUE)
                         .addComponent(bPPSimulatorBoxPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+=======
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(algorithmPicker, 0, 241, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(progressLabel)
+                        .addGap(183, 183, 183))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(packingProcess, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                            .addComponent(forceStopBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(28, 28, 28))))
+>>>>>>> 24701ab33dac7787eca2a3fa3d1409b6da8ea786
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(progressLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(packingProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,6 +239,18 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(bPPSimulatorBoxPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(18, Short.MAX_VALUE))
+=======
+                    .addComponent(packingProcess, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(algorithmPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(forceStopBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
+>>>>>>> 24701ab33dac7787eca2a3fa3d1409b6da8ea786
         );
 
         pack();
@@ -201,6 +264,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
     private void algorithmPickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_algorithmPickerActionPerformed
         if(evt.getSource() == algorithmPicker) {
+<<<<<<< HEAD
             //Haal nieuw algoritme op
         }
     }//GEN-LAST:event_algorithmPickerActionPerformed
@@ -208,6 +272,22 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+=======
+            // veranderen algoritme
+           
+        }
+    }//GEN-LAST:event_algorithmPickerActionPerformed
+
+    private void forceStopBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_forceStopBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_forceStopBtnActionPerformed
+
+    private void forceStopBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forceStopBtnMouseClicked
+        // TODO add your handling code here:
+        // stop het process 
+    }//GEN-LAST:event_forceStopBtnMouseClicked
+
+>>>>>>> 24701ab33dac7787eca2a3fa3d1409b6da8ea786
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -252,7 +332,10 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+<<<<<<< HEAD
     private javax.swing.JTextArea jTextArea1;
+=======
+>>>>>>> 24701ab33dac7787eca2a3fa3d1409b6da8ea786
     private javax.swing.JProgressBar packingProcess;
     private javax.swing.JTable productTable;
     private javax.swing.JLabel progressLabel;

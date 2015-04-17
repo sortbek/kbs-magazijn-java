@@ -16,6 +16,7 @@ import javax.swing.event.*;
  */
 public class TSPSimulatorGUI extends JFrame {
 	public TSPSimulatorGUI() {
+		
 		initComponents();
 	}
 
@@ -34,7 +35,7 @@ public class TSPSimulatorGUI extends JFrame {
 		int row = (Integer)rowsSpinner.getValue();
 		int column = (Integer)columnsSpinner.getValue();
 		drawGrid.invalidate();
-		drawGrid.reDraw(row, column);
+		drawGrid.reDraw(column, row);
 		repaint();
 	}
 
@@ -61,6 +62,8 @@ public class TSPSimulatorGUI extends JFrame {
 		statusLabel = new JLabel();
 		stopButton = new JButton();
 		drawGrid = new GDrawGrid(5,5);
+		
+		
 		
 
 		//======== this ========
