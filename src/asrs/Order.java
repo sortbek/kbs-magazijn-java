@@ -5,30 +5,44 @@
  */
 package asrs;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jeffreywienen
  */
 public class Order {
+    private Customer c;
     private int Ordernr;
     private String Customer;
+    private int progress;
     
-    public Order(int Ordernr, String Customer){
+    ArrayList<Integer> products = new ArrayList<Integer>();    
+    
+    public Order(int Ordernr, Customer c){
         this.Ordernr = Ordernr;
-        this.Customer = Customer;
+        this.c = c;
     }
     
     public int getOrdernr() {
         return Ordernr;
     }
+    
+    public ArrayList<Integer> getProducts() {
+        return products;
+    }
+     
+    public void addProduct(int nr){
+        products.add(nr);
+    }   
 
-    public String getCustomer() {
-        return Customer;
-    }    
-    
-    public void AddProduct(){
-        
-    }  
+    public Customer getC() {
+        return c;
+    }
     
     
+    public void addToQueue(){
+        MySQL sql = new MySQL();
+        sql.insertOrder(this);
+    }
 }

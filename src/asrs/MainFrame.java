@@ -11,6 +11,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import java.io.File;
+import javax.swing.table.DefaultTableModel;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -19,6 +21,7 @@ import java.io.File;
 public class MainFrame extends javax.swing.JFrame {
 
     private File file;
+
     /**
      * Creates new form MainFrame
      */
@@ -38,7 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jbUpload = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tOrders = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AS/RS");
@@ -50,7 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -61,7 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tOrders);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,8 +72,8 @@ public class MainFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbUpload)
                 .addGap(77, 77, 77))
         );
@@ -79,46 +82,74 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbUpload)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbUpload))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    private void updateContent() {
+        
+        DefaultTableModel model = (DefaultTableModel) tOrders.getModel();
+        String data1 = "Test";
+        String data2 = "2";
+        String data3 = "3";
+        String data4 = "4";
+        
 
+        String[] rowData = {data1, data2, data3, data4};
+
+        model.insertRow(model.getRowCount(), rowData);
+    }
     private void jbUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbUploadActionPerformed
         // TODO add your handling code here:
         Upload up = new Upload(this);
         up.setVisible(true);
-        
-        if(up.isUploaded()){
+
+        if (up.isUploaded()) {
             try {
+                Customer customer = new Customer();
+
                 File file = up.getXml();
-
-                DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance()
-                                     .newDocumentBuilder();
-
+                DocumentBuilder dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                 Document doc = dBuilder.parse(file);
-                NodeList nList = doc.getElementsByTagName("artikelnr");
 
-                //Get order info
-                System.out.println("Ordernr: " + doc.getElementsByTagName("ordernummer").item(0).getTextContent());
+                //Get customer info
+                NodeList cList = doc.getElementsByTagName("klant");
+                for (int temp = 0; temp < cList.getLength(); temp++) {
+                    Node cNode = cList.item(temp);
+
+                    if (cNode.getNodeType() == Node.ELEMENT_NODE) {
+                        Element eElement = (Element) cNode;
+                        customer.setFirstName(eElement.getElementsByTagName("voornaam").item(0).getTextContent());
+                        customer.setLastName(eElement.getElementsByTagName("achternaam").item(0).getTextContent());
+                        customer.setAddress(eElement.getElementsByTagName("adres").item(0).getTextContent());
+                        customer.setCity(eElement.getElementsByTagName("plaats").item(0).getTextContent());
+                        customer.setZipcode(eElement.getElementsByTagName("postcode").item(0).getTextContent());
+
+                    }
+                }
+                Order order = new Order(1, customer);
 
                 // Loop all products 
-                for(int temp = 0; temp < nList.getLength(); temp++){
+                NodeList nList = doc.getElementsByTagName("artikelnr");
+                for (int temp = 0; temp < nList.getLength(); temp++) {
                     Node nNode = nList.item(temp);
-                    System.out.println("Artikelnummer: " + doc.getElementsByTagName("artikelnr").item(temp).getTextContent());
+                    order.addProduct(Integer.parseInt(doc.getElementsByTagName("artikelnr").item(temp).getTextContent()));
                 }
+                order.addToQueue();
+                updateContent();
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-            }    
+            }
         }
     }//GEN-LAST:event_jbUploadActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbUpload;
+    private javax.swing.JTable tOrders;
     // End of variables declaration//GEN-END:variables
 }
