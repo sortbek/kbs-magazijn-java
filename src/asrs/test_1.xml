@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bestelling>
-	<ordernummer>1415</ordernummer>
+	<ordernummer>1215</ordernummer>
 	<klant>
-		<voornaam>Chrtestis</voornaam>
-		<achternaam>MooyBoy</achternaam>
+		<voornaam>Chris</voornaam>
+		<achternaam>Reuvje</achternaam>
 		<adres>Kalverstraat 17</adres>
 		<postcode>1012NX</postcode>
 		<plaats>Amsterdam</plaats>
 	</klant>
-	<datum>2014-03-28</datum>
+	<datum>2014-03-29</datum>
 	<artikelnr>1</artikelnr>
 	<artikelnr>3</artikelnr>
 	<artikelnr>4</artikelnr>
 	<artikelnr>6</artikelnr>
+	<artikelnr>9</artikelnr>
+	<artikelnr>8</artikelnr>
 </bestelling>
