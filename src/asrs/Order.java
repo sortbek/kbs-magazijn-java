@@ -6,6 +6,7 @@
 package asrs;
 
 import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  *
@@ -14,25 +15,45 @@ import java.util.ArrayList;
 public class Order {
     private Customer c;
     private int Ordernr;
-    private String Customer;
-    private int progress;
+    private Date date;
+    public enum State{
+    IDLE,IN_PROGRESS,FINISHED
+    }
+    private State state;
     
-    ArrayList<Integer> products = new ArrayList<Integer>();    
+    ArrayList<Product> products = new ArrayList<Product>();    
     
     public Order(int Ordernr, Customer c){
+        this.state = state.IDLE;
         this.Ordernr = Ordernr;
         this.c = c;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
     
     public int getOrdernr() {
         return Ordernr;
     }
     
-    public ArrayList<Integer> getProducts() {
+    public ArrayList<Product> getProducts() {
         return products;
     }
      
-    public void addProduct(int nr){
+    public void addProduct(Product nr){
         products.add(nr);
     }   
 
