@@ -1,7 +1,6 @@
 package tsp;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,15 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+
 
 public class GDrawGrid extends JPanel {
 
 	private int columnCount;
 	private int rowCount;
 	private List<Rectangle> cells;
-	private Point selectedCell;
+	private Point hoveredCell;
+	private Point clickedCell;
+	private double column;
+	private double row;
 
 	public void reDraw(int columnCount, int rowCount) {
 		this.columnCount = columnCount;
@@ -42,31 +43,31 @@ public class GDrawGrid extends JPanel {
 	public void mouseFix() {
 		MouseAdapter mouseHandler;
 		mouseHandler = new MouseAdapter() {
+			
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				Point point = e.getPoint();
+				locationFind(e);
 
-				double width = getWidth();
-				double height = getHeight();
-
-				double cellWidth = width / columnCount;
-				double cellHeight = height / rowCount;
-
-				double column = e.getX() / cellWidth;
-				double row = e.getY() / cellHeight;
-
-				selectedCell = new Point((int) column, (int) row);
+				hoveredCell = new Point((int) column, (int) row);
 				repaint();
 
 			}
+			public void mousePressed(MouseEvent e) {
+				
+				locationFind(e);
+			    clickedCell = new Point((int) column, (int) row);
+			    
+			    }
+			
 		};
 		addMouseMotionListener(mouseHandler);
+		addMouseListener(mouseHandler);
 	}
 
 	@Override
 	public void invalidate() {
 		cells.clear();
-		selectedCell = null;
+		hoveredCell = null;
 		super.invalidate();
 	}
 
@@ -102,9 +103,9 @@ public class GDrawGrid extends JPanel {
 			}
 		}
 
-		if (selectedCell != null) {
+		if (hoveredCell != null) {
 
-			int index = selectedCell.x + (selectedCell.y * columnCount);
+			int index = hoveredCell.x + (hoveredCell.y * columnCount);
 			try {
 				Rectangle cell = cells.get(index);
 				g2d.setColor(Color.BLUE);
@@ -112,6 +113,18 @@ public class GDrawGrid extends JPanel {
 			} catch (IndexOutOfBoundsException ex) {
 			}
 
+		}
+		
+		if (clickedCell !=null){
+			int index = clickedCell.x + (clickedCell.y * columnCount);
+			try {
+				Rectangle cell = cells.get(index);
+				g2d.setColor(Color.red);
+				g2d.fill(cell);
+			} catch (IndexOutOfBoundsException ex) {
+				
+			}
+			
 		}
 
 		g2d.setColor(Color.GRAY);
@@ -154,4 +167,15 @@ public class GDrawGrid extends JPanel {
 		    int y = (fm.getAscent() + (h - (fm.getAscent() + fm.getDescent())) );
 		    g.drawString(s, x, y);
 		  }
+	  
+	  public void locationFind(MouseEvent e){
+		  double width = getWidth();
+			double height = getHeight();
+
+			double cellWidth = width / columnCount;
+			double cellHeight = height / rowCount;
+
+			column = e.getX() / cellWidth;
+			row = e.getY() / cellHeight;
+	  }
 }
