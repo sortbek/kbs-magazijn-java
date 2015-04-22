@@ -17,15 +17,15 @@ public class BPPSimulatorBoxPanel extends JPanel {
         g.drawRect(50, 10, 100, 100);
         g.drawRect(200, 10, 100, 100);
         g.drawRect(350, 10, 100, 100);
-        
+
         g.drawString("Box A", 85, 125);
         g.drawString("Box B", 235, 125);
-        g.drawString("Box C", 385, 125);    
+        g.drawString("Box C", 385, 125);
     }
 
     public static void main(String args[]) {
-        BPPSimulatorBoxPanel panel = new BPPSimulatorBoxPanel();        
-        
-    }
+        BPPSimulatorBoxPanel panel = new BPPSimulatorBoxPanel();
 
     }
+
+}
