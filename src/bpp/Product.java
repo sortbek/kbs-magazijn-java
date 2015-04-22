@@ -1,12 +1,12 @@
 package bpp;
 
-import java.util.ArrayList;
 
 public class Product {
     
     private String name;
     private int idProduct;
-    // private int size;
+    private int self;
+    private int size;
     
     public Product(String n, int id ){
     this.name = n;
@@ -29,13 +29,21 @@ public class Product {
         this.idProduct = id;
     }
     
-    //public int Getsize(){
-    //return size;
-    //}
+public int Getsize(){
+return size;
+}
     
-    //public void Setsize(int s){
-    //this.size = s;
-    //}
+public void Setsize(int s){
+this.size = s;
+  }
+
+   public int GetSelf(){
+    return self;
+    }
+    
+    public void SetSelf(int s){
+        this.self = s;
+    }
        
     
 }
