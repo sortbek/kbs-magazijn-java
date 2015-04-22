@@ -5,7 +5,6 @@
  */
 package bpp;
 
-import bpp.Product;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,12 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- *
- * @author Marjolein
- */
 public class MySQLbpp {
-
     private String myDriver;
     private String dbHost;
     private String dbName;
@@ -34,26 +28,36 @@ public class MySQLbpp {
         this.uPass      = "Kbs123";
     }
 
-    public ArrayList<Product> Products(){
+    public void Products(){
+           Depository d = new bpp.Depository();
+           System.out.println("test productsMySQL");
         ArrayList<Product> array = new ArrayList<Product>();   
+        
         try{
             Class.forName(myDriver);
+              System.out.println("test productsMySQL1");
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);    
             
-            PreparedStatement stmt = con.prepareStatement("Select Robot_BPP.ProductId From Robot_BPP");
+            PreparedStatement stmt = con.prepareStatement("SELECT ProductId FROM Robot_BPP");
             
             ResultSet result = stmt.executeQuery();
             
            while (result.next()) {
-                Product p = new Product(result.getString(1),result.getInt(2)); 
-                array.add(p);
+                Product p = new Product("test",result.getInt(1),5); 
+                System.out.println("test "+ result.getInt(1));
+                d.addProduct(p);
             }
+           System.out.println(array);
         } catch (SQLException e) {
+            System.out.println("catch1");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         } 
-        return array;
+        d.ShowArrayList();
+//        return array;
+        
     }
     
 

@@ -13,14 +13,14 @@ public class Main {
 		
 		
 		
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                BPPSimulatorGUI GUI = new BPPSimulatorGUI();
-                GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                GUI.setVisible(true);
-            }
-        });
-        
+//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                BPPSimulatorGUI GUI = new BPPSimulatorGUI();
+//                GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//                GUI.setVisible(true);
+//            }
+//        });
+//        
         
 		
 		//END OF RUN

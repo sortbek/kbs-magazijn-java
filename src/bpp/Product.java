@@ -1,16 +1,20 @@
 package bpp;
 
 
-public class Product {
+public class Product extends Depository {
     
     private String name;
     private int idProduct;
-    private int self;
+    private int box;
     private int size;
+    private boolean check;
     
-    public Product(String n, int id ){
+    
+    public Product(String n, int id, int s ){
     this.name = n;
     this.idProduct = id;
+    this.size = s;
+    this.check = false;
     }
     
     public String Getname(){
@@ -29,21 +33,24 @@ public class Product {
         this.idProduct = id;
     }
     
-public int Getsize(){
-return size;
-}
+    public int Getsize(){
+    return size;
+    }
     
-public void Setsize(int s){
-this.size = s;
-  }
+    public void Setsize(int s){
+    this.size = s;
+    }
 
    public int GetSelf(){
-    return self;
+    return box;
     }
     
     public void SetSelf(int s){
-        this.self = s;
+        this.box = s;
     }
        
+    public String toString(){
+     return ("productnaam "+name + " nr " + idProduct + " box " +box);
+    }
     
 }
