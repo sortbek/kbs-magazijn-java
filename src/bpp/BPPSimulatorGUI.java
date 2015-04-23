@@ -14,6 +14,12 @@ import java.util.ArrayList;
 public class BPPSimulatorGUI extends javax.swing.JFrame {
      private Depository depository;
      private ArrayList<Product> producten;
+     private Product product;
+    private String name;
+    private int idProduct;
+    private int box;
+    private int size;
+    private boolean check;
 
     /**
      * Creates new form BPPSimulatorGUI
@@ -35,13 +41,15 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     this.producten = p;
     }
     
-    public void Show(){
-        int j = 0;
-    while (producten.size() > j) {
-			System.out.println("bbp" + producten.get(j));
-			j++;
-		}
-    }
+//    public void Show(){
+//        int j = 0;
+//    while (producten.size() > j) {
+//			System.out.println("bbp" + producten.get(j));
+//                        product = producten.get(j);
+//                      System.out.println(product);
+//			j++;
+//		}
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

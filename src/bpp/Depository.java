@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class Depository extends BPPSimulatorGUI{
    private ArrayList<Product> producten;
    private int j = 0;
+   private Product p;
         
    public Depository(){
    producten = new ArrayList<>();
@@ -26,8 +27,10 @@ public class Depository extends BPPSimulatorGUI{
    
    public void ShowArrayList(){
 		while (producten.size() > j) {
+			
+                        p = producten.get(j);
 			System.out.println(producten.get(j));
-			j++;
+                        j++;
 		}
 
    }

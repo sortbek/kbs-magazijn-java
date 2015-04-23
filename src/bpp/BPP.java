@@ -26,33 +26,18 @@ public class BPP {
             public void run() {
                 
                 MySQLbpp bpp = new MySQLbpp();
-                
-               bpp.Products();
-                 Depository d = new Depository();
+                Depository d = new Depository();
+                bpp.Products(d);
+                 
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
                 GUI.setDepository(d);
                
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true); 
                 
-                
-                //    MySQLbpp s = new bpp.MySQLbpßp();
-                
-   
-//    s.Products();
-//    producten = new ArrayList<>();
-    Product p = new Product("trekker", 10,6);
-    Product a = new Product("Schep", 12,7);
-    Product b = new Product("Hark", 11,8);
-    Product c = new Product("Spel", 16,7);
-    Product d1 = new Product("Game", 17,9);
-    d.addProduct(c);
-    d.addProduct(b);
-    d.addProduct(p);
-    d.addProduct(d1);
-    d.addProduct(a);
+                d.ShowArrayList();
     GUI.setProducten(d.getList());
-    GUI.Show();
+//    GUI.Show();
     }
            } );
     

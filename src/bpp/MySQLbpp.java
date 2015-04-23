@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MySQLbpp {
     private String myDriver;
@@ -19,6 +18,7 @@ public class MySQLbpp {
     private String dbName;
     private String uName;
     private String uPass;
+    private Depository depository;
     
     public MySQLbpp() {
         this.myDriver   = "com.mysql.jdbc.Driver";
@@ -28,36 +28,30 @@ public class MySQLbpp {
         this.uPass      = "Kbs123";
     }
 
-    public void Products(){
-           Depository d = new bpp.Depository();
-           System.out.println("test productsMySQL");
+    public void Products(Depository d){
+           depository = d;
         ArrayList<Product> array = new ArrayList<Product>();   
         
         try{
             Class.forName(myDriver);
-              System.out.println("test productsMySQL1");
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);    
             
-            PreparedStatement stmt = con.prepareStatement("SELECT ProductId FROM Robot_BPP");
+            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId`, `Check`, `Ordernr`, `idBox` FROM `Robot_BPP`");
             
             ResultSet result = stmt.executeQuery();
             
            while (result.next()) {
                 Product p = new Product("test",result.getInt(1),5); 
-                System.out.println("test "+ result.getInt(1));
                 d.addProduct(p);
             }
-           System.out.println(array);
+//           System.out.println(array);
         } catch (SQLException e) {
-            System.out.println("catch1");
+            System.out.println("SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         } 
-        d.ShowArrayList();
-//        return array;
-        
     }
     
 

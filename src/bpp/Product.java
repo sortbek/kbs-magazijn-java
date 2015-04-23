@@ -17,6 +17,14 @@ public class Product extends Depository {
     this.check = false;
     }
     
+    public boolean Getcheck(){
+    return check;
+    }
+    
+    public void Setcheck(boolean c){
+    this.check = c;
+    }
+    
     public String Getname(){
     return name;
     }
@@ -41,16 +49,16 @@ public class Product extends Depository {
     this.size = s;
     }
 
-   public int GetSelf(){
+   public int GetBox(){
     return box;
     }
     
-    public void SetSelf(int s){
+    public void SetBox(int s){
         this.box = s;
     }
        
     public String toString(){
-     return ("productnaam "+name + " nr " + idProduct + " box " +box);
+     return ("productnaam "+name + " nr " + idProduct + " box " +box + " check "+check + " size "+ size);
     }
     
 }
