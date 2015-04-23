@@ -25,6 +25,9 @@ public class BPP {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 
+                MySQLbpp bpp = new MySQLbpp();
+                
+               bpp.Products();
                  Depository d = new Depository();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
                 GUI.setDepository(d);
