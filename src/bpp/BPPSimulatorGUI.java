@@ -34,14 +34,17 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
      * Creates new form BPPSimulatorGUI
      */
     public BPPSimulatorGUI() {
-//        producten = b.getList();
         initComponents();
-//        sizet = producten.size();
     }
     
     public void setBoxDepository(BoxDepository b){
     boxd = b;
     arrayBox = boxd.getList();
+    int a = arrayBox.size();
+    if (a > 2){
+    System.out.println("Let op er zijn te veel dozen!!");
+    }
+    
     }
 
     public void setDepository(Depository b) {
@@ -55,18 +58,8 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
     public void setProducten(ArrayList<Product> p) {
         this.producten = p;
-//    sizet = producten.size();
     }
 
-//    public void Show(){
-//        int j = 0;
-//    while (producten.size() > j) {
-//			System.out.println("bbp" + producten.get(j));
-//                        product = producten.get(j);
-//                      System.out.println(product);
-//			j++;
-//		}
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -311,8 +304,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel7MouseMoved
 
     private void Boxa(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boxa
-        // TODO add your handling code here
-                   try{
+        try{
         bBox = arrayBox.get(0);
         StringBox = bBox.toString();
         packingData.setText(StringBox);
@@ -323,8 +315,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_Boxa
 
     private void Boxb(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boxb
-        // TODO add your handling code here:
-                   try{
+        try{
         bBox = arrayBox.get(1);
         StringBox = bBox.toString();
         packingData.setText(StringBox);
@@ -335,8 +326,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_Boxb
 
     private void BoxC(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxC
-        // TODO add your handling code here:
-                try{
+        try{
         bBox = arrayBox.get(2);
         StringBox = bBox.toString();
         packingData.setText(StringBox);
@@ -346,39 +336,13 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BoxC
 
-    
-
-
-    
-    
-    // table
-//addRow(null);
-//     for(int i=0; sizet >i; i++){
-//            String data1 = this.producten.get(i).Getname();
-//            int data2 = this.producten.get(i).GetidProduct();
-//            int data3 = this.producten.get(i).Getsize();
-//            boolean data4 = this.producten.get(i).Getcheck();
-//            int data5 = this.producten.get(i).GetBox();
-//            
-//            Object[] data = {data1,data2,data3,data4,data5};
-//            model.insertRow(model.getRowCount(), data);
-//        }
-//    Product current = product.get(0);
-//      for(int i=0; current.getProducts().size()> i; i++){
-//                    int ordernr     = current.getProducts().get(i).getId();
-//                    String status   = current.getProducts().get(i).getStatus();
-//                    Object[] data = {ordernr, status};
-//                    model.insertRow(model.getRowCount(), data);
-//                }
     /**
      * @param args the command line arguments
      */
         public void SetTable(){
     sizet = producten.size();
     
-//    DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-//    model.setColumnCount(5);
-//    model.setRowCount(sizet);
+
      for(int i=0; sizet >i; i++){
          
             String data1 = this.producten.get(i).Getname();
@@ -390,11 +354,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
             model.addRow(new Object[]{data1,data2,data3,data4,data5});
              
-//            model.addRow(rowData);
-//            
-//            model.addRow(data = {data1,data2,data3,data4,data5});
-//            model.insertRow(model.getRowCount(), data);
-            System.out.println("Table ");
         }
     }
         

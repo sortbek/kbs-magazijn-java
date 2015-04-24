@@ -70,15 +70,14 @@ public class MySQLbpp {
                 Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
                 boxDepository = box;
                 box.addBox(b);
-                System.out.println(b);
                 box.ShowArrayList();
             }
-//           System.out.println(array);
+            
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("Box SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("Box Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
     }
@@ -97,10 +96,10 @@ public class MySQLbpp {
             ResultSet result = stmt.executeQuery();
 //           System.out.println(array);
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("Update Box SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("Update Box Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
     }
