@@ -64,7 +64,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         algorithmLabel.setText("Algorithms");
 
-        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Volledige enumeratie", "Simpel gretig", "Max rects" }));
+        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Complete Enumeration", "Simple Greedy", "Max rects" }));
         algorithmPicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 algorithmPickerActionPerformed(evt);
@@ -300,9 +300,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
