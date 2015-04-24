@@ -20,6 +20,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private int box;
     private int size;
     private boolean check;
+//    private int sizet;
 
     /**
      * Creates new form BPPSimulatorGUI
@@ -27,6 +28,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     public BPPSimulatorGUI() {
 //        producten = b.getList();
         initComponents();
+//        sizet = producten.size();
     }
     
     public void setDepository(Depository b){
@@ -39,6 +41,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     
     public void setProducten(ArrayList<Product> p){
     this.producten = p;
+//    sizet = producten.size();
     }
     
 //    public void Show(){
@@ -289,6 +292,26 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         packingData.setText("Box: C\nPacking width: 70\nPacking height: 30\nArea covered: 85%");
     }//GEN-LAST:event_jPanel7MouseMoved
 
+    // table
+//addRow(null);
+//     for(int i=0; sizet >i; i++){
+//            String data1 = this.producten.get(i).Getname();
+//            int data2 = this.producten.get(i).GetidProduct();
+//            int data3 = this.producten.get(i).Getsize();
+//            boolean data4 = this.producten.get(i).Getcheck();
+//            int data5 = this.producten.get(i).GetBox();
+//            
+//            Object[] data = {data1,data2,data3,data4,data5};
+//            model.insertRow(model.getRowCount(), data);
+//        }
+//    Product current = product.get(0);
+//      for(int i=0; current.getProducts().size()> i; i++){
+//                    int ordernr     = current.getProducts().get(i).getId();
+//                    String status   = current.getProducts().get(i).getStatus();
+//                    Object[] data = {ordernr, status};
+//                    model.insertRow(model.getRowCount(), data);
+//                }
+                
     /**
      * @param args the command line arguments
      */

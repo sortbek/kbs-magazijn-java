@@ -54,6 +54,30 @@ public class MySQLbpp {
         } 
     }
     
+     public void Box(){
+        
+        try{
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);    
+            
+            PreparedStatement stmt = con.prepareStatement("SELECT `idBox`, `SizeHeight`, `Covered`, `idorder`, `print`, `Status` FROM `Box` WHERE `Status` = 'busy'");
+            
+            ResultSet result = stmt.executeQuery();
+            
+           while (result.next()) {
+                Box b = new Box(result.getInt(1),result.getInt(2),result.getInt(3),result.getInt(4));
+                System.out.println(b);
+            }
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        } 
+    }
+    
 
 
 

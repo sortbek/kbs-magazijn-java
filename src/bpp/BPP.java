@@ -28,6 +28,7 @@ public class BPP {
                 MySQLbpp bpp = new MySQLbpp();
                 Depository d = new Depository();
                 bpp.Products(d);
+                bpp.Box();
                  
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
                 GUI.setDepository(d);
