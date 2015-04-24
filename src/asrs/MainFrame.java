@@ -45,8 +45,6 @@ public class MainFrame extends javax.swing.JFrame {
         jbRefresh = new javax.swing.JButton();
         prRefresh = new javax.swing.JProgressBar();
         jSeparator1 = new javax.swing.JSeparator();
-        jbStopProcess = new javax.swing.JToggleButton();
-        jbStart = new javax.swing.JToggleButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tCurrent = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -54,10 +52,15 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jlName = new javax.swing.JLabel();
         jlAddress = new javax.swing.JLabel();
+        jbStart = new javax.swing.JButton();
+        jbStopProcess = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jlSProgress = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AS/RS");
-        setFont(new java.awt.Font("Yu Gothic UI Light", 0, 10)); // NOI18N
+        setFont(new java.awt.Font("Yu Gothic UI Light", 0, 13)); // NOI18N
+        setResizable(false);
 
         jbUpload.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
         jbUpload.setText("Upload");
@@ -103,28 +106,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jbStopProcess.setBackground(new java.awt.Color(255, 0, 0));
-        jbStopProcess.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
-        jbStopProcess.setText("Stop process");
-        jbStopProcess.setContentAreaFilled(false);
-        jbStopProcess.setOpaque(true);
-        jbStopProcess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbStopProcessActionPerformed(evt);
-            }
-        });
-
-        jbStart.setBackground(new java.awt.Color(51, 255, 0));
-        jbStart.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
-        jbStart.setText("Start");
-        jbStart.setContentAreaFilled(false);
-        jbStart.setOpaque(true);
-        jbStart.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbStartActionPerformed(evt);
-            }
-        });
-
         tCurrent.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
         tCurrent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -158,14 +139,35 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 18)); // NOI18N
         jLabel2.setText("Queued orders");
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("YuGothic", 0, 13)); // NOI18N
         jLabel3.setText("Klantgegevens");
 
-        jlName.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
+        jlName.setFont(new java.awt.Font("YuGothic", 0, 13)); // NOI18N
         jlName.setText("Naam:");
 
-        jlAddress.setFont(new java.awt.Font("Yu Gothic UI Light", 0, 11)); // NOI18N
+        jlAddress.setFont(new java.awt.Font("YuGothic", 0, 13)); // NOI18N
         jlAddress.setText("Ordernr:");
+
+        jbStart.setBackground(new java.awt.Color(102, 255, 51));
+        jbStart.setText("Start");
+        jbStart.setContentAreaFilled(false);
+        jbStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbStartActionPerformed(evt);
+            }
+        });
+
+        jbStopProcess.setText("Stop process");
+        jbStopProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbStopProcessActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Clear");
+
+        jlSProgress.setFont(new java.awt.Font("YuGothic", 0, 13)); // NOI18N
+        jlSProgress.setText("Status:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +181,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jlName)
-                            .addComponent(jlAddress))
+                            .addComponent(jlAddress)
+                            .addComponent(jlSProgress))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -192,9 +195,12 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbRefresh)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbUpload))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jbRefresh)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbUpload))
+                                    .addComponent(jButton1)))
                             .addComponent(jLabel1))
                         .addGap(0, 12, Short.MAX_VALUE))
                     .addComponent(prRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -207,26 +213,31 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbStopProcess)
-                        .addComponent(jbStart))
+                        .addComponent(jbStart)
+                        .addComponent(jbStopProcess))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jlName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jlAddress)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(jlAddress)
+                        .addGap(45, 45, 45)
+                        .addComponent(jlSProgress)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbRefresh)
-                        .addComponent(jbUpload)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbRefresh)
+                            .addComponent(jbUpload))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(prRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -260,20 +271,17 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
     private void updateContent(Order order) {
-//        ArrayList<String> next = new ArrayList<String>();
-//
-//        DefaultTableModel model = (DefaultTableModel) tOrders.getModel();
-//        String data1 = Integer.toString(order.getOrdernr());
-//        String data2 = order.getC().getFirstName() + " " + order.getC().getLastName();
-//        String data3 = order.getDate().toString();
-//        String data4 = Integer.toString(order.getProducts().size());
-//        String[] rowData = {data1, data2, data3, data4};
-//        model.insertRow(model.getRowCount(), rowData);
-//        next.add(data1);
-//        next.add(data2);
-//        next.add(data3);
-//        next.add(data4);
-//        this.orders.add(next);
+        
+        ArrayList<String> next = new ArrayList<String>();
+        DefaultTableModel model = (DefaultTableModel) tOrders.getModel();
+        model.setRowCount(tOrders.getModel().getRowCount());
+        int data1 = order.getOrdernr();
+        String data2 = order.getC().getFirstName() + " " + order.getC().getLastName();
+        Date data3 = order.getDate();
+        int data4 = order.getProducts().size();  
+        Object[] rowData = {data1, data2, data3, data4};
+        model.insertRow(model.getRowCount(), rowData);
+        this.orders.add(order);
     }
     private void uploadXML(){
         Upload up = new Upload(this);
@@ -352,11 +360,10 @@ public class MainFrame extends javax.swing.JFrame {
         };
         refresh.execute();
     }//GEN-LAST:event_jbRefreshActionPerformed
-    private void jbStopProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStopProcessActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbStopProcessActionPerformed
+
     private void jbStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStartActionPerformed
         // TODO add your handling code here:
+                // TODO add your handling code here:
         SwingWorker<Void, Void> start = new SwingWorker<Void, Void>(){
             @Override
             protected Void doInBackground() throws Exception{
@@ -384,16 +391,33 @@ public class MainFrame extends javax.swing.JFrame {
                 //
                 //
                 
+                while(current.getState() == Order.State.IN_PROGRESS){
+                    for(Product prod : current.getProducts()){
+                        System.out.println("Product: " + prod.getId() + " in behandeling" );
+                        prod.setStatus("Opgepakt");
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException ie) {
+                            //Handle exception
+                        }
+                    }
+                    
+                    
+                    System.out.println("FIN");
+                }
                 return null;
             }
         };
         
         start.execute();
-        
-        
     }//GEN-LAST:event_jbStartActionPerformed
 
+    private void jbStopProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbStopProcessActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbStopProcessActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -401,11 +425,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton jbRefresh;
-    private javax.swing.JToggleButton jbStart;
-    private javax.swing.JToggleButton jbStopProcess;
+    private javax.swing.JButton jbStart;
+    private javax.swing.JButton jbStopProcess;
     private javax.swing.JButton jbUpload;
     private javax.swing.JLabel jlAddress;
     private javax.swing.JLabel jlName;
+    private javax.swing.JLabel jlSProgress;
     private javax.swing.JProgressBar prRefresh;
     private javax.swing.JTable tCurrent;
     private javax.swing.JTable tOrders;

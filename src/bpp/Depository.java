@@ -11,17 +11,15 @@ import java.util.ArrayList;
  *
  * @author Marjolein
  */
-public class Depository {
-   private ArrayList<Product> producten = new ArrayList<>(); 
+public class Depository extends BPPSimulatorGUI{
+   private ArrayList<Product> producten;
    private int j = 0;
+   private Product p;
+        
+   public Depository(){
+   producten = new ArrayList<>();
+   }
    
-   Product p = new Product("trekker", 10);
-    Product a = new Product("Schep", 12);
-     Product b = new Product("Hark", 11);
-      Product c = new Product("Spel", 16);
-       Product d = new Product("Game", 17);
-       
- 
    
    public void addProduct(Product p){
    producten.add(p);
@@ -29,8 +27,15 @@ public class Depository {
    
    public void ShowArrayList(){
 		while (producten.size() > j) {
+			
+                        p = producten.get(j);
 			System.out.println(producten.get(j));
-			j++;
+                        j++;
 		}
+
+   }
+   
+   public ArrayList<Product> getList(){
+   return producten;
    }
 }

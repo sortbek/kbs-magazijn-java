@@ -30,15 +30,15 @@ public class MySQL {
         this.dbName     = "mydb";
         this.uName      = "kbs";
         this.uPass      = "Kbs123";
-    }
-
+    }       
+    
     public ArrayList<Order> fetchOrders(){
         ArrayList<Order> array = new ArrayList<Order>();   
         try{
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);    
             
-            PreparedStatement stmt = con.prepareStatement("SELECT Order.idOrder, Order.Date, Customer.Firstname, Customer.Lastname, COUNT(Orderrow.order_idOrder) as 'Aantal product' FROM `Order` LEFT JOIN `Customer` ON Order.idCustomer=Customer.idCustomer LEFT JOIN `Orderrow` ON Orderrow.order_idOrder=Order.idOrder GROUP BY Order.idOrder ORDER BY `Date`");
+            PreparedStatement stmt = con.prepareStatement("SELECT Order.idOrder, Order.Date, Customer.Firstname, Customer.Lastname, COUNT(Orderrow.order_idOrder) as 'Aantal product' FROM `Order` LEFT JOIN `Customer` ON Order.idCustomer=Customer.idCustomer LEFT JOIN `Orderrow` ON Orderrow.order_idOrder=Order.idOrder WHERE Order.State='QUEUED' GROUP BY Order.idOrder ORDER BY `Date`");
             
             ResultSet result = stmt.executeQuery();
             
@@ -90,10 +90,11 @@ public class MySQL {
             int orderID = order.getOrdernr();
             int customerID = 100000 + rnd.nextInt(900000);
             
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO `Order` VALUES(?,?,?)");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO `Order` VALUES(?,?,?,?)");
             stmt.setInt(1, customerID);
             stmt.setInt(2, orderID);
             stmt.setDate(3, order.getDate());
+            stmt.setString(4, order.getState().toString());
             stmt.execute();
             
             //Insert customer (if customer is new)
@@ -123,7 +124,20 @@ public class MySQL {
             System.out.println(e.getMessage());
         }        
     }
-    
+    public void updateOrderState(Order order, Order.State state){
+        try{
+            System.out.println(state.toString());
+           Class.forName(myDriver);
+           Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+           PreparedStatement stmt = con.prepareStatement("UPDATE `Order` SET State='" + state.toString() + "' WHERE idOrder=" + order.getOrdernr() );
+           stmt.execute();
+           
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+    }
     public boolean findCustomer(){
         return false;
     }
