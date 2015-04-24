@@ -19,6 +19,17 @@ public class MySQLbpp {
     private String uName;
     private String uPass;
     private Depository depository;
+    private BoxDepository boxDepository;
+    private Box boxa;
+    private Box boxc;
+    private Box boxd;
+    private Box boxb;
+    private String a;
+    private String b;
+    private String c;
+    private String d;
+    private int box;
+    private ArrayList<Box> arraybox;
     
     public MySQLbpp() {
         this.myDriver   = "com.mysql.jdbc.Driver";
@@ -30,7 +41,7 @@ public class MySQLbpp {
 
     public void Products(Depository d){
            depository = d;
-        ArrayList<Product> array = new ArrayList<Product>();   
+//        ArrayList<Product> array = new ArrayList<Product>();   
         
         try{
             Class.forName(myDriver);
@@ -46,37 +57,99 @@ public class MySQLbpp {
             }
 //           System.out.println(array);
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("Product SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("Product Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         } 
     }
     
-     public void Box(){
+     public void Box(BoxDepository boxD){
+          boxDepository = boxD;
         
         try{
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);    
             
-            PreparedStatement stmt = con.prepareStatement("SELECT `idBox`, `SizeHeight`, `Covered`, `idorder`, `print`, `Status` FROM `Box` WHERE `Status` = 'busy'");
+            PreparedStatement stmt = con.prepareStatement("SELECT `idBox`, `Size`, `Covered`, `idorder`, `print`, `Status` FROM `Box` WHERE `Status` = 'busy'");
             
             ResultSet result = stmt.executeQuery();
             
            while (result.next()) {
-                Box b = new Box(result.getInt(1),result.getInt(2),result.getInt(3),result.getInt(4));
-                System.out.println(b);
+               if (box == 0){
+               boxa = new Box(result.getInt(1),result.getInt(2),result.getInt(3),result.getInt(4));
+               a = boxa.toString();
+               boxDepository.addBox(boxa);
+               }
+               else if (box == 1){
+               boxb = new Box(result.getInt(1),result.getInt(2),result.getInt(3),result.getInt(4));
+               b = boxb.toString();
+               boxDepository.addBox(boxb);
+               }
+               else if (box == 2){
+               boxc = new Box(result.getInt(1),result.getInt(2),result.getInt(3),result.getInt(4));
+               c = boxc.toString();
+               boxDepository.addBox(boxc);
+               }
+               else if (box > 2){
+               boxd = new Box(result.getInt(1),result.getInt(2),result.getInt(3),result.getInt(4));
+               d = boxd.toString();
+               System.out.println("meer dan 3 boxen");
+               boxDepository.addBox(boxd);
+               }
+               
+               this.box = box +1;
+                
             }
+           boxDepository.ShowArrayList();
+           arraybox = boxDepository.getList();
+           Box test = arraybox.get(0);
+           System.out.println("test "+ test);
+           
+           
+           
 //           System.out.println(array);
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("BoxSQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("Box Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         } 
     }
+     
+     public Box getBoxA(){
+     return boxa;
+     }
+     
+     public Box getBoxB(){
+     return boxb;
+     }
+     
+     public Box getBoxC(){
+     return boxc;
+     }
+     
+     public Box getBoxD(){
+     return boxd;
+     }
+     
+      public String sgetBoxA(){
+     return a;
+     }
+     
+     public String sgetBoxB(){
+     return b;
+     }
+     
+     public String sgetBoxC(){
+     return c;
+     }
+     
+     public String sgetBoxD(){
+     return d;
+     }
     
 
 

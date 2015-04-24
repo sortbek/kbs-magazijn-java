@@ -27,16 +27,20 @@ public class BPP {
                 
                 MySQLbpp bpp = new MySQLbpp();
                 Depository d = new Depository();
-                bpp.Products(d);
-                bpp.Box();
+                BoxDepository b = new BoxDepository();
+               
                  
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
+                GUI.setSQL(bpp);
                 GUI.setDepository(d);
+                bpp.Products(d);
+                bpp.Box(b);
                
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true); 
                 
                 d.ShowArrayList();
+                b.ShowArrayList();
     GUI.setProducten(d.getList());
 //    GUI.Show();
     }

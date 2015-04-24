@@ -9,17 +9,17 @@ package bpp;
  *
  * @author Marjolein
  */
-public class Box {
+public class Box extends BoxDepository{
     private int idBox;
     private int size;
     private int coverd;
-    private int idoreder;
+    private int idorder;
     
       public Box(int idBox, int size, int coverd, int idoreder) {
         this.idBox = idBox;
         this.size = size;
         this.coverd = coverd;
-        this.idoreder = idoreder;
+        this.idorder = idorder;
     }
     
 
@@ -36,14 +36,14 @@ public class Box {
     }
 
     public void setIdoreder(int idoreder) {
-        this.idoreder = idoreder;
+        this.idorder = idorder;
     }
 
     public int getIdBox() {
         return idBox;
     }
 
-    public int getSize() {
+    public int getSizeB() {
         return size;
     }
 
@@ -52,7 +52,11 @@ public class Box {
     }
 
     public int getIdoreder() {
-        return idoreder;
+        return idorder;
+    }
+    
+    public String toString(){
+    return ("Box: "+idBox + "\nSize: "+ size + "\nArea coverd: " + coverd + "\nOrdernr: " +idorder );
     }
 
   
