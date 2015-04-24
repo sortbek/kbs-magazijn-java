@@ -20,6 +20,7 @@ public class MySQLbpp {
     private String uName;
     private String uPass;
     private Depository depository;
+    private BoxDepository boxDepository;
 
     public MySQLbpp() {
         this.myDriver = "com.mysql.jdbc.Driver";
@@ -55,19 +56,22 @@ public class MySQLbpp {
         }
     }
 
-    public void Box() {
+    public void Box(BoxDepository box) {
 
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
 
-            PreparedStatement stmt = con.prepareStatement("SELECT `idBox`, `SizeHeight`, `Covered`, `idorder`, `print`, `Status` FROM `Box` WHERE `Status` = 'busy'");
+            PreparedStatement stmt = con.prepareStatement("SELECT `idBox`, `Size`, `Covered`, `idorder`, `print`, `Status` FROM `Box` WHERE `Status` = 'busy'");
 
             ResultSet result = stmt.executeQuery();
 
             while (result.next()) {
                 Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
+                boxDepository = box;
+                box.addBox(b);
                 System.out.println(b);
+                box.ShowArrayList();
             }
 //           System.out.println(array);
         } catch (SQLException e) {
