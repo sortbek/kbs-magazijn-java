@@ -28,6 +28,7 @@ public class GDrawGrid extends JPanel{
 	private double column;
 	private double row;
 	private CustomRowColumnLabel customRowColumnLabel;
+	private ProductInfoLabel productInfoLabel;
 	
 	
 
@@ -41,10 +42,11 @@ public class GDrawGrid extends JPanel{
 
 	}
 
-	public GDrawGrid(int columnCount, int rowCount,CustomRowColumnLabel customRowColumnLabel) {
+	public GDrawGrid(int columnCount, int rowCount, CustomRowColumnLabel customRowColumnLabel, ProductInfoLabel productInfoLabel) {
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
 		this.customRowColumnLabel = customRowColumnLabel;
+		this.productInfoLabel = productInfoLabel;
 		cells = new ArrayList<>(columnCount * rowCount);
 		mouseFix();
 	}
@@ -69,6 +71,7 @@ public class GDrawGrid extends JPanel{
 				CustomRowColumnLabel label = new CustomRowColumnLabel();
 				
 				customRowColumnLabel.setTextRC((int) (column+1), (int) (row+1));
+				productInfoLabel.setTextProductInfo();
 			    clickedCell = new Point((int) column, (int) row);
 			    
 			    }
