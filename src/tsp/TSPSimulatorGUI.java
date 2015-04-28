@@ -57,14 +57,11 @@ public class TSPSimulatorGUI extends JFrame {
 		informationPanel = new JPanel();
 		standardLabel1 = new JLabel();
 		customRowColumnLabel = new CustomRowColumnLabel();
-		reUseLabel1 = new JLabel();
-		reUseLabel2 = new JLabel();
-		customReUseNameLabel = new JLabel();
-		customReUseAmountLabel = new JLabel();
+		productInfoLabel = new ProductInfoLabel();
 		statusPanel = new JPanel();
 		statusLabel = new JLabel();
 		stopButton = new JButton();
-		drawGrid = new GDrawGrid(5,5,customRowColumnLabel);
+		drawGrid = new GDrawGrid(5,5,customRowColumnLabel, productInfoLabel);
 		
 		
 		
@@ -197,21 +194,12 @@ public class TSPSimulatorGUI extends JFrame {
 				standardLabel1.setFont(standardLabel1.getFont().deriveFont(standardLabel1.getFont().getStyle() | Font.BOLD, standardLabel1.getFont().getSize() + 3f));
 
 				//---- customRowColumnLabel ----
-				customRowColumnLabel.setText("(ROW COLUM)");
+				customRowColumnLabel.setText("<html> (ROWS <br> COLUMNS) </html>");
 
-				//---- reUseLabel1 ----
-				reUseLabel1.setText("Product name:");
-				reUseLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+				//---- productInfoLabel ----
+				productInfoLabel.setText("Product info");
+				productInfoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-				//---- reUseLabel2 ----
-				reUseLabel2.setText("Amount:");
-				reUseLabel2.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- customReUseNameLabel ----
-				customReUseNameLabel.setText("Name");
-
-				//---- customReUseAmountLabel ----
-				customReUseAmountLabel.setText("Amount");
 
 				GroupLayout informationPanelLayout = new GroupLayout(informationPanel);
 				informationPanel.setLayout(informationPanelLayout);
@@ -226,12 +214,12 @@ public class TSPSimulatorGUI extends JFrame {
 								.addComponent(standardLabel1, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
 								.addGroup(informationPanelLayout.createSequentialGroup()
 									.addGroup(informationPanelLayout.createParallelGroup()
-										.addComponent(reUseLabel1, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-										.addComponent(reUseLabel2, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+										.addComponent(productInfoLabel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+										)
 									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 									.addGroup(informationPanelLayout.createParallelGroup()
-										.addComponent(customReUseNameLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-										.addComponent(customReUseAmountLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))))
+										
+										)))
 							.addContainerGap(41, Short.MAX_VALUE))
 				);
 				informationPanelLayout.setVerticalGroup(
@@ -245,12 +233,11 @@ public class TSPSimulatorGUI extends JFrame {
 								.addComponent(standardLabel1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 							.addGap(30, 30, 30)
 							.addGroup(informationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(reUseLabel1)
-								.addComponent(customReUseNameLabel))
+								.addComponent(productInfoLabel)
+								)
 							.addGap(1, 1, 1)
 							.addGroup(informationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(reUseLabel2)
-								.addComponent(customReUseAmountLabel))
+								)
 							.addContainerGap(83, Short.MAX_VALUE))
 				);
 			}
@@ -354,10 +341,7 @@ public class TSPSimulatorGUI extends JFrame {
 	private JPanel informationPanel;
 	private JLabel standardLabel1;
 	public CustomRowColumnLabel customRowColumnLabel;
-	private JLabel reUseLabel1;
-	private JLabel reUseLabel2;
-	private JLabel customReUseNameLabel;
-	private JLabel customReUseAmountLabel;
+	private ProductInfoLabel productInfoLabel;
 	private JPanel statusPanel;
 	private JLabel statusLabel;
 	private JButton stopButton;

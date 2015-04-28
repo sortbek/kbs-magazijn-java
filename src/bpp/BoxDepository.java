@@ -31,6 +31,7 @@ public class BoxDepository extends BPPSimulatorGUI{
 			
                         b = box.get(j);
 			System.out.println(box.get(j));
+                        System.out.println("**********************************");
                         j++;
 		}
 
