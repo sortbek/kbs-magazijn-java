@@ -14,8 +14,12 @@ import java.util.List;
 import javax.swing.JPanel;
 
 
-public class GDrawGrid extends JPanel {
+public class GDrawGrid extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int columnCount;
 	private int rowCount;
 	private List<Rectangle> cells;
@@ -23,6 +27,9 @@ public class GDrawGrid extends JPanel {
 	private Point clickedCell;
 	private double column;
 	private double row;
+	private CustomRowColumnLabel customRowColumnLabel;
+	
+	
 
 	public void reDraw(int columnCount, int rowCount) {
 		this.columnCount = columnCount;
@@ -31,11 +38,13 @@ public class GDrawGrid extends JPanel {
 		mouseFix();
 		repaint();
 
+
 	}
 
-	public GDrawGrid(int columnCount, int rowCount) {
+	public GDrawGrid(int columnCount, int rowCount,CustomRowColumnLabel customRowColumnLabel) {
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
+		this.customRowColumnLabel = customRowColumnLabel;
 		cells = new ArrayList<>(columnCount * rowCount);
 		mouseFix();
 	}
@@ -47,6 +56,7 @@ public class GDrawGrid extends JPanel {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				locationFind(e);
+				
 
 				hoveredCell = new Point((int) column, (int) row);
 				repaint();
@@ -54,7 +64,11 @@ public class GDrawGrid extends JPanel {
 			}
 			public void mousePressed(MouseEvent e) {
 				
+				
 				locationFind(e);
+				CustomRowColumnLabel label = new CustomRowColumnLabel();
+				
+				customRowColumnLabel.setTextRC((int) (column+1), (int) (row+1));
 			    clickedCell = new Point((int) column, (int) row);
 			    
 			    }
@@ -117,6 +131,7 @@ public class GDrawGrid extends JPanel {
 		
 		if (clickedCell !=null){
 			int index = clickedCell.x + (clickedCell.y * columnCount);
+			
 			try {
 				Rectangle cell = cells.get(index);
 				g2d.setColor(Color.red);

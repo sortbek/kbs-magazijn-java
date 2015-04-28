@@ -3,9 +3,8 @@ package tsp;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.*;
+
 import javax.swing.*;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
 import javax.swing.border.*;
 import javax.swing.event.*;
 
@@ -38,6 +37,10 @@ public class TSPSimulatorGUI extends JFrame {
 		drawGrid.reDraw(column, row);
 		repaint();
 	}
+	
+	public void setLabelText(int row, int column){
+		customRowColumnLabel.setTextRC(row, column);
+	}
 
 	private void initComponents() {
 
@@ -53,7 +56,7 @@ public class TSPSimulatorGUI extends JFrame {
 		scrollPanel = new JScrollPane();
 		informationPanel = new JPanel();
 		standardLabel1 = new JLabel();
-		customRowColumnLabel = new JLabel();
+		customRowColumnLabel = new CustomRowColumnLabel();
 		reUseLabel1 = new JLabel();
 		reUseLabel2 = new JLabel();
 		customReUseNameLabel = new JLabel();
@@ -61,7 +64,7 @@ public class TSPSimulatorGUI extends JFrame {
 		statusPanel = new JPanel();
 		statusLabel = new JLabel();
 		stopButton = new JButton();
-		drawGrid = new GDrawGrid(5,5);
+		drawGrid = new GDrawGrid(5,5,customRowColumnLabel);
 		
 		
 		
@@ -350,7 +353,7 @@ public class TSPSimulatorGUI extends JFrame {
 	private JScrollPane scrollPanel;
 	private JPanel informationPanel;
 	private JLabel standardLabel1;
-	private JLabel customRowColumnLabel;
+	public CustomRowColumnLabel customRowColumnLabel;
 	private JLabel reUseLabel1;
 	private JLabel reUseLabel2;
 	private JLabel customReUseNameLabel;
