@@ -35,7 +35,7 @@ public class Box extends BoxDepository{
         this.coverd = coverd;
     }
 
-    public void setIdoreder(int idoreder) {
+    public void setIdorder(int idorder) {
         this.idorder = idorder;
     }
 
