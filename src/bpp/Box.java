@@ -56,7 +56,7 @@ public class Box extends BoxDepository{
     }
     
     public String toString(){
-    return ("Box: "+idBox + "\nSize: "+ size + "\nArea coverd: " + coverd + "%\nOrdernr: " +idorder + "\n *************************" );
+    return ("Box: "+idBox + "\nSize: "+ size + "\nArea coverd: " + coverd + "%\nOrdernr: " +idorder + "\n" );
     }
 
   
