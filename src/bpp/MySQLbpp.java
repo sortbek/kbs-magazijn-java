@@ -41,9 +41,10 @@ public class MySQLbpp {
             PreparedStatement stmt = con.prepareStatement("SELECT `ProductId`, `Check`, `Ordernr`, `idBox`,`Size` FROM `Robot_BPP`");
 
             ResultSet result = stmt.executeQuery();
-
             while (result.next()) {
-                Product p = new Product("test", result.getInt(1), result.getInt(5));
+                String pNaam = "test" + result.getInt(1);
+                System.out.println(pNaam);
+                Product p = new Product(pNaam, result.getInt(1), result.getInt(5));
                 d.addProduct(p);
             }
 //           System.out.println(array);
