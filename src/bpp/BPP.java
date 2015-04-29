@@ -23,6 +23,7 @@ public class BPP {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+
                 MySQLbpp bpp = new MySQLbpp();
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
@@ -35,16 +36,22 @@ public class BPP {
                 bpp.Products(d);
                 GUI.SetTable();
 
+                System.out.println("SimpleGreedy");
                 SimpleGreedy sg = new SimpleGreedy();
                 sg.setBoxDepository(b);
                 sg.setDepository(d);
-                sg.setBoxes();
-                sg.runSg();
+                //sg.runSg();
                 
+//                System.out.println("BestFit");
+//                BestFit BF = new BestFit();
+//                BF.GetSizeOrder();
+                
+
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true);
-                //d.ShowArrayList();
-                //GUI.setProducten(d.getList());
+
+                d.ShowArrayList();
+                GUI.setProducten(d.getList());
             }
         });
 
