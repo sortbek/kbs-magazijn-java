@@ -43,10 +43,28 @@ public class MySQLbpp {
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
                 String pNaam = "test" + result.getInt(1);
-                System.out.println(pNaam);
                 Product p = new Product(pNaam, result.getInt(1), result.getInt(5));
                 d.addProduct(p);
             }
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void removeProduct(int productId) {
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM Robot_BPP WHERE ProductId = ?");
+            stmt.setInt(1, productId);
+            stmt.execute();
+            System.out.println("Product removed from database.");
 //           System.out.println(array);
         } catch (SQLException e) {
             System.out.println("SQLException");

@@ -36,15 +36,15 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     public BPPSimulatorGUI() {
         initComponents();
     }
-    
-    public void setBoxDepository(BoxDepository b){
-    boxd = b;
-    arrayBox = boxd.getList();
-    int a = arrayBox.size();
-    if (a > 2){
-    System.out.println("Let op er zijn te veel dozen!!");
-    }
-    
+
+    public void setBoxDepository(BoxDepository b) {
+        boxd = b;
+        arrayBox = boxd.getList();
+        int a = arrayBox.size();
+        if (a > 2) {
+            System.out.println("Let op er zijn te veel dozen!!");
+        }
+
     }
 
     public void setDepository(Depository b) {
@@ -292,7 +292,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_algorithmPickerActionPerformed
 
     private void jPanel2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseMoved
- 
+
     }//GEN-LAST:event_jPanel2MouseMoved
 
     private void jPanel3MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseMoved
@@ -304,59 +304,55 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel7MouseMoved
 
     private void Boxa(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boxa
-        try{
-        bBox = arrayBox.get(0);
-        StringBox = bBox.toString();
-        packingData.setText(StringBox);
-        }
-        catch (Exception e){
-         packingData.setText("Box is empty");   
+        try {
+            bBox = arrayBox.get(0);
+            StringBox = bBox.toString();
+            packingData.setText(StringBox);
+        } catch (Exception e) {
+            packingData.setText("Box is empty");
         }
     }//GEN-LAST:event_Boxa
 
     private void Boxb(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boxb
-        try{
-        bBox = arrayBox.get(1);
-        StringBox = bBox.toString();
-        packingData.setText(StringBox);
-        }
-        catch (Exception e){
-         packingData.setText("Box is empty");   
+        try {
+            bBox = arrayBox.get(1);
+            StringBox = bBox.toString();
+            packingData.setText(StringBox);
+        } catch (Exception e) {
+            packingData.setText("Box is empty");
         }
     }//GEN-LAST:event_Boxb
 
     private void BoxC(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxC
-        try{
-        bBox = arrayBox.get(2);
-        StringBox = bBox.toString();
-        packingData.setText(StringBox);
-        }
-        catch (Exception e){
-         packingData.setText("Box is empty");   
+        try {
+            bBox = arrayBox.get(2);
+            StringBox = bBox.toString();
+            packingData.setText(StringBox);
+        } catch (Exception e) {
+            packingData.setText("Box is empty");
         }
     }//GEN-LAST:event_BoxC
 
     /**
      * @param args the command line arguments
      */
-        public void SetTable(){
-    sizet = producten.size();
-    
+    public void SetTable() {
+        sizet = producten.size();
 
-     for(int i=0; sizet >i; i++){
-         
+        for (int i = 0; sizet > i; i++) {
+
             String data1 = this.producten.get(i).Getname();
             int data2 = this.producten.get(i).GetidProduct();
             int data3 = this.producten.get(i).Getsize();
             boolean data4 = this.producten.get(i).Getcheck();
             int data5 = this.producten.get(i).GetBox();
-            
+
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-            model.addRow(new Object[]{data1,data2,data3,data4,data5});
-             
+            model.addRow(new Object[]{data1, data2, data3, data4, data5});
+
         }
     }
-        
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
