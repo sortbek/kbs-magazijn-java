@@ -67,12 +67,12 @@ public class MySQLbpp {
             ResultSet result = stmt.executeQuery();
 
             while (result.next()) {
-                Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4));
+                Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4), result.getString(6));
                 boxDepository = box;
                 box.addBox(b);
                 box.ShowArrayList();
             }
-            
+
         } catch (SQLException e) {
             System.out.println("Box SQLException");
             System.out.println(e.getMessage());
@@ -82,19 +82,23 @@ public class MySQLbpp {
         }
     }
 
-    public void updateBox(int coveredSpace, boolean isFull, int boxId) {
+    void updateBox(int coveredSpace, boolean isFull, int boxId) {
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt;
             if (isFull) {
-                stmt = con.prepareStatement("UPDATE Box SET Covered = '" + coveredSpace + "' Status = 'done' WHERE idBox = '" + boxId + "'");
+                stmt = con.prepareStatement("UPDATE Box SET Covered = ?, Status = ? WHERE idBox = ?");
+                stmt.setInt(1, coveredSpace);
+                stmt.setString(2, "done");
+                stmt.setInt(3, boxId);
             } else {
-                stmt = con.prepareStatement("UPDATE Box SET Covered = '" + coveredSpace + "' WHERE idBox = '" + boxId + "'");
+                stmt = con.prepareStatement("UPDATE Box SET Covered = ? WHERE idBox = ?");
+                stmt.setInt(1, coveredSpace);
+                stmt.setInt(2, boxId);
             }
-
-            ResultSet result = stmt.executeQuery();
-//           System.out.println(array);
+            stmt.executeUpdate();
+            System.out.println("Update successful");
         } catch (SQLException e) {
             System.out.println("Update Box SQLException");
             System.out.println(e.getMessage());
