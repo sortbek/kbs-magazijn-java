@@ -37,15 +37,17 @@ public class BPP {
                 bpp.Products(d);
                 GUI.SetTable();
 
-                System.out.println("SimpleGreedy");
-                sg.setBoxDepository(b);
-                sg.setDepository(d);
-                sg.setBoxes();
-                sg.runSg();
+//                System.out.println("SimpleGreedy");
+//                sg.setBoxDepository(b);
+//                sg.setDepository(d);
+//                sg.setBoxes();
+//                sg.runSg();
 
-//                System.out.println("BestFit");
-//                BestFit BF = new BestFit();
-//                BF.GetSizeOrder();
+                System.out.println("BestFit");
+                BestFit BF = new BestFit();
+                BF.setBoxDepository(b);
+                BF.setDepository(d);
+                BF.BF();
 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true);
