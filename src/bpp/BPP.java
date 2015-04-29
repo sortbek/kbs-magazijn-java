@@ -42,9 +42,11 @@ public class BPP {
                 sg.setDepository(d);
                 //sg.runSg();
                 
-//                System.out.println("BestFit");
-//                BestFit BF = new BestFit();
-//                BF.GetSizeOrder();
+                System.out.println("BestFit");
+                BestFit BF = new BestFit();
+                BF.setBoxDepository(b);
+                BF.setDepository(d);
+                BF.BF();
                 
 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
