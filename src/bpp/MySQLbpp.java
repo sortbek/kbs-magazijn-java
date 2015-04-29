@@ -38,12 +38,12 @@ public class MySQLbpp {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
 
-            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId`, `Check`, `Ordernr`, `idBox` FROM `Robot_BPP`");
+            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId`, `Check`, `Ordernr`, `idBox`,`Size` FROM `Robot_BPP`");
 
             ResultSet result = stmt.executeQuery();
 
             while (result.next()) {
-                Product p = new Product("test", result.getInt(1), 5);
+                Product p = new Product("test", result.getInt(1), result.getInt(5));
                 d.addProduct(p);
             }
 //           System.out.println(array);
