@@ -70,7 +70,6 @@ public class MySQLbpp {
                 Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4), result.getString(6));
                 boxDepository = box;
                 box.addBox(b);
-                box.ShowArrayList();
             }
 
         } catch (SQLException e) {
@@ -82,19 +81,19 @@ public class MySQLbpp {
         }
     }
 
-    void updateBox(int coveredSpace, boolean isFull, int boxId) {
+    void updateBox(int n_coveredSpace, boolean isFull, int boxId) {
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt;
             if (isFull) {
                 stmt = con.prepareStatement("UPDATE Box SET Covered = ?, Status = ? WHERE idBox = ?");
-                stmt.setInt(1, coveredSpace);
+                stmt.setInt(1, n_coveredSpace);
                 stmt.setString(2, "done");
                 stmt.setInt(3, boxId);
             } else {
                 stmt = con.prepareStatement("UPDATE Box SET Covered = ? WHERE idBox = ?");
-                stmt.setInt(1, coveredSpace);
+                stmt.setInt(1, n_coveredSpace);
                 stmt.setInt(2, boxId);
             }
             stmt.executeUpdate();

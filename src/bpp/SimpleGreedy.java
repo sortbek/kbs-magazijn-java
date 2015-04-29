@@ -55,19 +55,15 @@ public class SimpleGreedy extends MySQLbpp {
             int spaceLeftC = boxC.getSizeB() - boxC.getCovered();
             
             if (product.Getsize() < spaceLeftA) {
-                System.out.println("Checking box A");
-                updateBox(product.Getsize(), true, boxA.getIdBox());
-            } else if (boxA.getCovered() + product.Getsize() < spaceLeftB) {
-                System.out.println("Box A full, checking box B");
+                System.out.println("Using box A");
+                updateBox(boxA.getCovered() + product.Getsize(), false, boxA.getIdBox());
+            } else if (product.Getsize() < spaceLeftB) {
+                System.out.println("Box A full, using box B");
                 updateBox(boxB.getCovered() + product.Getsize(), false, boxB.getIdBox());
             } else if (product.Getsize() < spaceLeftC) {
-                System.out.println("Box B full, checking box C");
-                System.out.println(spaceLeftC);
+                System.out.println("Box A&B full, using box C");
                 updateBox(boxC.getCovered() + product.Getsize(), false, boxC.getIdBox());
             }
-            updateBox(3, false, 1);
-            
-            System.out.println("\n");
             i++;
         }
     }
