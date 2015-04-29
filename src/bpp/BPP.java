@@ -36,10 +36,16 @@ public class BPP {
                 bpp.Products(d);
                 GUI.SetTable();
 
+                System.out.println("SimpleGreedy");
                 SimpleGreedy sg = new SimpleGreedy();
                 sg.setBoxDepository(b);
                 sg.setDepository(d);
                 //sg.runSg();
+                
+//                System.out.println("BestFit");
+//                BestFit BF = new BestFit();
+//                BF.GetSizeOrder();
+                
 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true);
