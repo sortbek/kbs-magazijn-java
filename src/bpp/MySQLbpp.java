@@ -38,12 +38,13 @@ public class MySQLbpp {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
 
-            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId`, `Check`, `Ordernr`, `idBox` FROM `Robot_BPP`");
+            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId`, `Check`, `Ordernr`, `idBox`,`Size` FROM `Robot_BPP`");
 
             ResultSet result = stmt.executeQuery();
-
             while (result.next()) {
-                Product p = new Product("test", result.getInt(1), 5);
+                String pNaam = "test" + result.getInt(1);
+                System.out.println(pNaam);
+                Product p = new Product(pNaam, result.getInt(1), result.getInt(5));
                 d.addProduct(p);
             }
 //           System.out.println(array);
@@ -70,7 +71,6 @@ public class MySQLbpp {
                 Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4), result.getString(6));
                 boxDepository = box;
                 box.addBox(b);
-                box.ShowArrayList();
             }
 
         } catch (SQLException e) {
@@ -82,19 +82,19 @@ public class MySQLbpp {
         }
     }
 
-    void updateBox(int coveredSpace, boolean isFull, int boxId) {
+    void updateBox(int n_coveredSpace, boolean isFull, int boxId) {
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt;
             if (isFull) {
                 stmt = con.prepareStatement("UPDATE Box SET Covered = ?, Status = ? WHERE idBox = ?");
-                stmt.setInt(1, coveredSpace);
+                stmt.setInt(1, n_coveredSpace);
                 stmt.setString(2, "done");
                 stmt.setInt(3, boxId);
             } else {
                 stmt = con.prepareStatement("UPDATE Box SET Covered = ? WHERE idBox = ?");
-                stmt.setInt(1, coveredSpace);
+                stmt.setInt(1, n_coveredSpace);
                 stmt.setInt(2, boxId);
             }
             stmt.executeUpdate();

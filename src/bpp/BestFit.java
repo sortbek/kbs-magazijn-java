@@ -18,6 +18,7 @@ public class BestFit {
     private ArrayList<Product> producten;
     private ArrayList<Box> arrayBox;
     private Box b;
+    private Product p;
 
     public BestFit() {
 
@@ -46,13 +47,37 @@ public class BestFit {
         // alle productmaten optellen
         int j = 0;
         int sizet = 0;
-        	while (arrayBox.size() > j) {
-			
-                        b = arrayBox.get(j);
-                        sizet = sizet + b.getSizeB();
+        	while (producten.size() > j) {
+                        p = producten.get(j);
+                        sizet = sizet + p.Getsize();
                         j++;
 		}
         return sizet;
     }
+    
+    public void BF(){
+    int i = GetSizeOrder();
+    
+    // kiezen dozen
+    while (i>20){
+        // maak een doos van 20 groot aan
+        i = i-20;
+        System.out.println("doos gemaakt van 20");
+        System.out.println(i);
+    }
+    while (i>10){
+      // maak een doos van 10 groot aan
+        i = i-10;
+        System.out.println("doos gemaakt van 10");
+        System.out.println(i);
+    }
+    while (i>1){
+      // maak een doos van 5 groot aan
+        i = i-5;
+        System.out.println("doos gemaakt van 5");
+        System.out.println(i);
+    }
+    }
+    
     
 }
