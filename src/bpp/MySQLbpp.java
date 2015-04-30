@@ -44,6 +44,7 @@ public class MySQLbpp {
             while (result.next()) {
                 String pNaam = "test" + result.getInt(1);
                 Product p = new Product(pNaam, result.getInt(1), result.getInt(5));
+                p.SetBox(result.getInt(4));
                 d.addProduct(p);
             }
 //           System.out.println(array);

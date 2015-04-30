@@ -25,11 +25,15 @@ public class BPP {
             public void run() {
 
                 MySQLbpp bpp = new MySQLbpp();
+                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
                 SimpleGreedy sg = new SimpleGreedy();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
-
+                
+                SQL_test SQL = new SQL_test();
+                SQL.SetBox(41, 16);
+                
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
 
