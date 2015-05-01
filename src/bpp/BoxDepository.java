@@ -31,10 +31,27 @@ public class BoxDepository extends BPPSimulatorGUI{
 			
                         b = box.get(j);
 			System.out.println(box.get(j));
+                        System.out.println("**********************************");
                         j++;
 		}
 
    } 
+   
+   
+//    public int GetCoverdBox(int b) {
+//        // alle productmaten optellen
+//        int j = 0;
+//        int sizet = 0;
+//        	while (producten.size() > j) {
+//                        p = producten.get(j);
+//                        if (p.GetBox()== b){
+//                        sizet = sizet + p.Getsize();
+//                        j++;
+//                        System.out.println(sizet);
+//		}}
+//        return sizet;
+//    }
+           
    public ArrayList<Box> getList(){
    return box;
    }

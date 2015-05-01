@@ -35,6 +35,83 @@ public class Depository extends BPPSimulatorGUI{
 
    }
    
+//    public int GetBigProduct() {
+//        // groot product
+//        int j = 0;
+//        int sizeb = 0;
+//        	while (producten.size() > j) {
+//                   
+//                        p = producten.get(j);
+//                         if (sizeb < p.Getsize()){
+//                         sizeb = p.Getsize();
+//                         }
+//                        j++;
+//		}
+//        return sizeb;
+//    }
+//        public int GetSizeOrder() {
+//        // alle productmaten optellen
+//        int j = 0;
+//        int sizet = 0;
+//        	while (producten.size() > j) {
+//                        p = producten.get(j);
+//                        if (p.GetBox()==0){
+//                        sizet = sizet + p.Getsize();
+//                        }
+//                        j++;
+//		}
+//        return sizet;
+//    }
+//    
+//        
+//    public int GetSmallProduct(int s) {
+//        // groot product
+//        int j = 0;
+//        int sizeb = 0;
+//        	while (producten.size() > j) {
+//                   
+//                        p = producten.get(j);
+//                         if (s <= p.Getsize()){
+//                             if (j<s){
+//                         sizeb = p.Getsize();
+//                         }
+//                         }
+//                        j++;
+//		}
+//        return sizeb;
+//    }
+    
+//        public int GetSmallestProduct(int s) {
+//        // groot product
+//        int j = 0;
+//        int sizeb = 0;
+//        	while (producten.size() > j) {
+//                   
+//                        p = producten.get(j);
+//                         while (s <= p.Getsize()){
+//                             if (j<s){
+//                         sizeb = p.Getsize();
+//                         }
+//                         }
+//                        j++;
+//		}
+//        return sizeb;
+//    }
+//   
+//    public int GetCoverdBox(int b) {
+//        // alle productmaten optellen
+//        int j = 0;
+//        int sizet = 0;
+//        	while (producten.size() > j) {
+//                        p = producten.get(j);
+//                        if (p.GetBox()== b){
+//                        sizet = sizet + p.Getsize();
+//                        j++;
+//                        System.out.println(sizet);
+//		}}
+//        return sizet;
+//    }
+   
    public ArrayList<Product> getList(){
    return producten;
    }

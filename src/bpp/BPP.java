@@ -16,36 +16,52 @@ import java.util.ArrayList;
  */
 public class BPP {
 //   private ArrayList<Product> producten;
-    
-      /**
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                
+
                 MySQLbpp bpp = new MySQLbpp();
+                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
-               
-                bpp.Box(b);
+//                SimpleGreedy sg = new SimpleGreedy();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
+                
+                bpp.SetBox(41, 16 );
+                
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
                 
-              
-             
+
+
+                bpp.Box(b);
                 bpp.Products(d);
                 GUI.SetTable();
 
-               
-                GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                GUI.setVisible(true); 
+//                System.out.println("SimpleGreedy");
+//                sg.setBoxDepository(b);
+//                sg.setDepository(d);
+//                sg.setBoxes();
+//                sg.runSg();
+
+                System.out.println("BestFit");
+                BestFit BF = new BestFit();
+                BF.setBoxDepository(b);
+                BF.setDepository(d);
+//                BF.BF(26);
+//                BF.GetCoverdBox(30);
                 
-                d.ShowArrayList();
-            GUI.setProducten(d.getList());
+//                System.out.println("zit .. in" + d.GetCoverdBox(41));
+
+                GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                GUI.setVisible(true);
+
+            }
+        });
+
     }
-           } );
-    
-}
 }
