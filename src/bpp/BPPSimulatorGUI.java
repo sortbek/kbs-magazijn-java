@@ -161,11 +161,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 Boxa(evt);
             }
         });
-        Boxa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BoxaMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout BoxaLayout = new javax.swing.GroupLayout(Boxa);
         Boxa.setLayout(BoxaLayout);
@@ -399,26 +394,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             }
     }//GEN-LAST:event_BoxC
 
-    private void BoxaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxaMouseClicked
-            aBox = arrayBox.get(0);
-            // tabel invullen
-            bnr = aBox.getIdBox();
-            SetTableBox(bnr);
-    }//GEN-LAST:event_BoxaMouseClicked
-
-      private void BoxbMouseClicked(java.awt.event.MouseEvent evt) {  
-            bBox = arrayBox.get(1);
-            // tabel invullen
-            bnr = bBox.getIdBox();
-            SetTableBox(bnr);
-    }  
-      
-        private void BoxcMouseClicked(java.awt.event.MouseEvent evt) {  
-            cBox = arrayBox.get(2);
-            // tabel invullen
-            bnr = cBox.getIdBox();
-            SetTableBox(bnr);
-    }  
     /**
      * @param args the command line arguments
      */

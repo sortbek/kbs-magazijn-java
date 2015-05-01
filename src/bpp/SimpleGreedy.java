@@ -6,7 +6,7 @@ public class SimpleGreedy extends MySQLbpp {
 
     private Depository depository;
     private BoxDepository boxd;
-    private ArrayList<Product> producten;
+    private ArrayList<Product> products;
     private ArrayList<Box> arrayBox;
     private Box boxA;
     private Box boxB;
@@ -27,15 +27,15 @@ public class SimpleGreedy extends MySQLbpp {
 
     public void setDepository(Depository b) {
         this.depository = b;
-        producten = depository.getList();
+        products = depository.getList();
     }
 
     public Depository getDepository() {
         return this.depository;
     }
 
-    public void setProducten(ArrayList<Product> p) {
-        this.producten = p;
+    public void setProducts(ArrayList<Product> p) {
+        this.products = p;
     }
 
     public void setBoxes() {
@@ -46,8 +46,8 @@ public class SimpleGreedy extends MySQLbpp {
 
     public void runSg() {
         int i = 0;
-        while (i < producten.size()) {
-            Product product = producten.get(i);
+        while (i < products.size()) {
+            Product product = products.get(i);
             System.out.println(product.Getname());
 
             int spaceLeftA = boxA.getSizeB() - boxA.getCovered();
@@ -58,20 +58,20 @@ public class SimpleGreedy extends MySQLbpp {
             if (product.Getsize() < spaceLeftA) {
                 System.out.println("Using box A");
                 updateBox(boxA.getCovered() + product.Getsize(), false, boxA.getIdBox());
+                boxA.setCovered(boxA.getCovered() + product.Getsize());
                 System.out.println("Product " + product.Getname() + " added to box A.");
-                removeProduct(product.GetidProduct());
             } //Doos B
             else if (product.Getsize() < spaceLeftB) {
                 System.out.println("Box A full, using box B");
                 updateBox(boxB.getCovered() + product.Getsize(), false, boxB.getIdBox());
+                boxB.setCovered(boxB.getCovered() + product.Getsize());
                 System.out.println("Product " + product.Getname() + " added to box B.");
-                removeProduct(product.GetidProduct());
             } //Doos C
             else if (product.Getsize() < spaceLeftC) {
                 System.out.println("Box A&B full, using box C");
                 updateBox(boxC.getCovered() + product.Getsize(), false, boxC.getIdBox());
+                boxC.setCovered(boxC.getCovered() + product.Getsize());
                 System.out.println("Product " + product.Getname() + " added to box C.");
-                removeProduct(product.GetidProduct());
             } else {
                 System.out.println("Geen ruimte meer over.");
             }
