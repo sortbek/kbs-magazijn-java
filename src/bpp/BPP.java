@@ -31,16 +31,15 @@ public class BPP {
 //                SimpleGreedy sg = new SimpleGreedy();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
                 
-                bpp.SetBox(41, 16 );
                 
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
                 
-
-
                 bpp.Box(b);
                 bpp.Products(d);
                 GUI.SetTable();
+//                bpp.closeBox(77);
+//                bpp.SetBox(77, 16);
 
 //                System.out.println("SimpleGreedy");
 //                sg.setBoxDepository(b);
@@ -52,10 +51,8 @@ public class BPP {
                 BestFit BF = new BestFit();
                 BF.setBoxDepository(b);
                 BF.setDepository(d);
-//                BF.BF(26);
-//                BF.GetCoverdBox(30);
-                
-//                System.out.println("zit .. in" + d.GetCoverdBox(41));
+                BF.BF(10);
+
 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true);

@@ -44,6 +44,62 @@ public class BestFit {
         this.producten = p;
     }
 
+    public void BF(int idorder){
+    // controleren op order
+        int boxnr = 0;
+        int sizeproduct = 0;
+        int productnr = 0;
+        int sizeorder = depository.GetSizeOrder();
+        int sizebox = 0;
+        if(sizeorder>0){
+            System.out.println ("test1");
+            
+        
+        while(sizeorder>20){
+            System.out.println ("test2");
+        // nieuwe box maken
+        boxnr = bpp.NewBox(20, idorder);
+        sizebox = 20;
+            
+        // grootste product opvragen en productnr erbij zoeken
+        sizeproduct = depository.GetBigProduct();
+        productnr = bpp.GetProductWithSize(sizeproduct);
+        System.out.println("Productnr = "+ productnr);
+        
+        if (productnr == 0){
+            int s = sizeproduct - 1;
+        sizeproduct = depository.GetSmallProduct(s);
+        productnr = bpp.GetProductWithSize(sizeproduct);
+        System.out.println("product");
+        } 
+        
+        
+        System.out.println("boxnr wordt aangepast");
+        bpp.SetBox(boxnr, productnr);
+        sizeorder = sizeorder - sizeproduct;
+        sizebox = sizebox - sizeproduct;
+        System.out.println("Sizebox :"+sizebox +" Sizeorder : "+sizeorder);
+            System.out.println ("test3");
+        // kijk of er nog een product is die in de overgebleven ruimte past 
+        while (sizebox > depository.GetSmallProduct(sizebox)){
+            System.out.println ("test4");
+        sizeproduct = depository.GetSmallProduct(sizeorder);
+        productnr = bpp.GetProductWithSize(sizeproduct);
+        bpp.SetBox(boxnr, productnr);
+        sizeorder = sizeorder - sizeproduct;
+        sizebox = sizebox - sizeproduct;
+        System.out.println ("test5");
+        
+        }
+        // doos is zo vol mogelijk doos word gesloten
+//        bpp.closeBox(boxnr);
+                System.out.println("box is dicht nr:"+ boxnr);
+                System.out.println("ordersize "+ sizeorder );
+                
+        }
+      }
+    }
+        
 
 //    public void BF(int idorder){
 //        int boxnr = 0;

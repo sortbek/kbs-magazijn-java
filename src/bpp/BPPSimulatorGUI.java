@@ -400,28 +400,14 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_BoxC
 
     private void BoxaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxaMouseClicked
-            aBox = arrayBox.get(0);
-            // tabel invullen
-            bnr = aBox.getIdBox();
-            SetTableBox(bnr);
+
     }//GEN-LAST:event_BoxaMouseClicked
 
-      private void BoxbMouseClicked(java.awt.event.MouseEvent evt) {  
-            bBox = arrayBox.get(1);
-            // tabel invullen
-            bnr = bBox.getIdBox();
-            SetTableBox(bnr);
-    }  
-      
-        private void BoxcMouseClicked(java.awt.event.MouseEvent evt) {  
-            cBox = arrayBox.get(2);
-            // tabel invullen
-            bnr = cBox.getIdBox();
-            SetTableBox(bnr);
-    }  
     /**
      * @param args the command line arguments
      */
+    
+    // de tabel tonen met de producten die op de band liggen.
     public void SetTable() {
         sizet = producten.size();
 
@@ -441,6 +427,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         }
     }
   
+    // de tabel tonen met de producten die in een box zitten. 
  public void SetTableBox(int box) {
         sizet = producten.size();
         
@@ -461,38 +448,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         }
     }
       
-
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BPPSimulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BPPSimulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BPPSimulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BPPSimulatorGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BPPSimulatorGUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable BoxTable;
