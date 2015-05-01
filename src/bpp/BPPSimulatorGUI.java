@@ -30,6 +30,8 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private int sizet;
     private int boxnr;
     private int bnr;
+    private Box aBox;
+    private Box cBox;
 //    private int sizet;
 
     /**
@@ -349,6 +351,14 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             packingData.setText("Box is empty");
         }
+         try {
+           bBox = arrayBox.get(0);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+            } catch (Exception e) {
+            packingData.setText("Box is empty");
+            }
     }//GEN-LAST:event_Boxa
 
     private void Boxb(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boxb
@@ -360,6 +370,14 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             packingData.setText("Box is empty");
         }
+      try {
+         bBox = arrayBox.get(1);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+            } catch (Exception e) {
+            packingData.setText("Box is empty");
+            }
     }//GEN-LAST:event_Boxb
 
     private void BoxC(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxC
@@ -371,12 +389,20 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         } catch (Exception e) {
             packingData.setText("Box is empty");
         }
+         try {
+         bBox = arrayBox.get(2);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+            } catch (Exception e) {
+            packingData.setText("Box is empty");
+            }
     }//GEN-LAST:event_BoxC
 
     private void BoxaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxaMouseClicked
-            bBox = arrayBox.get(0);
+            aBox = arrayBox.get(0);
             // tabel invullen
-            bnr = bBox.getIdBox();
+            bnr = aBox.getIdBox();
             SetTableBox(bnr);
     }//GEN-LAST:event_BoxaMouseClicked
 
@@ -388,9 +414,9 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }  
       
         private void BoxcMouseClicked(java.awt.event.MouseEvent evt) {  
-            bBox = arrayBox.get(2);
+            cBox = arrayBox.get(2);
             // tabel invullen
-            bnr = bBox.getIdBox();
+            bnr = cBox.getIdBox();
             SetTableBox(bnr);
     }  
     /**
@@ -401,6 +427,8 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         for (int i = 0; sizet > i; i++) {
             
+            if (this.producten.get(i).GetBox()==0){
+            
             String data1 = this.producten.get(i).Getname();
             int data2 = this.producten.get(i).GetidProduct();
             int data3 = this.producten.get(i).Getsize();
@@ -409,12 +437,11 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
             model.addRow(new Object[]{data1, data2, data3, data4, data5});
-
+            }
         }
     }
   
-    
-      public void SetTableBox(int box) {
+ public void SetTableBox(int box) {
         sizet = producten.size();
         
         DefaultTableModel model = (DefaultTableModel) BoxTable.getModel();
@@ -423,18 +450,14 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         for (int i = 0; sizet > i; i++) {
             boxnr = this.producten.get(i).GetBox();
             
-            if (box == boxnr){
+            if (boxnr == box){
             
             String data1 = this.producten.get(i).Getname();
             int data2 = this.producten.get(i).GetidProduct();
             int data3 = this.producten.get(i).Getsize();
 
-            model.addRow(new Object[]{data1, data2, data3});
-            
+            model.addRow(new Object[]{data1, data2, data3});         
             }
-
-           
-
         }
     }
       

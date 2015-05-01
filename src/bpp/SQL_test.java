@@ -69,6 +69,8 @@ public class SQL_test {
 
 public void SetBox(int idbox, int idproduct){
      try {
+         // contoleren of box bestaat
+         // contoleren of product bestaat
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt = con.prepareStatement("UPDATE `mydb`.`Robot_BPP` SET `idBox` = ? WHERE `Robot_BPP`.`ProductId` = ?;");
