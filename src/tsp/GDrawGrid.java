@@ -1,5 +1,6 @@
 package tsp;
 
+
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -9,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -19,6 +21,7 @@ public class GDrawGrid extends JPanel{
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private int columnCount;
 	private int rowCount;
@@ -29,52 +32,83 @@ public class GDrawGrid extends JPanel{
 	private double row;
 	private CustomRowColumnLabel customRowColumnLabel;
 	private ProductInfoLabel productInfoLabel;
+	private Warehouse ware;
+	private CustomRowColumnLabel label;
 	
 	
 
 	public void reDraw(int columnCount, int rowCount) {
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
-		cells = new ArrayList<>(columnCount * rowCount);
-		mouseFix();
+		
+		
+		
+		double width = getWidth();
+		double height = getHeight();
+		
+		ware = new Warehouse(rowCount, columnCount, width, height);
+		cells = ware.getShelf().getCells();
+		
+		System.out.println(ware.toString());
+	
 		repaint();
 
 
 	}
 
 	public GDrawGrid(int columnCount, int rowCount, CustomRowColumnLabel customRowColumnLabel, ProductInfoLabel productInfoLabel) {
+		
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
+
+		ware = new Warehouse(rowCount, columnCount, 526, 520);
+		cells = ware.getShelf().getCells();
+		
 		this.customRowColumnLabel = customRowColumnLabel;
 		this.productInfoLabel = productInfoLabel;
-		cells = new ArrayList<>(columnCount * rowCount);
-		mouseFix();
+		
+		System.out.println(ware.toString());
+		addMouse();
+		repaint();
 	}
 
-	public void mouseFix() {
+
+	public void addMouse() {
 		MouseAdapter mouseHandler;
 		mouseHandler = new MouseAdapter() {
 			
 			@Override
+			public void mousePressed(MouseEvent evt) { 
+				
+				locationFind(evt);
+				setLabel(new CustomRowColumnLabel());
+				
+				//+1 omdat we bij 1 willen beginnen en niet 0;
+				customRowColumnLabel.setTextRC((int) (column+1), (int) (row+1));
+				
+			    clickedCell = new Point((int) column, (int) row);
+
+			    
+			    int index = clickedCell.x + (clickedCell.y * columnCount);
+				Rectangle cellPut = new Rectangle();
+				cellPut = cells.get(index);
+				
+				
+				
+				String input = ""+ware.getCache().get(cellPut);
+				System.out.println(input);
+				productInfoLabel.setTextLabel(input);
+			  
+			    repaint();
+			   }
 			public void mouseMoved(MouseEvent e) {
 				locationFind(e);
 				
-
 				hoveredCell = new Point((int) column, (int) row);
 				repaint();
 
 			}
-			public void mousePressed(MouseEvent e) {
-				
-				
-				locationFind(e);
-				CustomRowColumnLabel label = new CustomRowColumnLabel();
-				
-				customRowColumnLabel.setTextRC((int) (column+1), (int) (row+1));
-				productInfoLabel.setTextProductInfo();
-			    clickedCell = new Point((int) column, (int) row);
-			    
-			    }
+			 
 			
 		};
 		addMouseMotionListener(mouseHandler);
@@ -85,6 +119,7 @@ public class GDrawGrid extends JPanel{
 	public void invalidate() {
 		cells.clear();
 		hoveredCell = null;
+		clickedCell = null;
 		super.invalidate();
 	}
 
@@ -132,13 +167,23 @@ public class GDrawGrid extends JPanel{
 
 		}
 		
-		if (clickedCell !=null){
+		if (clickedCell != null){
 			int index = clickedCell.x + (clickedCell.y * columnCount);
 			
+			
+			
 			try {
-				Rectangle cell = cells.get(index);
+				
+				Rectangle cellPut = new Rectangle();
+				cellPut = cells.get(index);
+				
+									
 				g2d.setColor(Color.red);
-				g2d.fill(cell);
+				g2d.fill(cellPut);
+
+			
+				
+				
 			} catch (IndexOutOfBoundsException ex) {
 				
 			}
@@ -187,13 +232,21 @@ public class GDrawGrid extends JPanel{
 		  }
 	  
 	  public void locationFind(MouseEvent e){
-		  double width = getWidth();
-			double height = getHeight();
+		  double width = ware.getWidth();
+			double height = ware.getHeight();
 
-			double cellWidth = width / columnCount;
-			double cellHeight = height / rowCount;
+			double cellWidth = width / ware.getColumns();
+			double cellHeight = height / ware.getRows();
 
 			column = e.getX() / cellWidth;
 			row = e.getY() / cellHeight;
 	  }
+
+	public CustomRowColumnLabel getLabel() {
+		return label;
+	}
+
+	public void setLabel(CustomRowColumnLabel label) {
+		this.label = label;
+	}
 }

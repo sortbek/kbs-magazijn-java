@@ -88,11 +88,17 @@ public class MySQLbpp {
             PreparedStatement stmt = con.prepareStatement("SELECT `idBox`, `Size`, `Covered`, `idorder`, `print`, `Status` FROM `Box` WHERE `Status` = 'busy'");
 
             ResultSet result = stmt.executeQuery();
-
+            
+            int aantal = 0;
             while (result.next()) {
                 Box b = new Box(result.getInt(1), result.getInt(2), result.getInt(3), result.getInt(4), result.getString(6));
                 boxDepository = box;
                 box.addBox(b);
+                aantal = aantal + 1;
+            }
+            System.out.println ("Aantal boxen is: "+ aantal);
+            if (aantal > 3){
+            System.out.println("Er zijn meer dan drie boxen");
             }
 
         } catch (SQLException e) {
@@ -130,12 +136,29 @@ public class MySQLbpp {
         }
     }
     
+        void closeBox(int boxId) {
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+            PreparedStatement stmt;
+                stmt = con.prepareStatement("UPDATE Box SET `Status` = 'ready' WHERE idBox = ?");
+                stmt.setInt(1, boxId);
+                stmt.execute();
+                   
+        }catch (SQLException e) {
+            System.out.println("Update Box SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Update Box Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+    }
+    
          public int NewBox(int size, int idorder) {
-                          int boxnr = 0;
+            int boxnr = 0;
 
-         if (size == 5|size == 10|size == 20){
-
-//controleren om mogelijke maten 
+        if (size == 5|size == 10|size == 20){
+        //controleren om mogelijke maten 
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
@@ -144,27 +167,23 @@ public class MySQLbpp {
             stmt.setInt(2, idorder);
             stmt.execute();
             
+            
             //boxnr opvragen
             PreparedStatement stmt_box = con.prepareStatement("SELECT `idBox` FROM `Box` WHERE `Size` = ?");
             stmt_box.setInt(1,size);
             
-            ResultSet result = stmt.executeQuery();
-
+            ResultSet result = stmt_box.executeQuery();
+            
+            
             while (result.next()) {
-                boxnr = result.getInt(1);
+                boxnr = result.getInt(1);   
                 
             }
             
-            
-            System.out.println("box is toegevoegd de box is "+ size +" groot en het nr is"+ boxnr);
-//            while (result.next()) {
-//                String pNaam = "test" + result.getInt(1);
-//                Product p = new Product(pNaam, result.getInt(1), result.getInt(5));
-//                d.addProduct(p);
-//            }
-//           System.out.println(array);
+            System.out.println("box is toegevoegd de box is "+ size +" groot en het nr : "+ boxnr);
+
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("SQLException NewBox");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             System.out.println("Where is the MySQL JDBC Driver?");
@@ -180,17 +199,33 @@ public class MySQLbpp {
 
 
 public void SetBox(int idbox, int idproduct){
+    int size;
+try { 
+            size = 0;
     
-         try { 
-
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt = con.prepareStatement("UPDATE `mydb`.`Robot_BPP` SET `idBox` = ? WHERE `Robot_BPP`.`ProductId` = ?;");
             stmt.setInt(1,idbox);
             stmt.setInt(2, idproduct);
             stmt.execute();
-            System.out.println("product "+ idproduct +" is toegevoegd aan box "+ idbox );
-
+            
+            PreparedStatement stmt_Select = con.prepareStatement("SELECT `Size` FROM `Robot_BPP` WHERE `ProductId` = ?;");
+            stmt_Select.setInt(1,idproduct);
+            stmt_Select.execute();
+            ResultSet result = stmt_Select.executeQuery();
+            
+            while (result.next()) {
+            size = result.getInt(1);   
+            }
+          
+            PreparedStatement stmt_box = con.prepareStatement("UPDATE `mydb`.`Box` SET `Covered` = ? WHERE `Box`.`idBox` = ?; ");
+            stmt_box.setInt(1,size);
+            stmt_box.setInt(2, idbox);         
+            stmt_box.execute();
+           
+           System.out.println("product "+ idproduct +" is toegevoegd aan box "+ idbox );
+            
         } catch (SQLException e) {
             System.out.println("SQLException");
             System.out.println(e.getMessage());
@@ -198,37 +233,19 @@ public void SetBox(int idbox, int idproduct){
             System.out.println("Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
-         
-//         try { 
-//
-//            Class.forName(myDriver);
-//            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
-//            PreparedStatement stmt = con.prepareStatement("UPDATE `mydb`.`Box` SET `Covered` = ? WHERE `Box`.`idBox` = ?;");
-//            stmt.setInt(2,idbox);
-//            stmt.setInt(1, coverd);
-//            stmt.execute();
-//            System.out.println("box : " +idbox+ " Coverd : "+coverd );
-//
-//        } catch (SQLException e) {
-//            System.out.println("SQLException");
-//            System.out.println(e.getMessage());
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("Where is the MySQL JDBC Driver?");
-//            System.out.println(e.getMessage());
-//        }       
 
 }
     public int GetProductWithSize(int s) {
-        int size = 0;
+        int productnr = 0;
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
 
-            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId` FROM `Robot_BPP` WHERE `Robot_BPP`.`Size` = ? ");
+            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId` FROM `Robot_BPP` WHERE `Robot_BPP`.`Size` = ? AND `idBox` = 0; ");
              stmt.setInt(1,s);
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
-                size = result.getInt(1);
+                productnr = result.getInt(1);
             }
 //           System.out.println(array);
         } catch (SQLException e) {
@@ -238,7 +255,7 @@ public void SetBox(int idbox, int idproduct){
             System.out.println("Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
-        return size;
+        return productnr;
     }
 
 

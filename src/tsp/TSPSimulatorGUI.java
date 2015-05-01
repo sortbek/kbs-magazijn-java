@@ -1,12 +1,11 @@
 package tsp;
 
+
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.*;
 
 
 	
@@ -14,6 +13,10 @@ import javax.swing.event.*;
  * @author Kubilay Durmusoglu & Anouk van der Veer
  */
 public class TSPSimulatorGUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public TSPSimulatorGUI() {
 		
 		initComponents();
@@ -24,16 +27,11 @@ public class TSPSimulatorGUI extends JFrame {
 		// TODO add your code here
 	}
 
-	private void paintPanelPropertyChange(PropertyChangeEvent e) {
-		// TODO add your code here
-	}
-
 	private void applyButtonActionPerformed(ActionEvent e) {
-		// drawGrid Heigth: 528, Width 526:
+		// drawGrid Heigth: 520, Width 526:
 		
 		int row = (Integer)rowsSpinner.getValue();
 		int column = (Integer)columnsSpinner.getValue();
-		drawGrid.invalidate();
 		drawGrid.reDraw(column, row);
 		repaint();
 	}
@@ -43,7 +41,9 @@ public class TSPSimulatorGUI extends JFrame {
 	}
 
 	private void initComponents() {
-
+		customRowColumnLabel = new CustomRowColumnLabel();
+		productInfoLabel = new ProductInfoLabel();
+		drawGrid = new GDrawGrid(5,5,customRowColumnLabel, productInfoLabel);
 		tabbedPanel = new JTabbedPane();
 		orderPanel = new JPanel();
 		productsPanel = new JPanel();
@@ -55,13 +55,10 @@ public class TSPSimulatorGUI extends JFrame {
 		applyButton = new JButton();
 		scrollPanel = new JScrollPane();
 		informationPanel = new JPanel();
-		standardLabel1 = new JLabel();
-		customRowColumnLabel = new CustomRowColumnLabel();
-		productInfoLabel = new ProductInfoLabel();
+		standardLabel1 = new JLabel();	
 		statusPanel = new JPanel();
 		statusLabel = new JLabel();
 		stopButton = new JButton();
-		drawGrid = new GDrawGrid(5,5,customRowColumnLabel, productInfoLabel);
 		
 		
 		
@@ -326,6 +323,7 @@ public class TSPSimulatorGUI extends JFrame {
 		);
 		setSize(825, 600);
 		setLocationRelativeTo(getOwner());
+		
 	}
 
 	private JTabbedPane tabbedPanel;
