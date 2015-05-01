@@ -28,6 +28,10 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private String StringBox;
     private Box bBox;
     private int sizet;
+    private int boxnr;
+    private int bnr;
+    private Box aBox;
+    private Box cBox;
 //    private int sizet;
 
     /**
@@ -88,6 +92,8 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        BoxTable = new javax.swing.JTable();
 
         javax.swing.GroupLayout bPPSimulatorBoxPanel2Layout = new javax.swing.GroupLayout(bPPSimulatorBoxPanel2);
         bPPSimulatorBoxPanel2.setLayout(bPPSimulatorBoxPanel2Layout);
@@ -155,6 +161,11 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 Boxa(evt);
             }
         });
+        Boxa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BoxaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout BoxaLayout = new javax.swing.GroupLayout(Boxa);
         Boxa.setLayout(BoxaLayout);
@@ -209,6 +220,26 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         jLabel4.setText("Box C");
 
+        BoxTable.setAutoCreateRowSorter(true);
+        BoxTable.setFont(new java.awt.Font("Calibri", 0, 12));
+        BoxTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "Nr.", "Size"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(BoxTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -216,7 +247,27 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(73, 73, 73)
+                        .addComponent(Boxa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(Boxb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(Boxc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel1)
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel3)
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(algorithmLabel)
                             .addComponent(algorithmPicker, 0, 239, Short.MAX_VALUE)
@@ -235,23 +286,8 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                                     .addComponent(forceStop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(Boxa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(Boxb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(Boxc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 10, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel1)
-                .addGap(110, 110, 110)
-                .addComponent(jLabel3)
-                .addGap(112, 112, 112)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(0, 10, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -281,7 +317,9 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addGap(29, 29, 29))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -308,9 +346,19 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             bBox = arrayBox.get(0);
             StringBox = bBox.toString();
             packingData.setText(StringBox);
+            
+
         } catch (Exception e) {
             packingData.setText("Box is empty");
         }
+         try {
+           bBox = arrayBox.get(0);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+            } catch (Exception e) {
+            packingData.setText("Box is empty");
+            }
     }//GEN-LAST:event_Boxa
 
     private void Boxb(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Boxb
@@ -318,9 +366,18 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             bBox = arrayBox.get(1);
             StringBox = bBox.toString();
             packingData.setText(StringBox);
+            
         } catch (Exception e) {
             packingData.setText("Box is empty");
         }
+      try {
+         bBox = arrayBox.get(1);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+            } catch (Exception e) {
+            packingData.setText("Box is empty");
+            }
     }//GEN-LAST:event_Boxb
 
     private void BoxC(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxC
@@ -328,11 +385,40 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             bBox = arrayBox.get(2);
             StringBox = bBox.toString();
             packingData.setText(StringBox);
+            
         } catch (Exception e) {
             packingData.setText("Box is empty");
         }
+         try {
+         bBox = arrayBox.get(2);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+            } catch (Exception e) {
+            packingData.setText("Box is empty");
+            }
     }//GEN-LAST:event_BoxC
 
+    private void BoxaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxaMouseClicked
+            aBox = arrayBox.get(0);
+            // tabel invullen
+            bnr = aBox.getIdBox();
+            SetTableBox(bnr);
+    }//GEN-LAST:event_BoxaMouseClicked
+
+      private void BoxbMouseClicked(java.awt.event.MouseEvent evt) {  
+            bBox = arrayBox.get(1);
+            // tabel invullen
+            bnr = bBox.getIdBox();
+            SetTableBox(bnr);
+    }  
+      
+        private void BoxcMouseClicked(java.awt.event.MouseEvent evt) {  
+            cBox = arrayBox.get(2);
+            // tabel invullen
+            bnr = cBox.getIdBox();
+            SetTableBox(bnr);
+    }  
     /**
      * @param args the command line arguments
      */
@@ -340,7 +426,9 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         sizet = producten.size();
 
         for (int i = 0; sizet > i; i++) {
-
+            
+            if (this.producten.get(i).GetBox()==0){
+            
             String data1 = this.producten.get(i).Getname();
             int data2 = this.producten.get(i).GetidProduct();
             int data3 = this.producten.get(i).Getsize();
@@ -349,9 +437,30 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
             model.addRow(new Object[]{data1, data2, data3, data4, data5});
-
+            }
         }
     }
+  
+ public void SetTableBox(int box) {
+        sizet = producten.size();
+        
+        DefaultTableModel model = (DefaultTableModel) BoxTable.getModel();
+        model.setRowCount(0);
+        
+        for (int i = 0; sizet > i; i++) {
+            boxnr = this.producten.get(i).GetBox();
+            
+            if (boxnr == box){
+            
+            String data1 = this.producten.get(i).Getname();
+            int data2 = this.producten.get(i).GetidProduct();
+            int data3 = this.producten.get(i).Getsize();
+
+            model.addRow(new Object[]{data1, data2, data3});         
+            }
+        }
+    }
+      
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -386,6 +495,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable BoxTable;
     private javax.swing.JPanel Boxa;
     private javax.swing.JPanel Boxb;
     private javax.swing.JPanel Boxc;
@@ -400,6 +510,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea packingData;
     private javax.swing.JTable productTable;
     private javax.swing.JLabel progressLabel;

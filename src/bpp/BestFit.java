@@ -13,12 +13,13 @@ import java.util.ArrayList;
  */
 public class BestFit {
     
-     private Depository depository;
+    private Depository depository;
     private BoxDepository boxd;
     private ArrayList<Product> producten;
     private ArrayList<Box> arrayBox;
     private Box b;
     private Product p;
+    private MySQLbpp bpp = new MySQLbpp();
 
     public BestFit() {
 
@@ -43,58 +44,34 @@ public class BestFit {
         this.producten = p;
     }
 
-    public int GetSizeOrder() {
-        // alle productmaten optellen
-        int j = 0;
-        int sizet = 0;
-        	while (producten.size() > j) {
-                        p = producten.get(j);
-                        sizet = sizet + p.Getsize();
-                        j++;
-		}
-        return sizet;
+
+//    public void BF(int idorder){
+//        int boxnr = 0;
+//        int coverd = 0;
+//        while(depository.GetSizeOrder()>20){
+//            boxnr = bpp.NewBox(20, idorder);
+//            int s = depository.GetBigProduct();
+//            int pnr = bpp.GetProductWithSize(s);
+//            coverd = 20-s;
+//            bpp.SetBox(boxnr, pnr);
+//            while (depository.GetSmallProduct(coverd)> depository.GetSmallestProduct(coverd)){
+//                s = depository.GetSmallProduct(coverd);
+//                pnr = bpp.GetProductWithSize(s);
+//                
+//                bpp.SetBox(boxnr, pnr);
+//                System.out.println("test");
+//            }
+//            System.out.println("deze doos is vol");
+//        
+//        }
+//        
+
+        
     }
     
-        public int GetBigProduct() {
-        // groot product
-        int j = 0;
-        int sizeb = 0;
-        	while (producten.size() > j) {
-                   
-                        p = producten.get(j);
-                         if (sizeb < p.Getsize()){
-                         sizeb = p.Getsize();
-                         }
-                        j++;
-		}
-        return sizeb;
-    }
-        
-        public int GetSmallProduct(int s) {
-        // groot product
-        int j = 0;
-        int sizeb = 0;
-        	while (producten.size() > j) {
-                   
-                        p = producten.get(j);
-                         if (s <= p.Getsize()){
-                             if (j<s){
-                         sizeb = p.Getsize();
-                         }
-                         }
-                        j++;
-		}
-        return sizeb;
-    }
-        
-       
-        
-    
-   
-    public void BF(){
-    int i = GetSizeOrder();
-    int inhoudbox;
-    }
+//    int i = GetSizeOrder();
+//    int inhoudbox;
+//    }
     
     // kiezen dozen en vullen dozen
 //    while (i>20){
@@ -155,4 +132,4 @@ public class BestFit {
 //    }
     
     
-}
+

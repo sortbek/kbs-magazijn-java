@@ -25,29 +25,37 @@ public class BPP {
             public void run() {
 
                 MySQLbpp bpp = new MySQLbpp();
+                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
-                SimpleGreedy sg = new SimpleGreedy();
+//                SimpleGreedy sg = new SimpleGreedy();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
-
+                
+                bpp.SetBox(41, 16 );
+                
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
+                
+
 
                 bpp.Box(b);
                 bpp.Products(d);
                 GUI.SetTable();
 
-                System.out.println("SimpleGreedy");
-                sg.setBoxDepository(b);
-                sg.setDepository(d);
-                sg.setBoxes();
-                sg.runSg();
+//                System.out.println("SimpleGreedy");
+//                sg.setBoxDepository(b);
+//                sg.setDepository(d);
+//                sg.setBoxes();
+//                sg.runSg();
 
-//                System.out.println("BestFit");
-//                BestFit BF = new BestFit();
-//                BF.setBoxDepository(b);
-//                BF.setDepository(d);
-//                BF.BF();
+                System.out.println("BestFit");
+                BestFit BF = new BestFit();
+                BF.setBoxDepository(b);
+                BF.setDepository(d);
+//                BF.BF(26);
+//                BF.GetCoverdBox(30);
+                
+//                System.out.println("zit .. in" + d.GetCoverdBox(41));
 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true);
