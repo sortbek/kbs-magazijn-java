@@ -75,6 +75,7 @@ public class SimpleGreedy extends MySQLbpp {
             } else {
                 System.out.println("Geen ruimte meer over.");
             }
+            System.out.print("\n");
             i++;
         }
     }
