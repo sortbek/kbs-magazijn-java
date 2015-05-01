@@ -55,7 +55,7 @@ public class GDrawGrid extends JPanel{
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
 
-		ware = new Warehouse(rowCount, columnCount, 526, 520);
+		ware = new Warehouse(rowCount, columnCount, 528, 528);
 		cells = ware.getShelf().getCells();
 
 		this.customRowColumnLabel = customRowColumnLabel;
