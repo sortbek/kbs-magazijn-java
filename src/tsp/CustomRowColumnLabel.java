@@ -1,5 +1,6 @@
 package tsp;
 
+
 import javax.swing.JLabel;
 
 public class CustomRowColumnLabel extends JLabel{
