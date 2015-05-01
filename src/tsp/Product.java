@@ -15,6 +15,7 @@ public class Product {
 	public Product(String input, String input2,Rectangle cell, Warehouse ware){
 		
 			this.ware = ware;
+			
 			this.cell = cell;
 			this.input = input;
 			this.input2 = input2; 
@@ -23,7 +24,7 @@ public class Product {
 			 
 			inputList.add(input);
 			inputList.add(input2);
-			System.out.println(inputList);
+			
 			 
 		 }
 	

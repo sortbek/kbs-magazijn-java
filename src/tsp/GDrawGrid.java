@@ -9,8 +9,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -41,15 +39,11 @@ public class GDrawGrid extends JPanel{
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
 		
-		
-		
 		double width = getWidth();
 		double height = getHeight();
-		
 		ware = new Warehouse(rowCount, columnCount, width, height);
 		cells = ware.getShelf().getCells();
-		
-		System.out.println(ware.toString());
+
 	
 		repaint();
 
@@ -63,13 +57,12 @@ public class GDrawGrid extends JPanel{
 
 		ware = new Warehouse(rowCount, columnCount, 526, 520);
 		cells = ware.getShelf().getCells();
-		
+
 		this.customRowColumnLabel = customRowColumnLabel;
 		this.productInfoLabel = productInfoLabel;
-		
-		System.out.println(ware.toString());
 		addMouse();
-		repaint();
+
+		
 	}
 
 
@@ -81,9 +74,9 @@ public class GDrawGrid extends JPanel{
 			public void mousePressed(MouseEvent evt) { 
 				
 				locationFind(evt);
-				setLabel(new CustomRowColumnLabel());
 				
 				//+1 omdat we bij 1 willen beginnen en niet 0;
+				
 				customRowColumnLabel.setTextRC((int) (column+1), (int) (row+1));
 				
 			    clickedCell = new Point((int) column, (int) row);
@@ -96,14 +89,13 @@ public class GDrawGrid extends JPanel{
 				
 				
 				String input = ""+ware.getCache().get(cellPut);
-				System.out.println(input);
 				productInfoLabel.setTextLabel(input);
 			  
 			    repaint();
 			   }
 			public void mouseMoved(MouseEvent e) {
 				locationFind(e);
-				
+			
 				hoveredCell = new Point((int) column, (int) row);
 				repaint();
 
@@ -111,20 +103,37 @@ public class GDrawGrid extends JPanel{
 			 
 			
 		};
+		
 		addMouseMotionListener(mouseHandler);
 		addMouseListener(mouseHandler);
 	}
 
 	@Override
 	public void invalidate() {
-		cells.clear();
+		//dodelijk
+		//cells.clear();
 		hoveredCell = null;
 		clickedCell = null;
 		super.invalidate();
+		
 	}
+	
+	public void locationFind(MouseEvent e){
+		  double width = ware.getWidth();
+			double height = ware.getHeight();
+
+			double cellWidth = width / ware.getColumns();
+			double cellHeight = height / ware.getRows();
+
+			column = e.getX() / cellWidth;
+			row = e.getY() / cellHeight;
+			
+	  }
+	  
 
 	@Override
 	protected void paintComponent(Graphics g) {
+
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g.create();
 
@@ -224,23 +233,14 @@ public class GDrawGrid extends JPanel{
 		g2d.dispose();
 	}
 	
-	  public void drawLeftAboveString(String s, int w, int h, Graphics g) {
+	public void drawLeftAboveString(String s, int w, int h, Graphics g) {
 		    FontMetrics fm = g.getFontMetrics();
 		    int x = (w - fm.stringWidth(s));
 		    int y = (fm.getAscent() + (h - (fm.getAscent() + fm.getDescent())) );
 		    g.drawString(s, x, y);
 		  }
 	  
-	  public void locationFind(MouseEvent e){
-		  double width = ware.getWidth();
-			double height = ware.getHeight();
-
-			double cellWidth = width / ware.getColumns();
-			double cellHeight = height / ware.getRows();
-
-			column = e.getX() / cellWidth;
-			row = e.getY() / cellHeight;
-	  }
+	  
 
 	public CustomRowColumnLabel getLabel() {
 		return label;
@@ -249,4 +249,13 @@ public class GDrawGrid extends JPanel{
 	public void setLabel(CustomRowColumnLabel label) {
 		this.label = label;
 	}
+	
+	public Warehouse getWare() {
+		return ware;
+	}
+
+	public void setWare(Warehouse ware) {
+		this.ware = ware;
+	}
+	
 }
