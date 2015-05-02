@@ -1,7 +1,6 @@
 package tsp;
 
 
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.List;

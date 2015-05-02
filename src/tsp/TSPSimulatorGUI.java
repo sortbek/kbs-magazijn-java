@@ -20,7 +20,11 @@ public class TSPSimulatorGUI extends JFrame {
 	public TSPSimulatorGUI() {
 		
 		initComponents();
+		
+
+		
 	}
+	
 
 
 	private void stopButtonActionPerformed(ActionEvent e) {
@@ -32,6 +36,7 @@ public class TSPSimulatorGUI extends JFrame {
 		
 		int row = (Integer)rowsSpinner.getValue();
 		int column = (Integer)columnsSpinner.getValue();
+		
 		drawGrid.reDraw(column, row);
 		repaint();
 	}
@@ -323,6 +328,7 @@ public class TSPSimulatorGUI extends JFrame {
 		);
 		setSize(825, 600);
 		setLocationRelativeTo(getOwner());
+		
 		
 	}
 
