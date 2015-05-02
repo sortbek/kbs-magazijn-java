@@ -402,10 +402,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private void BoxaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BoxaMouseClicked
 
     }//GEN-LAST:event_BoxaMouseClicked
-
-    /**
-     * @param args the command line arguments
-     */
     
     // de tabel tonen met de producten die op de band liggen.
     public void SetTable() {

@@ -24,22 +24,19 @@ public class BPP {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
 
-                MySQLbpp bpp = new MySQLbpp();
-                
+                MySQLbpp bpp = new MySQLbpp();                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
-//                SimpleGreedy sg = new SimpleGreedy();
+                SimpleGreedy sg = new SimpleGreedy();
+                CompleteEnumeration cE = new CompleteEnumeration();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
-                
-                
+                                
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
                 
                 bpp.Box(b);
                 bpp.Products(d);
                 GUI.SetTable();
-//                bpp.closeBox(77);
-//                bpp.SetBox(77, 16);
 
 //                System.out.println("SimpleGreedy");
 //                sg.setBoxDepository(b);
@@ -47,12 +44,17 @@ public class BPP {
 //                sg.setBoxes();
 //                sg.runSg();
 
-                System.out.println("BestFit");
-                BestFit BF = new BestFit();
-                BF.setBoxDepository(b);
-                BF.setDepository(d);
-                BF.BF(10);
-
+//                System.out.println("BestFit");
+//                BestFit BF = new BestFit();
+//                BF.setBoxDepository(b);
+//                BF.setDepository(d);
+//                BF.BF(10);
+                
+                System.out.println("Complete Enumeration\n");
+                cE.setBoxDepository(b);
+                cE.setDepository(d);
+                cE.setBoxes();
+                cE.runCe();
 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 GUI.setVisible(true);
