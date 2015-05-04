@@ -118,7 +118,7 @@ public class MySQLbpp {
             if (isFull) {
                 stmt = con.prepareStatement("UPDATE Box SET Covered = ?, Status = ? WHERE idBox = ?");
                 stmt.setInt(1, n_coveredSpace);
-                stmt.setString(2, "done");
+                stmt.setString(2, "ready");
                 stmt.setInt(3, boxId);
             } else {
                 stmt = con.prepareStatement("UPDATE Box SET Covered = ? WHERE idBox = ?");
@@ -232,27 +232,5 @@ public class MySQLbpp {
 
     }
 
-    public int GetProductWithSize(int s) {
-        int productnr = 0;
-        try {
-            Class.forName(myDriver);
-            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
-
-            PreparedStatement stmt = con.prepareStatement("SELECT `ProductId` FROM `Robot_BPP` WHERE `Robot_BPP`.`Size` = ? AND `idBox` = 0; ");
-            stmt.setInt(1, s);
-            ResultSet result = stmt.executeQuery();
-            while (result.next()) {
-                productnr = result.getInt(1);
-            }
-//           System.out.println(array);
-        } catch (SQLException e) {
-            System.out.println("SQLException");
-            System.out.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
-            System.out.println(e.getMessage());
-        }
-        return productnr;
-    }
 
 }

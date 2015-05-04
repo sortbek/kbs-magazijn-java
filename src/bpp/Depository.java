@@ -47,7 +47,9 @@ public class Depository extends BPPSimulatorGUI{
                             }
                         }j++;
                 }
+        System.out.println("grooste product is : "+ sizeb);
         return sizeb;
+        
     }
     
         public int GetSizeOrder() {
@@ -69,7 +71,7 @@ public class Depository extends BPPSimulatorGUI{
   public int GetSmallProduct(int s) {
         // groot product
         int j = 0;
-        int sizeb = 21;
+        int sizeb = 0;
         	while (producten.size() > j) {
                         p = producten.get(j);
                         if (p.GetBox()== 0){
@@ -84,6 +86,28 @@ public class Depository extends BPPSimulatorGUI{
 		}
         return sizeb;
     }
+  
+    public int GetProductWithSize(int s) {
+        // groot product
+        int j = 0;
+        int nrProduct = 0;
+        	while (producten.size() > j) {
+                        p = producten.get(j);
+                        if (p.GetBox()== 0){
+                         if (s == p.Getsize()){
+                             nrProduct = j;
+//                         ProductId = p.GetidProduct();
+//                         System.out.println ("productnr "+ ProductId);
+                         }
+                         }j++;
+                        }
+                        
+                            return nrProduct;
+		}
+    
+    
+    
+  
     
 //        public int GetSmallestProduct(int s) {
 //        // groot product
