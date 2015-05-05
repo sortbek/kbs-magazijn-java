@@ -23,13 +23,16 @@ public class BPP {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-
+                
+                String algoritme = "";
                 MySQLbpp bpp = new MySQLbpp();                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
                 SimpleGreedy sg = new SimpleGreedy();
                 CompleteEnumeration cE = new CompleteEnumeration();
+                BestFit BF = new BestFit();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
+                
                                 
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
@@ -37,27 +40,36 @@ public class BPP {
                 bpp.Box(b);
                 bpp.Products(d);
                 GUI.SetTable();
+                GUI.setVisible(true);
+                while (GUI.getDefaultCloseOperation()==0){
+                algoritme = GUI.getAlgorith();
+                
+                if (algoritme == "Simple Greedy"){
 
-//                System.out.println("SimpleGreedy");
-//                sg.setBoxDepository(b);
-//                sg.setDepository(d);
-//                sg.setBoxes();
-//                sg.runSg();
-
-                System.out.println("BestFit");
-                BestFit BF = new BestFit();
+                System.out.println("SimpleGreedy");
+                sg.setBoxDepository(b);
+                sg.setDepository(d);
+                sg.setBoxes();
+                sg.runSg();
+                }
+                else if(algoritme == "Best Enumeration"){
+                System.out.println("Best Enumeration");
+                
                 BF.setBoxDepository(b);
                 BF.setDepository(d);
                 BF.BF(10);
+                }
+                else if(algoritme == "Complete Enumeration"){
                 
-//                System.out.println("Complete Enumeration\n");
-//                cE.setBoxDepository(b);
-//                cE.setDepository(d);
-//                cE.setBoxes();
-//                cE.runCe();
-
+                System.out.println("Complete Enumeration");
+                cE.setBoxDepository(b);
+                cE.setDepository(d);
+                cE.setBoxes();
+                cE.runCe();
+                }
+                }
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                GUI.setVisible(true);
+                
 
             }
         });

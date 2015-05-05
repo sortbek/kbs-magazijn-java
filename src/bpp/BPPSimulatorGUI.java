@@ -7,6 +7,7 @@ package bpp;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,19 +20,12 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private BoxDepository boxd;
     private ArrayList<Product> producten;
     private ArrayList<Box> arrayBox;
-    private Product product;
-    private String name;
-    private int idProduct;
-    private int box;
-    private int size;
-    private boolean check;
     private String StringBox;
     private Box bBox;
     private int sizet;
     private int boxnr;
     private int bnr;
-    private Box aBox;
-    private Box cBox;
+    private String algorithm;
 //    private int sizet;
 
     /**
@@ -114,7 +108,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         algorithmLabel.setText("Algorithms");
 
-        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Complete Enumeration", "Simple Greedy", "Max rects" }));
+        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Complete Enumeration", "Simple Greedy", "Best Fit" }));
         algorithmPicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 algorithmPickerActionPerformed(evt);
@@ -159,11 +153,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         Boxa.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 Boxa(evt);
-            }
-        });
-        Boxa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BoxaMouseClicked(evt);
             }
         });
 
@@ -326,7 +315,11 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void algorithmPickerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_algorithmPickerActionPerformed
-        // TODO add your handling code here:
+        // kiezen alogrimte 
+        
+        JComboBox ap = (JComboBox)evt.getSource();
+        algorithm = (String)ap.getSelectedItem();
+
     }//GEN-LAST:event_algorithmPickerActionPerformed
 
     private void jPanel2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseMoved
@@ -443,6 +436,10 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             }
         }
     }
+ 
+ public String getAlgorith (){
+ return algorithm;
+ }
       
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

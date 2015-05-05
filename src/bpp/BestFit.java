@@ -17,7 +17,6 @@ public class BestFit {
     private BoxDepository boxd;
     private ArrayList<Product> producten;
     private ArrayList<Box> arrayBox;
-    private Box b;
     private Product p;
     private MySQLbpp bpp = new MySQLbpp();
 
@@ -44,7 +43,6 @@ public class BestFit {
         int boxnr = 0;
         int sizeproduct = 0;
         int productnr = 0;
-        int ProductNr = 0;
         int sizeorder = depository.GetSizeOrder();
         int sizebox = 0;
         
@@ -81,14 +79,12 @@ public class BestFit {
         nrProduct = depository.GetProductWithSize(sizeproduct);
         p = producten.get(nrProduct);
         productnr = p.GetidProduct();
-        System.out.println("productnr"+ productnr);
         
          // boxnr aanpassen in arraylist
         p.SetBox(boxnr);
         
         // boxnr bij product aanpassen in database
         bpp.SetBox(boxnr, productnr);
-        System.out.println("Productnr = "+ productnr);
                 
         // boxcoverd wordt aangepast in de arraylist
         coverd = box.getCovered();
@@ -98,17 +94,15 @@ public class BestFit {
 
         sizeorder = sizeorder - sizeproduct;
         sizebox = sizebox - sizeproduct;
-        
+        System.out.println("ProductId: "+productnr+" Size: "+ sizeproduct +" is toegevoed" );
         System.out.println("Sizebox :"+sizebox +" Sizeorder : "+sizeorder);
 
             int sProduct;
             
         // kijk of er nog een product is die in de overgebleven ruimte past 
             sProduct = depository.GetSmallProduct(sizebox);
-            System.out.println("kleinste product is :"+ sProduct);
          
         while (sizebox >= sProduct && sizeorder > 0 && sProduct != 0){
-            System.out.println("test1");
             if (sProduct != 0){
             
        // grootste product opvragen en productnr erbij zoeken  
@@ -118,14 +112,12 @@ public class BestFit {
         nrProduct = depository.GetProductWithSize(sizeproduct);
         p = producten.get(nrProduct);
         productnr = p.GetidProduct();
-        System.out.println("productnr"+ productnr);
-        
+    
          // boxnr aanpassen in arraylist
         p.SetBox(boxnr);
         
         // boxnr bij product aanpassen in database
         bpp.SetBox(boxnr, productnr);
-        System.out.println("Productnr = "+ productnr);
                 
         // boxcoverd wordt aangepast in de arraylist
         coverd = box.getCovered();
@@ -135,7 +127,7 @@ public class BestFit {
 
         sizeorder = sizeorder - sizeproduct;
         sizebox = sizebox - sizeproduct;
-        
+        System.out.println("ProductId: "+productnr+" Size: "+ sProduct +" is toegevoed" );
         System.out.println("Sizebox :"+sizebox +" Sizeorder : "+sizeorder);
         }
         sProduct = depository.GetSmallProduct(sizebox);

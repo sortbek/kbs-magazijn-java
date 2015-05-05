@@ -162,7 +162,7 @@
           <StringArray count="3">
             <StringItem index="0" value="Complete Enumeration"/>
             <StringItem index="1" value="Simple Greedy"/>
-            <StringItem index="2" value="Max rects"/>
+            <StringItem index="2" value="Best Fit"/>
           </StringArray>
         </Property>
       </Properties>
