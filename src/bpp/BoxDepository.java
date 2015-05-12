@@ -36,7 +36,20 @@ public class BoxDepository extends BPPSimulatorGUI{
 		}
 
    } 
+public int GetSizeArraylist(){
+return box.size()+1;
+} 
    
+   public int GettotalSize(){
+       int size = 0;
+		while (box.size() > j) {
+			
+                        b = box.get(j);
+                        size = size + b.getSizeB();
+                        j++;
+		}
+                return size;
+   }
    
 //    public int GetCoverdBox(int b) {
 //        // alle productmaten optellen
