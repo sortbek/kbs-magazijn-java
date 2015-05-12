@@ -15,7 +15,9 @@ public class CompleteEnumeration extends MySQLbpp {
     private Box boxA;
     private Box boxB;
     private Box boxC;
-    private int maxSpaceLeft;
+    private String bestOptionOrder;
+    private int bestOptionSpace;
+    private int spaceUsed;
 
     public CompleteEnumeration() {
     }
@@ -51,6 +53,8 @@ public class CompleteEnumeration extends MySQLbpp {
         int boxASize = boxA.getSizeB();
         int boxBSize = boxB.getSizeB();
         int boxCSize = boxC.getSizeB();
+        bestOptionSpace = boxASize + boxBSize + boxCSize;
+
     }
 
     public void calculateBestOption(String str) {
@@ -67,54 +71,57 @@ public class CompleteEnumeration extends MySQLbpp {
         int spaceLeftA = boxA.getSizeB() - boxA.getCovered();
         int spaceLeftB = boxB.getSizeB() - boxB.getCovered();
         int spaceLeftC = boxC.getSizeB() - boxC.getCovered();
-        int totalSpaceLeft = boxA.getSizeB() + boxB.getSizeB() + boxC.getSizeB();
-        maxSpaceLeft = 0;
+        int totalSpace = boxA.getSizeB() + boxB.getSizeB() + boxC.getSizeB();
+
+        boolean ft = true;
+        boolean ft2 = true;
 
         if (n == 0) {
             for (int i = 0; i < prefix.length(); i++) {
                 int currP = Character.getNumericValue(prefix.charAt(i)) - 1;
                 Product curr = products.get(currP);
-                if (useA) {
-                    if (curr.Getsize() <= spaceLeftA) {
-                        totalSpaceLeft = totalSpaceLeft - curr.Getsize();
-                        boxA.setCovered(boxA.getCovered() + curr.Getsize());
-                        if (i + 1 == products.size()) {
-                            if (totalSpaceLeft > maxSpaceLeft) {
-                                maxSpaceLeft = totalSpaceLeft;
-                            }
-                        }
-                    } else {
-                        useA = false;
-                        useB = true;
+                System.out.println("Product " + curr.Getname());
+                if (spaceUsed + curr.Getsize() <= boxA.getSizeB()) {
+                    System.out.println("A: Ervoor: " + spaceUsed);
+                    spaceUsed += curr.Getsize();
+                    System.out.println("A: Erna: " + spaceUsed);
+                } else if (spaceUsed - boxA.getSizeB() + curr.Getsize() <= boxB.getSizeB()) {
+                    if (ft) {
+                        spaceUsed = boxA.getSizeB();
+                        ft = false;
                     }
-                } else if (useB) {
-                    if (curr.Getsize() <= spaceLeftB) {
-                        if (currP + 1 == products.size()) {
-                            if (totalSpaceLeft > maxSpaceLeft) {
-                                maxSpaceLeft = totalSpaceLeft;
-                            }
-                        }
-                    } else {
-                        useB = false;
-                        useC = true;
+                    System.out.println("B: Ervoor: " + spaceUsed);
+                    spaceUsed += curr.Getsize();
+                    System.out.println("B: Erna: " + spaceUsed);
+                } else if (spaceUsed - boxA.getSizeB() - boxB.getSizeB() + curr.Getsize() <= boxC.getSizeB()) {
+                    if (ft2) {
+                        spaceUsed = boxA.getSizeB() + boxB.getSizeB();
+                        ft2 = false;
                     }
-                } else if (useC) {
-                    if (curr.Getsize() <= spaceLeftC) {
-                        if (currP + 1 == products.size()) {
-                            if (totalSpaceLeft > maxSpaceLeft) {
-                                maxSpaceLeft = totalSpaceLeft;
-                            }
-                        }
-                    } else {
-                        useC = false;
-                    }
+                    System.out.println("C: Ervoor: " + spaceUsed);
+                    spaceUsed += curr.Getsize();
+                    System.out.println("C: Erna: " + spaceUsed);
                 } else {
                     System.out.println("Geen ruimte meer");
+                }
+                if (i == prefix.length() - 1) {
+                    System.out.println("Huidige beste optie - Volgorde: " + bestOptionOrder + " Gebruikte ruimte: " + bestOptionSpace);
+                    if (spaceUsed < bestOptionSpace) {
+                        System.out.println("Volgorde: " + prefix + "\nGebruikte ruimte: " + spaceUsed);
+                        bestOptionOrder = prefix;
+                        bestOptionSpace = spaceUsed;
+                    } else {
+                        System.out.println("Huidige volgorde is niet beter");
+                    }
+
                 }
             }
         } else {
             for (int i = 0; i < n; i++) {
                 calculateBestOption(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n));
+                System.out.println("\nTrying next option (resetting used space):");
+                spaceUsed = 0;
+
             }
         }
     }
@@ -122,6 +129,9 @@ public class CompleteEnumeration extends MySQLbpp {
     public void runCe() {
         String perm = "";
         int productAmount = products.size();
+        if (productAmount > 3) {
+            productAmount = 3;
+        }
 
         System.out.println("Er zijn " + productAmount + " producten");
         for (int i = 1; i <= productAmount; i++) {
@@ -130,7 +140,65 @@ public class CompleteEnumeration extends MySQLbpp {
 
         calculateBestOption(perm);
 
-        System.out.print(maxSpaceLeft);
+        for (int n = 0; n < bestOptionOrder.length(); n++) {
+            int currP = Character.getNumericValue(bestOptionOrder.charAt(n)) - 1;
+            Product curr = products.get(currP);
+
+            int spaceLeftA = boxA.getSizeB() - boxA.getCovered();
+            int spaceLeftB = boxB.getSizeB() - boxB.getCovered();
+            int spaceLeftC = boxC.getSizeB() - boxC.getCovered();
+
+            //Doos A
+            if (curr.Getsize() <= spaceLeftA) {
+                System.out.println("Using box A");
+
+                updateBox(boxA.getCovered() + curr.Getsize(), false, boxA.getIdBox());
+                SetBox(boxA.getIdBox(), products.get(currP).GetidProduct());
+
+                products.get(currP).SetBox(boxA.getIdBox());
+                boxA.setCovered(boxA.getCovered() + curr.Getsize());
+
+                System.out.println("Product " + curr.Getname() + " added to box A.");
+            } //Doos B
+            else if (curr.Getsize() <= spaceLeftB) {
+                System.out.println("Box A full, using box B");
+
+                updateBox(boxB.getCovered() + curr.Getsize(), false, boxB.getIdBox());
+                boxB.setCovered(boxB.getCovered() + curr.Getsize());
+
+                SetBox(boxB.getIdBox(), products.get(currP).GetidProduct());
+                products.get(currP).SetBox(boxB.getIdBox());
+
+                System.out.println("Product " + curr.Getname() + " added to box B.");
+            } //Doos C
+            else if (curr.Getsize() <= spaceLeftC) {
+                System.out.println("Box A&B full, using box C");
+
+                updateBox(boxC.getCovered() + curr.Getsize(), false, boxC.getIdBox());
+                boxC.setCovered(boxC.getCovered() + curr.Getsize());
+
+                SetBox(boxC.getIdBox(), products.get(currP).GetidProduct());
+                products.get(currP).SetBox(boxC.getIdBox());
+
+                System.out.println("Product " + curr.Getname() + " added to box C.");
+            } else {
+                System.out.println("Geen ruimte meer over.");
+            }
+            System.out.print("\n");
+
+            if (boxA.getCovered() > 0) {
+                closeBox(boxA.getIdBox());
+                boxA.setStatus("ready");
+            }
+            if (boxB.getCovered() > 0) {
+                closeBox(boxB.getIdBox());
+                boxB.setStatus("ready");
+            }
+            if (boxC.getCovered() > 0) {
+                closeBox(boxC.getIdBox());
+                boxC.setStatus("ready");
+            }
+        }
     }
 
 }
