@@ -402,7 +402,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         for (int i = 0; sizet > i; i++) {
             
-            if (this.producten.get(i).GetBox()==0){
+//            if (this.producten.get(i).){
             
             String data1 = this.producten.get(i).Getname();
             int data2 = this.producten.get(i).GetidProduct();
@@ -412,7 +412,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
             model.addRow(new Object[]{data1, data2, data3, data4, data5});
-            }
+//            }
         }
     }
   

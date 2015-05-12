@@ -25,15 +25,19 @@ public class Depository extends BPPSimulatorGUI{
    producten.add(p);
    }
    
-   public void ShowArrayList(){
+   public int ShowArrayList(){
 		while (producten.size() > j) {
 			
                         p = producten.get(j);
 			System.out.println(producten.get(j));
                         j++;
 		}
-
+    return j;
    }
+   
+   public int GetSizeArraylist(){
+    return producten.size()+1;
+    } 
    
     public int GetBigProduct() {
         // groot product
@@ -65,6 +69,18 @@ public class Depository extends BPPSimulatorGUI{
                      }
                         j++;
 		}
+        return sizet;
+    }
+        
+                public int GetTotalSizeOrder() {
+        // alle productmaten optellen
+        int j = 0;
+        int sizet = 0;
+        	while (producten.size() > j) {
+                    p = producten.get(j);
+                        sizet = sizet + p.Getsize();
+                        j++;
+                }
         return sizet;
     }
     

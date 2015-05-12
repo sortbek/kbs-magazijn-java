@@ -19,7 +19,7 @@ public class BestFit {
     private ArrayList<Box> arrayBox;
     private Product p;
     private MySQLbpp bpp = new MySQLbpp();
-
+    private int time;
 //    public BestFit() {
 //
 //    }
