@@ -53,21 +53,28 @@ public class BestFit {
             String status;
             int nrProduct;
             
-            if (sizeorder > 15){
+            if (sizeorder >0){
             sizeb = 20;
             }
-            else if(sizeorder > 5){
-            sizeb = 10;
-            }
             else {
-            sizeb = 5;
-            }  
+            sizeb = 0;
+            }
             
+//            if (sizeorder > 15){
+//            sizeb = 20;
+//            }
+//            else if(sizeorder > 5){
+//            sizeb = 10;
+//            }
+//            else {
+//            sizeb = 5;
+//            }  
+//            
         // nieuwe box maken in database
         boxnr = bpp.NewBox(sizeb, idorder);
         
         // nieuwe box maken in arraylist
-        Box box = new Box(boxnr, sizeb, 0, idorder,"busy");
+        Box box = new Box(boxnr, sizeb, 0, idorder, "busy");
         arrayBox.add(box);
         sizebox = sizeb;   
         status = box.getStatus();

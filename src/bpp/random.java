@@ -15,12 +15,15 @@ class random extends Random {
     
 
  public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                SQL_test rand = new SQL_test();
-                rand.SetNewProductsDB( 20, 129);
-
-}
-        });
+     
+//        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                
+//                SQL_test rand = new SQL_test();
+//                String sql = rand.SetNewProductsDB( 20, 129);
+//                rand.SetNewProductsDB(sql);
+//
+//}
+//        });
                 }
 }

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MySQLbpp {
 
@@ -139,20 +140,21 @@ public class MySQLbpp {
         }
     }
     
-        void updateResult(long t, int countb, int countp, int tsap, int tsab) {
+        void updateResult(long t, int countb, int countp, int tsap, int tsab, String a) {
             int time;
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt;
             
-                stmt = con.prepareStatement("INSERT INTO `mydb`.`result_bbp` (`time`, `nr_result`, `count_box`, `count_product`, `total_size_all_products`, `total_size_all_box`) VALUES (?, NULL, ?, ?, ?, ?);");
+                stmt = con.prepareStatement("INSERT INTO `mydb`.`result_bbp` (`time`, `nr_result`, `count_box`, `count_product`, `total_size_all_products`, `total_size_all_box`, `algoritme`) VALUES (?, NULL, ?, ?, ?, ?, ?);");
                 time = (int) t;
                 stmt.setInt(1, time);
                 stmt.setInt(2, countb);
                 stmt.setInt(3, countp);
                 stmt.setInt(4, tsap);
                 stmt.setInt(5, tsab);
+                stmt.setString(6, a);
 //                stmt.setInt(3, boxId);
             
             stmt.executeUpdate();
@@ -265,6 +267,136 @@ public class MySQLbpp {
         }
 
     }
+    
+    public String SetNewProductsDB (int aantal, int idorder){
+         String SQL_s = "";
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO `mydb`.`SQL_codes` (`SQL_opdr`, `nr_opdr`) VALUES (?, NULL);");
+                SQL_s = newProducts(aantal,idorder);
+                stmt.setString(1,SQL_s);
+
+            stmt.execute(); 
+            System.out.println(SQL_s);
+           
+            
+            
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+        return SQL_s;
+     }
+    
+         public String NewProduct(int size, int idorder) {
+         String SQL = "";
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO `mydb`.`Robot_BPP` (`ProductId`, `Check`, `Ordernr`, `idBox`, `Size`) VALUES (NULL, NULL, ?, '0', ?);");
+                stmt.setInt(1, idorder);
+                stmt.setInt(2, size);
+            
+            stmt.execute();
+            SQL = "INSERT INTO `mydb`.`Robot_BPP` (`ProductId`, `Check`, `Ordernr`, `idBox`, `Size`) VALUES (NULL, NULL,"+idorder+", '0', "+size+");";
+            
+            
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+        return SQL;
+     }
+
+public String newProducts (int aantal, int idorder){
+String SQL = "";
+int size;
+
+for(int i=0; i<aantal; i++){
+Random rand = new Random();
+size = rand.nextInt(20) + 1;
+SQL = SQL + NewProduct(size,idorder);
+
+}
+return SQL;
+
+}
+
+public void DeleteProducts (){
+ try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM `result_bbp` WHERE 1");
+
+            stmt.execute(); 
+            System.out.println("gelukt!! alle producten zijn verwijderd ");
+                     
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+
+}
+
+public void DeleteBox (){
+ try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM `Box` WHERE 1");
+
+            stmt.execute(); 
+            System.out.println("gelukt!! alle producten zijn verwijderd ");
+                     
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+
+}
+
+public String SetNewProductsDB (String sql){
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt = con.prepareStatement("?");
+                stmt.setString(1,sql);
+
+            stmt.execute(); 
+            System.out.println(sql + "gelukt!!");
+                     
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+        return sql;
+     }
+
 
 
 }

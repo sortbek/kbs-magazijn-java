@@ -82,10 +82,10 @@ public class BPP {
 
                 // resultaat opslaan 
                 
-                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize());
-                System.out.println("tijd :"+ time);
-                System.out.println("aantal producten "+ d.GetSizeArraylist()+ " totale groote " + d.GetSizeOrder());
-                System.out.println("aantal boxen " + b.GetSizeArraylist() + " totale volume boxen " + b.GettotalSize());
+                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
+//                System.out.println("tijd :"+ time);
+//                System.out.println("aantal producten "+ d.GetSizeArraylist()+ " totale groote " + d.GetSizeOrder());
+//                System.out.println("aantal boxen " + b.GetSizeArraylist() + " totale volume boxen " + b.GettotalSize());
                 
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
