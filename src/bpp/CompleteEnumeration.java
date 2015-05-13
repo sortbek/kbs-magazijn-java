@@ -45,10 +45,13 @@ public class CompleteEnumeration extends MySQLbpp {
         this.products = p;
     }
 
-    public void setBoxes() {
-        boxA = arrayBox.get(0);
-        boxB = arrayBox.get(1);
-        boxC = arrayBox.get(2);
+    public void setBoxes(int idorder) {
+        int boxAnr = NewBox(20, idorder);
+        int boxBnr = NewBox(20, idorder);
+        int boxCnr = NewBox(20, idorder);
+        boxA = new Box(boxAnr, 20, 0, idorder, "busy");
+        boxB = new Box(boxBnr, 20, 0, idorder, "busy");
+        boxC = new Box(boxCnr, 20, 0, idorder, "busy");
 
         int boxASize = boxA.getSizeB();
         int boxBSize = boxB.getSizeB();
@@ -126,7 +129,7 @@ public class CompleteEnumeration extends MySQLbpp {
         }
     }
 
-    public void runCe() {
+    public void runCe(int idorder) {
         String perm = "";
         int productAmount = products.size();
         if (productAmount > 3) {

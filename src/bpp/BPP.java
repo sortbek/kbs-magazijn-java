@@ -27,7 +27,7 @@ public class BPP {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 
-                String algoritme = "Best Fit";
+                //String algoritme = "Complete Enumeration";
                 MySQLbpp bpp = new MySQLbpp();                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
@@ -40,48 +40,45 @@ public class BPP {
                 
                 
                                 
-                GUI.setBoxDepository(b);
-                GUI.setDepository(d);
-                
-                bpp.Box(b);
-                bpp.Products(d);
+//                GUI.setBoxDepository(b);
+//                GUI.setDepository(d);
+//                
+//                bpp.Box(b);
+//                bpp.Products(d);
                 
                 GUI.setVisible(true);
                 
                 Date date_start = new Date();
                 System.out.println(dateFormat.format(date_start)); // 15:59:48
                 
-                if (algoritme == "Simple Greedy"){
-
-                System.out.println("SimpleGreedy");
-                sg.setBoxDepository(b);
-                sg.setDepository(d);
-                sg.setBoxes();
-                sg.runSg();
-                }
-                else if(algoritme == "Best Fit"){
-                System.out.println("Best Fit");
-                
-                BF.setBoxDepository(b);
-                BF.setDepository(d);
-                BF.BF(10);
-                }
-                else if(algoritme == "Complete Enumeration"){
-                
-                System.out.println("Complete Enumeration");
-                cE.setBoxDepository(b);
-                cE.setDepository(d);
-                cE.setBoxes();
-                cE.runCe();
-                }
+//                if (algoritme == "Simple Greedy"){
+//
+//                System.out.println("SimpleGreedy");
+//                sg.setBoxDepository(b);
+//                sg.setDepository(d);
+//                sg.setBoxes();
+//                sg.runSg();
+//                }
+//                else if(algoritme == "Best Fit"){
+//                System.out.println("Best Fit");
+//                
+//                BF.setBoxDepository(b);
+//                BF.setDepository(d);
+//                BF.BF(10);
+//                }
+//                else if(algoritme == "Complete Enumeration"){
+//                
+//                System.out.println("Complete Enumeration");
+//                cE.setBoxDepository(b);
+//                cE.setDepository(d);
+//                cE.setBoxes(10);
+//                cE.runCe(10);
+//                }
                 
                 Date date_stop = new Date();
                 System.out.println(dateFormat.format(date_stop)); // 15:59:48
                 time = date_stop.getTime() - date_start.getTime();
-                time = time/1000;
-                
-                GUI.SetTable();
-                
+                time = time/1000;                
 
                 // resultaat opslaan 
                 
