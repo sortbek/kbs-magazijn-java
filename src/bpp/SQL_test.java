@@ -105,7 +105,27 @@ public String SetNewProductsDB (int aantal, int idorder){
         return SQL_s;
      }
 
+public String SetNewProductsDB (String sql){
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
 
+            PreparedStatement stmt = con.prepareStatement("?");
+                stmt.setString(1,sql);
+
+            stmt.execute(); 
+            System.out.println(sql + "gelukt!!");
+                     
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+        return sql;
+     }
 
 
 }
