@@ -139,20 +139,21 @@ public class MySQLbpp {
         }
     }
     
-        void updateResult(long t, int countb, int countp, int tsap, int tsab) {
+        void updateResult(long t, int countb, int countp, int tsap, int tsab, String a) {
             int time;
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
             PreparedStatement stmt;
             
-                stmt = con.prepareStatement("INSERT INTO `mydb`.`result_bbp` (`time`, `nr_result`, `count_box`, `count_product`, `total_size_all_products`, `total_size_all_box`) VALUES (?, NULL, ?, ?, ?, ?);");
+                stmt = con.prepareStatement("INSERT INTO `mydb`.`result_bbp` (`time`, `nr_result`, `count_box`, `count_product`, `total_size_all_products`, `total_size_all_box`, `algoritme`) VALUES (?, NULL, ?, ?, ?, ?, ?);");
                 time = (int) t;
                 stmt.setInt(1, time);
                 stmt.setInt(2, countb);
                 stmt.setInt(3, countp);
                 stmt.setInt(4, tsap);
                 stmt.setInt(5, tsab);
+                stmt.setString(6, a);
 //                stmt.setInt(3, boxId);
             
             stmt.executeUpdate();
