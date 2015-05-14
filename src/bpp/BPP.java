@@ -27,26 +27,27 @@ public class BPP {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 
-                String algoritme = "Best Fit";
+                String algoritme = "Complete Enumeration";
                 MySQLbpp bpp = new MySQLbpp();                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
-                SimpleGreedy sg = new SimpleGreedy();
-                CompleteEnumeration cE = new CompleteEnumeration();
-                BestFit BF = new BestFit();
+                
+                
+                
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
                 DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
                 Long time;
+                int idorder = 10;
+                bpp.DeleteProductsAndBoxes();
+                bpp.SetNewProductsDB(5,idorder);
                 
-                
-                                
                 GUI.setBoxDepository(b);
                 GUI.setDepository(d);
+                GUI.setVisible(true);
+                GUI.SetTable();
                 
                 bpp.Box(b);
                 bpp.Products(d);
-                
-                GUI.setVisible(true);
                 
                 Date date_start = new Date();
                 System.out.println(dateFormat.format(date_start)); // 15:59:48
@@ -54,14 +55,16 @@ public class BPP {
                 if (algoritme == "Simple Greedy"){
 
                 System.out.println("SimpleGreedy");
+                SimpleGreedy sg = new SimpleGreedy();
                 sg.setBoxDepository(b);
                 sg.setDepository(d);
-                sg.setBoxes();
-                sg.runSg();
+//                sg.setBoxes();
+                sg.runSg(idorder);
                 }
                 else if(algoritme == "Best Fit"){
                 System.out.println("Best Fit");
                 
+                BestFit BF = new BestFit();
                 BF.setBoxDepository(b);
                 BF.setDepository(d);
                 BF.BF(10);
@@ -69,6 +72,7 @@ public class BPP {
                 else if(algoritme == "Complete Enumeration"){
                 
                 System.out.println("Complete Enumeration");
+                CompleteEnumeration cE = new CompleteEnumeration(idorder);
                 cE.setBoxDepository(b);
                 cE.setDepository(d);
                 cE.setBoxes();
@@ -80,6 +84,7 @@ public class BPP {
                 time = date_stop.getTime() - date_start.getTime();
                 time = time/1000;
                 
+                
                 GUI.SetTable();
                 
 
@@ -89,7 +94,7 @@ public class BPP {
 //                System.out.println("tijd :"+ time);
 //                System.out.println("aantal producten "+ d.GetSizeArraylist()+ " totale groote " + d.GetSizeOrder());
 //                System.out.println("aantal boxen " + b.GetSizeArraylist() + " totale volume boxen " + b.GettotalSize());
-                
+//                GUI.setVisible(true);
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
 

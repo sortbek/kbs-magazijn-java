@@ -8,9 +8,7 @@ public class SimpleGreedy extends MySQLbpp {
     private BoxDepository boxd;
     private ArrayList<Product> products;
     private ArrayList<Box> arrayBox;
-    private Box boxA;
-    private Box boxB;
-    private Box boxC;
+    private MySQLbpp bpp = new MySQLbpp();
 
     public SimpleGreedy() {
     }
@@ -38,73 +36,96 @@ public class SimpleGreedy extends MySQLbpp {
         this.products = p;
     }
 
-    public void setBoxes() {
-        boxA = arrayBox.get(0);
-        boxB = arrayBox.get(1);
-        boxC = arrayBox.get(2);
-    }
+//    public void setBoxes() {
+//        boxA = arrayBox.get(0);
+//        boxB = arrayBox.get(1);
+//        boxC = arrayBox.get(2);
+//    }
 
-    public void runSg() {
+    public void runSg(int idorder) {
         int i = 0;
+        int boxnr;
+        Box b;
+        boxnr = bpp.NewBox(20, idorder);
+                
+
+        Box box = new Box(boxnr, 20, 0, idorder,"busy");
+        //int idBox, int size, int covered, int idorder, String status
+        arrayBox.add(box);
+                
+
+        
         while (i < products.size()) {
+            int j = 0;
             Product product = products.get(i);
-            System.out.println(product.Getname());
-
-            int spaceLeftA = boxA.getSizeB() - boxA.getCovered();
-            int spaceLeftB = boxB.getSizeB() - boxB.getCovered();
-            int spaceLeftC = boxC.getSizeB() - boxC.getCovered();
-
-            //Doos A
-            if (product.Getsize() <= spaceLeftA) {
-                System.out.println("Using box A");
-                
-                updateBox(boxA.getCovered() + product.Getsize(), false, boxA.getIdBox());
-                SetBox(boxA.getIdBox(), products.get(i).GetidProduct());
-                
-                products.get(i).SetBox(boxA.getIdBox());
-                boxA.setCovered(boxA.getCovered() + product.Getsize());
-                
-                System.out.println("Product " + product.Getname() + " added to box A.");
-            } //Doos B
-            else if (product.Getsize() <= spaceLeftB) {
-                System.out.println("Box A full, using box B");
-                
-                updateBox(boxB.getCovered() + product.Getsize(), false, boxB.getIdBox());
-                boxB.setCovered(boxB.getCovered() + product.Getsize());
-                
-                SetBox(boxB.getIdBox(), products.get(i).GetidProduct());
-                products.get(i).SetBox(boxB.getIdBox());
-                
-                System.out.println("Product " + product.Getname() + " added to box B.");
-            } //Doos C
-            else if (product.Getsize() <= spaceLeftC) {
-                System.out.println("Box A&B full, using box C");
-                
-                updateBox(boxC.getCovered() + product.Getsize(), false, boxC.getIdBox());
-                boxC.setCovered(boxC.getCovered() + product.Getsize());
-                
-                SetBox(boxC.getIdBox(), products.get(i).GetidProduct());
-                products.get(i).SetBox(boxC.getIdBox());
-                
-                System.out.println("Product " + product.Getname() + " added to box C.");
-            } else {
-                System.out.println("Geen ruimte meer over.");
-            }
-            System.out.print("\n");
+            if (product.GetBox()==0){
             
-            if (boxA.getCovered() > 0) {
-                closeBox(boxA.getIdBox());
-                boxA.setStatus("ready");
+            String ready = "no";
+            
+            while (ready == "no"){
+            b = arrayBox.get(j);
+            int coverd = b.getCovered();
+            
+            if (((20-coverd) >= (product.Getsize()))&&(b.getStatus()=="busy")){
+                System.out.println("Het product past in doos "+ b.getIdBox());
+                
+                    updateBox(b.getCovered() + product.Getsize(), false, b.getIdBox());
+                    SetBox(b.getIdBox(), products.get(i).GetidProduct());
+                
+                    products.get(i).SetBox(b.getIdBox());
+                    b.setCovered(b.getCovered() + product.Getsize());
+                
+                    System.out.println("Product " + product.Getname() + " added to box "+b.getIdBox()+".");
+                
+            ready = "Yes";
             }
-            if (boxB.getCovered() > 0) {
-                closeBox(boxB.getIdBox());
-                boxB.setStatus("ready");
+            else {
+                if(coverd == 20){
+                b = arrayBox.get(j);
+                boxnr = b.getIdBox();
+                bpp.closeBox(boxnr);
+                b.setStatus("ready");
+                }
+             System.out.println("Het product past NIET in doos "+ b.getIdBox());   
+             System.out.println("nummer is nu "+ j+ " bestaat maar :"+ arrayBox.size() );
+                    if (j+1 < arrayBox.size()){
+                    j = j+1;
+                    System.out.println("Er zijn nog meer boxen volgende box");
+                    }
+                    else {
+                    System.out.println("Er is een nieuwe box aangemaakt");
+                    boxnr = bpp.NewBox(20, idorder);
+                    b = new Box(boxnr, 20, 0, idorder, "busy");
+                    arrayBox.add(b);
+                    System.out.println("Het product past in doos "+ b.getIdBox());
+                    
+                    updateBox(b.getCovered() + product.Getsize(), false, b.getIdBox());
+                    SetBox(b.getIdBox(), products.get(i).GetidProduct());
+                
+                    products.get(i).SetBox(b.getIdBox());
+                    b.setCovered(b.getCovered() + product.Getsize());
+                
+                    System.out.println("Product " + product.Getname() + " added to box "+b.getIdBox()+".");
+                    ready = "Yes";
+                    
+                    
+                    }
             }
-            if (boxC.getCovered() > 0) {
-                closeBox(boxC.getIdBox());
-                boxC.setStatus("ready");
+            }
+            System.out.println("de opdracht is nog "+ depository.GetSizeOrder() +" groot ");
             }
             i++;
         }
-    }
+            
+           int h = 0;
+                    while (arrayBox.size() > h) {
+                        b = arrayBox.get(h);
+                        boxnr = b.getIdBox();
+                        bpp.closeBox(boxnr);
+                        h++;
+		}
+                    
+            
+
+}
 }

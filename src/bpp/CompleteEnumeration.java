@@ -18,12 +18,21 @@ public class CompleteEnumeration extends MySQLbpp {
     private String bestOptionOrder;
     private int bestOptionSpace;
     private int spaceUsed;
+    private MySQLbpp bpp = new MySQLbpp();
+    private int idorder;
 
-    public CompleteEnumeration() {
+    public CompleteEnumeration(int idorder) {
+        this.idorder = idorder;
     }
 
     public void setBoxDepository(BoxDepository b) {
-        boxd = b;
+        int boxnr;
+        boxnr = bpp.NewBox(20, idorder);
+        Box box = new Box(boxnr, 20, 0, idorder,"busy");
+        arrayBox.add(box);
+        arrayBox.add(box);
+        arrayBox.add(box);
+
         arrayBox = boxd.getList();
         int a = arrayBox.size();
         if (a > 2) {

@@ -35,6 +35,30 @@ public class MySQLbpp {
         this.uPass = "Kbs123";
     }
 
+    public void DeleteProductsAndBoxes(){
+        try {
+            Class.forName(myDriver);
+            Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
+
+            PreparedStatement stmt_product = con.prepareStatement("Truncate `Robot_BPP`");
+
+            stmt_product.execute(); 
+            
+            PreparedStatement stmt_box = con.prepareStatement("Truncate `Box`");
+
+            stmt_box.execute(); 
+            
+            
+//           System.out.println(array);
+        } catch (SQLException e) {
+            System.out.println("SQLException");
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println(e.getMessage());
+        }
+     }
+    
     public void Products(Depository d) {
         depository = d;
 
