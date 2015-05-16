@@ -6,8 +6,11 @@
 package bpp;
 
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JComboBox;
+import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,18 +28,23 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private int sizet;
     private int boxnr;
     private int bnr;
+    private int idorder = 10;
     private String algorithm;
     private SimpleGreedy sg = new SimpleGreedy();
-    private CompleteEnumeration cE = new CompleteEnumeration();
+    private CompleteEnumeration cE = new CompleteEnumeration(idorder);
     private BestFit BF = new BestFit();
     private boolean ceB, sgB, bfB;
 //    private int sizet;
-
+    private Object dateFormat;
+    private String sql;
+    MySQLbpp bpp = new MySQLbpp(); 
+    
     /**
      * Creates new form BPPSimulatorGUI
      */
     public BPPSimulatorGUI() {
         initComponents();
+        
     }
 
     public void setBoxDepository(BoxDepository b) {
@@ -429,48 +437,177 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_BoxaMouseClicked
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
+//        if (evt.getSource() == startButton) {
+//            String algoritme = "";
+//            System.out.println(ceB);
+//                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+//                Date date_start = new Date();
+//                Long time;
+////                System.out.println(dateFormat.format(date_start)); // 15:59:48
+//            if (ceB) {
+//                algoritme = "Complete Enumeration";
+//                System.out.println(algoritme);
+//                cE.setBoxDepository(boxd);
+//                cE.setDepository(depository);
+//                cE.setBoxes(10);
+//                cE.setBoxDepository(boxd);
+//                cE.runCe(10);
+//            } else if (sgB) {
+//                algoritme = "Simple Greedy";
+//                System.out.println(algoritme);
+//                sg.setBoxDepository(boxd);
+//                sg.setDepository(depository);
+////                sg.setBoxes(10);
+//                sg.runSg(10);
+//            } else if (bfB) {
+//                algoritme = "Best Fit";
+//                System.out.println(algoritme);
+//                BF.setBoxDepository(boxd);
+//                BF.setDepository(depository);
+//                BF.BF(10);
+//            }
+//             Date date_stop = new Date();
+//                System.out.println(dateFormat.format(date_stop)); // 15:59:48
+//                time = date_stop.getTime() - date_start.getTime();  
+//                
+//                SetTable();
+//
+//                // resultaat opslaan 
+//                
+//                bpp.updateResult(time, boxd.GetSizeArraylist(), depository.GetSizeArraylist(), depository.GetTotalSizeOrder(), boxd.GettotalSize(), algoritme);
+////                System.out.println("tijd :"+ time);
+////                System.out.println("aantal producten "+ d.GetSizeArraylist()+ " totale groote " + d.GetSizeOrder());
+////                System.out.println("aantal boxen " + b.GetSizeArraylist() + " totale volume boxen " + b.GettotalSize());
+////            SetTable();
+//        }
         if (evt.getSource() == startButton) {
+            
+//        sql = (bpp.newProducts(10, idorder));
+//        System.out.println(sql);
+         String algoritme = "";
             System.out.println(ceB);
-            if (ceB) {
-                System.out.println("Complete Enumeration");
-                cE.setBoxDepository(boxd);
-                cE.setDepository(depository);
+                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+                Date date_start ;
+                Date date_stop;
+                Long time;
+//                System.out.println(dateFormat.format(date_start)); // 15:59:48
+                
+                algoritme = "Complete Enumeration";
+                bpp.DeleteProductsAndBoxes();
+                bpp.NewProduct(5, idorder);
+                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(1, idorder);
+                bpp.NewProduct(12, idorder);
+                bpp.NewProduct(4, idorder);
+                bpp.NewProduct(2, idorder);
+                bpp.NewProduct(3, idorder);
+//                bpp.SetNewProductsDB(sql);
+                Depository d = new Depository();
+                BoxDepository b = new BoxDepository();
+                setBoxDepository(b);
+                setDepository(d);  
+                bpp.Box(b);
+                bpp.Products(d);
+                
+                System.out.println(algoritme);
+                cE.setBoxDepository(b);
+                cE.setDepository(d);
                 cE.setBoxes(10);
+                cE.setBoxDepository(b);
+                date_start = new Date();
                 cE.runCe(10);
-            } else if (sgB) {
-                System.out.println("Simple Greedy");
-                sg.setBoxDepository(boxd);
-                sg.setDepository(depository);
-                sg.setBoxes();
-                sg.runSg();
-            } else if (bfB) {
-                System.out.println("Best Fit");
-                BF.setBoxDepository(boxd);
-                BF.setDepository(depository);
+                date_stop = new Date();
+                time = date_stop.getTime() - date_start.getTime();  
+                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
+                SetTable();
+                
+                algoritme = "Simple Greedy";
+                bpp.DeleteProductsAndBoxes();
+                bpp.NewProduct(5, idorder);
+                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(1, idorder);
+                bpp.NewProduct(12, idorder);
+                bpp.NewProduct(4, idorder);
+                bpp.NewProduct(2, idorder);
+                bpp.NewProduct(3, idorder);
+//                 bpp.SetNewProductsDB(sql);
+                d = new Depository();
+                b = new BoxDepository();
+                setBoxDepository(b);
+                setDepository(d);  
+                bpp.Box(b);
+                bpp.Products(d);
+                
+                System.out.println(algoritme);
+                sg.setBoxDepository(b);
+                sg.setDepository(d);
+//                sg.setBoxes(10);
+                date_start = new Date();
+                sg.runSg(10);
+                date_stop = new Date();
+                time = date_stop.getTime() - date_start.getTime();  
+                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
+                SetTable();
+                
+                
+                algoritme = "Best Fit";
+                bpp.DeleteProductsAndBoxes();
+//                 bpp.SetNewProductsDB(sql);
+                bpp.NewProduct(5, idorder);
+                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(1, idorder);
+                bpp.NewProduct(12, idorder);
+                bpp.NewProduct(4, idorder);
+                bpp.NewProduct(2, idorder);
+                bpp.NewProduct(3, idorder);
+                d = new Depository();
+                b = new BoxDepository();
+                setBoxDepository(b);
+                setDepository(d);  
+                bpp.Box(b);
+                bpp.Products(d);
+                
+                System.out.println(algoritme);
+                BF.setBoxDepository(b);
+                BF.setDepository(d);
+                date_start = new Date();
                 BF.BF(10);
-            }
+                date_stop = new Date();
+                time = date_stop.getTime() - date_start.getTime();  
+//                System.out.println(dateFormat.format(date_stop)); // 15:59:48
+                time = date_stop.getTime() - date_start.getTime();  
+                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
+                
+                SetTable();
+
+                // resultaat opslaan 
+                
+//                bpp.updateResult(time, boxd.GetSizeArraylist(), depository.GetSizeArraylist(), depository.GetTotalSizeOrder(), boxd.GettotalSize(), algoritme);
+//                System.out.println("tijd :"+ time);
+//                System.out.println("aantal producten "+ d.GetSizeArraylist()+ " totale groote " + d.GetSizeOrder());
+//                System.out.println("aantal boxen " + b.GetSizeArraylist() + " totale volume boxen " + b.GettotalSize());
 //            SetTable();
         }
     }//GEN-LAST:event_startButtonActionPerformed
 
     // de tabel tonen met de producten die op de band liggen.
-//    public void SetTable() {
-//        sizet = producten.size();
-//
-//        for (int i = 0; sizet > i; i++) {
-//
-////            if (this.producten.get(i).){
-//            String data1 = this.producten.get(i).Getname();
-//            int data2 = this.producten.get(i).GetidProduct();
-//            int data3 = this.producten.get(i).Getsize();
-//            boolean data4 = this.producten.get(i).Getcheck();
-//            int data5 = this.producten.get(i).GetBox();
-//
-//            DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-//            model.addRow(new Object[]{data1, data2, data3, data4, data5});
-////            }
-//        }
-//    }
+    public void SetTable() {
+        sizet = producten.size();
+
+        for (int i = 0; sizet > i; i++) {
+
+//            if (this.producten.get(i).){
+            String data1 = this.producten.get(i).Getname();
+            int data2 = this.producten.get(i).GetidProduct();
+            int data3 = this.producten.get(i).Getsize();
+            boolean data4 = this.producten.get(i).Getcheck();
+            int data5 = this.producten.get(i).GetBox();
+
+            DefaultTableModel model = new DefaultTableModel();
+            model.addRow(new Object[]{data1, data2, data3, data4, data5});
+//            }
+        }
+    }
 
     // de tabel tonen met de producten die in een box zitten. 
     public void SetTableBox(int box) {

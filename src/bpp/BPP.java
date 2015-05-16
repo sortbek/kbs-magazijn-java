@@ -31,25 +31,31 @@ public class BPP {
                 MySQLbpp bpp = new MySQLbpp();                
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
-                SimpleGreedy sg = new SimpleGreedy();
-                CompleteEnumeration cE = new CompleteEnumeration();
-                BestFit BF = new BestFit();
+                int idorder = 10;
+//                SimpleGreedy sg = new SimpleGreedy();
+//                int idorder = 10;
+//                CompleteEnumeration cE = new CompleteEnumeration(idorder);
+//                BestFit BF = new BestFit();
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
-                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-                Long time;
+//                DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+//                Long time;
                 
-                
-                                
+//                String sql = (bpp.newProducts(3, idorder));
+//                bpp.SetNewProductsDB(sql);
+//                
+//                
+//                                
 //                GUI.setBoxDepository(b);
 //                GUI.setDepository(d);
-//                
+////                
 //                bpp.Box(b);
 //                bpp.Products(d);
-                
+//                GUI.SetTable();
                 GUI.setVisible(true);
                 
-                Date date_start = new Date();
-                System.out.println(dateFormat.format(date_start)); // 15:59:48
+                
+//                Date date_start = new Date();
+//                System.out.println(dateFormat.format(date_start)); // 15:59:48
                 
 //                if (algoritme == "Simple Greedy"){
 //
@@ -75,14 +81,14 @@ public class BPP {
 //                cE.runCe(10);
 //                }
                 
-                Date date_stop = new Date();
-                System.out.println(dateFormat.format(date_stop)); // 15:59:48
-                time = date_stop.getTime() - date_start.getTime();
-                time = time/1000;                
-
-                // resultaat opslaan 
-                
-                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
+//                Date date_stop = new Date();
+//                System.out.println(dateFormat.format(date_stop)); // 15:59:48
+//                time = date_stop.getTime() - date_start.getTime();
+//                time = time/1000;                
+//
+//                // resultaat opslaan 
+//                
+//                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
 //                System.out.println("tijd :"+ time);
 //                System.out.println("aantal producten "+ d.GetSizeArraylist()+ " totale groote " + d.GetSizeOrder());
 //                System.out.println("aantal boxen " + b.GetSizeArraylist() + " totale volume boxen " + b.GettotalSize());

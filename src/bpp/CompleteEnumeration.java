@@ -27,11 +27,15 @@ public class CompleteEnumeration extends MySQLbpp {
 
     public void setBoxDepository(BoxDepository b) {
         int boxnr;
+        boxd = b;
         boxnr = bpp.NewBox(20, idorder);
-        Box box = new Box(boxnr, 20, 0, idorder,"busy");
-        arrayBox.add(box);
-        arrayBox.add(box);
-        arrayBox.add(box);
+//        Box boxa = new Box(boxnr, 20, 0, idorder,"busy");
+//        Box boxb = new Box(boxnr, 20, 0, idorder,"busy");
+//        Box boxc = new Box(boxnr, 20, 0, idorder,"busy");
+//        boxd.addBox(boxa);
+//        boxd.addBox(boxb);
+//        boxd.addBox(boxc);
+        
 
         arrayBox = boxd.getList();
         int a = arrayBox.size();
@@ -61,12 +65,14 @@ public class CompleteEnumeration extends MySQLbpp {
         boxA = new Box(boxAnr, 20, 0, idorder, "busy");
         boxB = new Box(boxBnr, 20, 0, idorder, "busy");
         boxC = new Box(boxCnr, 20, 0, idorder, "busy");
+        boxd.addBox(boxA);
+        boxd.addBox(boxB);
+        boxd.addBox(boxC);
 
         int boxASize = boxA.getSizeB();
         int boxBSize = boxB.getSizeB();
         int boxCSize = boxC.getSizeB();
         bestOptionSpace = boxASize + boxBSize + boxCSize;
-
     }
 
     public void calculateBestOption(String str) {
