@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Marjolein
  */
-public class BestFit {
+public class BestFit_test {
     
     private Depository depository;
     private BoxDepository boxd;
@@ -45,12 +45,22 @@ public class BestFit {
         int productnr = 0;
         int sizeorder = depository.GetSizeOrder();
         int sizebox = 0;
+        int sizeb = 20;
+        String status;
+        
+        boxnr = bpp.NewBox(sizeb, idorder);
+        
+        // nieuwe box maken in arraylist
+        Box box = new Box(boxnr, sizeb, 0, idorder, "busy");
+        arrayBox.add(box);
+        sizebox = sizeb;   
+        status = box.getStatus();
         
 
         while(sizeorder>0){
-            int sizeb = 20;
+            
             int coverd;
-            String status;
+            
             int nrProduct;
             
 //            if (sizeorder >0){
@@ -59,7 +69,7 @@ public class BestFit {
 //            else {
 //            sizeb = 0;
 //            }
-//            
+            
 //            if (sizeorder > 15){
 //            sizeb = 20;
 //            }
@@ -71,13 +81,7 @@ public class BestFit {
 //            }  
 //            
         // nieuwe box maken in database
-        boxnr = bpp.NewBox(sizeb, idorder);
         
-        // nieuwe box maken in arraylist
-        Box box = new Box(boxnr, sizeb, 0, idorder, "busy");
-        arrayBox.add(box);
-        sizebox = sizeb;   
-        status = box.getStatus();
             
         // grootste product opvragen en productnr erbij zoeken  
         sizeproduct = depository.GetBigProduct(); 
@@ -150,8 +154,3 @@ public class BestFit {
         }}
                
       
-         
-    
-
-    
-

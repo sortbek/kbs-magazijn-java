@@ -494,13 +494,14 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 
                 algoritme = "Complete Enumeration";
                 bpp.DeleteProductsAndBoxes();
-                bpp.NewProduct(5, idorder);
-                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(16, idorder);
+                bpp.NewProduct(3, idorder);
                 bpp.NewProduct(1, idorder);
-                bpp.NewProduct(12, idorder);
                 bpp.NewProduct(4, idorder);
                 bpp.NewProduct(2, idorder);
-                bpp.NewProduct(3, idorder);
+                bpp.NewProduct(9, idorder);
+                bpp.NewProduct(5, idorder);
+
 //                bpp.SetNewProductsDB(sql);
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
@@ -523,13 +524,15 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 
                 algoritme = "Simple Greedy";
                 bpp.DeleteProductsAndBoxes();
-                bpp.NewProduct(5, idorder);
-                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(16, idorder);
+                bpp.NewProduct(3, idorder);
                 bpp.NewProduct(1, idorder);
-                bpp.NewProduct(12, idorder);
                 bpp.NewProduct(4, idorder);
                 bpp.NewProduct(2, idorder);
-                bpp.NewProduct(3, idorder);
+                bpp.NewProduct(9, idorder);
+                bpp.NewProduct(5, idorder);
+
+
 //                 bpp.SetNewProductsDB(sql);
                 d = new Depository();
                 b = new BoxDepository();
@@ -553,13 +556,14 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 algoritme = "Best Fit";
                 bpp.DeleteProductsAndBoxes();
 //                 bpp.SetNewProductsDB(sql);
-                bpp.NewProduct(5, idorder);
-                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(16, idorder);
+                bpp.NewProduct(3, idorder);
                 bpp.NewProduct(1, idorder);
-                bpp.NewProduct(12, idorder);
                 bpp.NewProduct(4, idorder);
                 bpp.NewProduct(2, idorder);
-                bpp.NewProduct(3, idorder);
+                bpp.NewProduct(9, idorder);
+                bpp.NewProduct(5, idorder);
+
                 d = new Depository();
                 b = new BoxDepository();
                 setBoxDepository(b);

@@ -28,7 +28,7 @@ public class CompleteEnumeration extends MySQLbpp {
     public void setBoxDepository(BoxDepository b) {
         int boxnr;
         boxd = b;
-        boxnr = bpp.NewBox(20, idorder);
+//        boxnr = bpp.NewBox(20, idorder);
 //        Box boxa = new Box(boxnr, 20, 0, idorder,"busy");
 //        Box boxb = new Box(boxnr, 20, 0, idorder,"busy");
 //        Box boxc = new Box(boxnr, 20, 0, idorder,"busy");
