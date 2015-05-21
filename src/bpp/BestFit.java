@@ -49,7 +49,7 @@ public class BestFit {
 
         while(sizeorder>0){
             int sizeb = 20;
-            int coverd;
+            int covered;
             String status;
             int nrProduct;
             
@@ -93,9 +93,9 @@ public class BestFit {
         // boxnr bij product aanpassen in database
         bpp.SetBox(boxnr, productnr);
                 
-        // boxcoverd wordt aangepast in de arraylist
-        coverd = box.getCovered();
-        box.setCovered(coverd + sizeproduct);
+        // boxcovered wordt aangepast in de arraylist
+        covered = box.getCovered();
+        box.setCovered(covered + sizeproduct);
         
   
 
@@ -126,9 +126,9 @@ public class BestFit {
         // boxnr bij product aanpassen in database
         bpp.SetBox(boxnr, productnr);
                 
-        // boxcoverd wordt aangepast in de arraylist
-        coverd = box.getCovered();
-        box.setCovered(coverd + sizeproduct);
+        // boxcovered wordt aangepast in de arraylist
+        covered = box.getCovered();
+        box.setCovered(covered + sizeproduct);
         
   
 
@@ -139,7 +139,7 @@ public class BestFit {
         }
         sProduct = depository.GetSmallProduct(sizebox);
         } 
-        int c = (coverd + sizeproduct);
+        int c = (covered + sizeproduct);
        // doos is zo vol mogelijk doos word gesloten database
        bpp.updateBox(c, true, boxnr);
        
