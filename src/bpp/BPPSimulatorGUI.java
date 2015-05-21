@@ -31,6 +31,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private int idorder = 10;
     private String algorithm;
     private SimpleGreedy sg = new SimpleGreedy();
+    private NewSimpleGreedy nsg = new NewSimpleGreedy();
     private CompleteEnumeration cE = new CompleteEnumeration(idorder);
     private BestFit BF = new BestFit();
     private boolean ceB, sgB, bfB;
@@ -492,46 +493,51 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 Long time;
 //                System.out.println(dateFormat.format(date_start)); // 15:59:48
                 
-                algoritme = "Complete Enumeration";
-                bpp.DeleteProductsAndBoxes();
-                bpp.NewProduct(16, idorder);
-                bpp.NewProduct(3, idorder);
-                bpp.NewProduct(1, idorder);
-                bpp.NewProduct(4, idorder);
-                bpp.NewProduct(2, idorder);
-                bpp.NewProduct(9, idorder);
-                bpp.NewProduct(5, idorder);
-
-//                bpp.SetNewProductsDB(sql);
+//                algoritme = "Complete Enumeration";
+//                bpp.DeleteProductsAndBoxes();
+//                bpp.NewProduct(4, idorder);                 
+//                bpp.NewProduct(3, idorder);
+//                bpp.NewProduct(1, idorder);
+//                bpp.NewProduct(1, idorder);
+//                bpp.NewProduct(2, idorder);
+//                bpp.NewProduct(3, idorder);
+//
+////                bpp.SetNewProductsDB(sql);
                 Depository d = new Depository();
                 BoxDepository b = new BoxDepository();
-                setBoxDepository(b);
-                setDepository(d);  
-                bpp.Box(b);
-                bpp.Products(d);
-                
-                System.out.println(algoritme);
-                cE.setBoxDepository(b);
-                cE.setDepository(d);
-                cE.setBoxes(10);
-                cE.setBoxDepository(b);
-                date_start = new Date();
-                cE.runCe(10);
-                date_stop = new Date();
-                time = date_stop.getTime() - date_start.getTime();  
-                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
-                SetTable();
+//                setBoxDepository(b);
+//                setDepository(d);  
+//                bpp.Box(b);
+//                bpp.Products(d);
+//                
+//                System.out.println(algoritme);
+//                cE.setBoxDepository(b);
+//                cE.setDepository(d);
+//                cE.setBoxes(10);
+//                cE.setBoxDepository(b);
+//                date_start = new Date();
+//                cE.runCe(10);
+//                date_stop = new Date();
+//                time = date_stop.getTime() - date_start.getTime();  
+//                bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
+//                SetTable();
                 
                 algoritme = "Simple Greedy";
                 bpp.DeleteProductsAndBoxes();
-                bpp.NewProduct(16, idorder);
+                bpp.NewProduct(4, idorder);                 
                 bpp.NewProduct(3, idorder);
                 bpp.NewProduct(1, idorder);
-                bpp.NewProduct(4, idorder);
+                bpp.NewProduct(1, idorder);
                 bpp.NewProduct(2, idorder);
-                bpp.NewProduct(9, idorder);
-                bpp.NewProduct(5, idorder);
-
+                bpp.NewProduct(3, idorder);
+                bpp.NewProduct(12, idorder);
+                bpp.NewProduct(14, idorder);
+                bpp.NewProduct(14, idorder);
+                bpp.NewProduct(14, idorder);               
+                bpp.NewProduct(13, idorder);
+                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(14, idorder);    
+                
 
 //                 bpp.SetNewProductsDB(sql);
                 d = new Depository();
@@ -551,18 +557,26 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 time = date_stop.getTime() - date_start.getTime();  
                 bpp.updateResult(time, b.GetSizeArraylist(), d.GetSizeArraylist(), d.GetTotalSizeOrder(), b.GettotalSize(), algoritme);
                 SetTable();
-                
+                     
                 
                 algoritme = "Best Fit";
                 bpp.DeleteProductsAndBoxes();
-//                 bpp.SetNewProductsDB(sql);
-                bpp.NewProduct(16, idorder);
+                bpp.NewProduct(4, idorder);                 
                 bpp.NewProduct(3, idorder);
                 bpp.NewProduct(1, idorder);
-                bpp.NewProduct(4, idorder);
+                bpp.NewProduct(1, idorder);
                 bpp.NewProduct(2, idorder);
-                bpp.NewProduct(9, idorder);
-                bpp.NewProduct(5, idorder);
+                bpp.NewProduct(3, idorder);
+                bpp.NewProduct(12, idorder);
+                bpp.NewProduct(14, idorder);
+                bpp.NewProduct(14, idorder);
+                bpp.NewProduct(14, idorder);               
+                bpp.NewProduct(13, idorder);
+                bpp.NewProduct(19, idorder);
+                bpp.NewProduct(14, idorder);                 
+
+
+
 
                 d = new Depository();
                 b = new BoxDepository();

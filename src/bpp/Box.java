@@ -65,6 +65,11 @@ public class Box extends BoxDepository{
         return status;
     }
     
+    public int getSpaceLeft() {
+        return size - covered;
+    }
+    
+    
     public String toString(){
     return ("Box: "+idBox + "\nSize: "+ size + "\nArea covered: " + covered + "\nOrdernr: " +idorder + "\nStatus:" + status);
     }  
