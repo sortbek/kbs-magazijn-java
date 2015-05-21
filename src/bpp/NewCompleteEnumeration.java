@@ -1,4 +1,4 @@
-    package bpp;
+package bpp;
 
 import static java.nio.file.Files.list;
 import static java.rmi.Naming.list;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import static java.util.Collections.*;
 
-public class CompleteEnumeration extends MySQLbpp {
+public class NewCompleteEnumeration extends MySQLbpp {
 
     private Depository depository;
     private BoxDepository boxd;
@@ -21,20 +21,20 @@ public class CompleteEnumeration extends MySQLbpp {
     private MySQLbpp bpp = new MySQLbpp();
     private int idorder;
 
-    public CompleteEnumeration(int idorder) {
+    public NewCompleteEnumeration(int idorder) {
         this.idorder = idorder;
     }
 
     public void setBoxDepository(BoxDepository b) {
         int boxnr;
         boxd = b;
-//        boxnr = bpp.NewBox(20, idorder);
-//        Box boxa = new Box(boxnr, 20, 0, idorder,"busy");
-//        Box boxb = new Box(boxnr, 20, 0, idorder,"busy");
-//        Box boxc = new Box(boxnr, 20, 0, idorder,"busy");
-//        boxd.addBox(boxa);
-//        boxd.addBox(boxb);
-//        boxd.addBox(boxc);
+        boxnr = bpp.NewBox(20, idorder);
+        Box boxa = new Box(boxnr, 20, 0, idorder,"busy");
+        Box boxb = new Box(boxnr, 20, 0, idorder,"busy");
+        Box boxc = new Box(boxnr, 20, 0, idorder,"busy");
+        boxd.addBox(boxa);
+        boxd.addBox(boxb);
+        boxd.addBox(boxc);
         
 
         arrayBox = boxd.getList();
@@ -82,27 +82,39 @@ public class CompleteEnumeration extends MySQLbpp {
     public void calculateBestOption(String prefix, String str) {
         boolean useA, useB, useC;
         int n = str.length();
+        int j = 0;
         useA = true;
         useB = false;
         useC = false;
+        
+        boxA = arrayBox.get(j);
+        boxB = arrayBox.get(j+1);
+//        boxD = arrayBox.get(j+2);
+        
 
-        int spaceLeftA = boxA.getSizeB() - boxA.getCovered();
-        int spaceLeftB = boxB.getSizeB() - boxB.getCovered();
-        int spaceLeftC = boxC.getSizeB() - boxC.getCovered();
-        int totalSpace = boxA.getSizeB() + boxB.getSizeB() + boxC.getSizeB();
+        int spaceLeft = boxA.getSpaceLeft();
+        int totalSpace = arrayBox.size();
+//        int totalSpace = boxA.getSizeB() + boxB.getSizeB() + boxC.getSizeB();
 
         boolean ft = true;
         boolean ft2 = true;
 
         if (n == 0) {
+            int boxnr = 0;
+            Box b;
+            
             for (int i = 0; i < prefix.length(); i++) {
+                 boxnr = bpp.NewBox(20, idorder);
+                    b = new Box(boxnr, 20, 0, idorder, "busy");
+                    arrayBox.add(b);
                 int currP = Character.getNumericValue(prefix.charAt(i)) - 1;
                 Product curr = products.get(currP);
                 System.out.println("Product " + curr.Getname());
-                if (spaceUsed + curr.Getsize() <= boxA.getSizeB()) {
-                    System.out.println("A: Ervoor: " + spaceUsed);
+                if (spaceUsed + curr.Getsize() <= b.getSizeB()) {
+                    System.out.println(boxnr +": Ervoor: " + spaceUsed);
                     spaceUsed += curr.Getsize();
-                    System.out.println("A: Erna: " + spaceUsed);
+                    System.out.println(boxnr +": Erna: " + spaceUsed);
+                    
                 } else if (spaceUsed - boxA.getSizeB() + curr.Getsize() <= boxB.getSizeB()) {
                     if (ft) {
                         spaceUsed = boxA.getSizeB();
@@ -142,11 +154,15 @@ public class CompleteEnumeration extends MySQLbpp {
 
             }
         }
+        
     }
 
     public void runCe(int idorder) {
         String perm = "";
         int productAmount = products.size();
+        if (productAmount > 3) {
+            productAmount = 3;
+        }
 
         System.out.println("Er zijn " + productAmount + " producten");
         for (int i = 1; i <= productAmount; i++) {

@@ -43,15 +43,18 @@ public class Depository extends BPPSimulatorGUI{
         // groot product
         int j = 0;
         int sizeb = 0;
+        int nr = 0;
         	while (producten.size() > j) {
                     p = producten.get(j);
                         if (p.GetBox()==0){
                             if (sizeb < p.Getsize()){
                                 sizeb = p.Getsize();
+                                nr = j;
                             }
                         }j++;
                 }
         System.out.println("grooste product is : "+ sizeb);
+//        return sizeb;
         return sizeb;
         
     }
@@ -88,6 +91,7 @@ public class Depository extends BPPSimulatorGUI{
         // groot product
         int j = 0;
         int sizeb = 0;
+        int nr = 0;
         	while (producten.size() > j) {
                         p = producten.get(j);
                         if (p.GetBox()== 0){
@@ -95,25 +99,28 @@ public class Depository extends BPPSimulatorGUI{
                              
                              if (sizeb < p.Getsize()){
                          sizeb = p.Getsize();
+                         nr = j;
                          }
                          }
                         }
                         j++;
 		}
-        return sizeb;
+//        return sizeb;
+                return sizeb;
     }
   
     public int GetProductWithSize(int s) {
         // groot product
         int j = 0;
+        int ProductId = 0;
         int nrProduct = 0;
         	while (producten.size() > j) {
                         p = producten.get(j);
                         if (p.GetBox()== 0){
                          if (s == p.Getsize()){
                              nrProduct = j;
-//                         ProductId = p.GetidProduct();
-//                         System.out.println ("productnr "+ ProductId);
+                         ProductId = p.GetidProduct();
+                         System.out.println ("productnr "+ ProductId);
                          }
                          }j++;
                         }
