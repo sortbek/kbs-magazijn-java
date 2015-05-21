@@ -1,4 +1,4 @@
-package bpp;
+    package bpp;
 
 import static java.nio.file.Files.list;
 import static java.rmi.Naming.list;
@@ -95,14 +95,17 @@ public class CompleteEnumeration extends MySQLbpp {
         boolean ft2 = true;
 
         if (n == 0) {
+            //Walking through al the product in the currect order
             for (int i = 0; i < prefix.length(); i++) {
                 int currP = Character.getNumericValue(prefix.charAt(i)) - 1;
                 Product curr = products.get(currP);
                 System.out.println("Product " + curr.Getname());
+                //Checking if the product fits in box A
                 if (spaceUsed + curr.Getsize() <= boxA.getSizeB()) {
                     System.out.println("A: Ervoor: " + spaceUsed);
                     spaceUsed += curr.Getsize();
                     System.out.println("A: Erna: " + spaceUsed);
+                //Checking if the product fits in box B
                 } else if (spaceUsed - boxA.getSizeB() + curr.Getsize() <= boxB.getSizeB()) {
                     if (ft) {
                         spaceUsed = boxA.getSizeB();
@@ -111,6 +114,7 @@ public class CompleteEnumeration extends MySQLbpp {
                     System.out.println("B: Ervoor: " + spaceUsed);
                     spaceUsed += curr.Getsize();
                     System.out.println("B: Erna: " + spaceUsed);
+                //Checking if the product fits in box C
                 } else if (spaceUsed - boxA.getSizeB() - boxB.getSizeB() + curr.Getsize() <= boxC.getSizeB()) {
                     if (ft2) {
                         spaceUsed = boxA.getSizeB() + boxB.getSizeB();
@@ -122,6 +126,7 @@ public class CompleteEnumeration extends MySQLbpp {
                 } else {
                     System.out.println("Geen ruimte meer");
                 }
+                //Checking if this is a better option
                 if (i == prefix.length() - 1) {
                     System.out.println("Huidige beste optie - Volgorde: " + bestOptionOrder + " Gebruikte ruimte: " + bestOptionSpace);
                     if (spaceUsed < bestOptionSpace) {
@@ -135,6 +140,7 @@ public class CompleteEnumeration extends MySQLbpp {
                 }
             }
         } else {
+            //Generating next order
             for (int i = 0; i < n; i++) {
                 calculateBestOption(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n));
                 System.out.println("\nTrying next option (resetting used space):");
@@ -148,13 +154,16 @@ public class CompleteEnumeration extends MySQLbpp {
         String perm = "";
         int productAmount = products.size();
 
+        //Creating the permutation string
         System.out.println("Er zijn " + productAmount + " producten");
         for (int i = 1; i <= productAmount; i++) {
             perm += i;
         }
-
+        
+        //Executing the permutation function
         calculateBestOption(perm);
 
+        //Executing the best possible order
         for (int n = 0; n < bestOptionOrder.length(); n++) {
             int currP = Character.getNumericValue(bestOptionOrder.charAt(n)) - 1;
             Product curr = products.get(currP);
@@ -163,7 +172,7 @@ public class CompleteEnumeration extends MySQLbpp {
             int spaceLeftB = boxB.getSizeB() - boxB.getCovered();
             int spaceLeftC = boxC.getSizeB() - boxC.getCovered();
 
-            //Doos A
+            //Adding the product to box A
             if (curr.Getsize() <= spaceLeftA) {
                 System.out.println("Using box A");
 
@@ -174,7 +183,7 @@ public class CompleteEnumeration extends MySQLbpp {
                 boxA.setCovered(boxA.getCovered() + curr.Getsize());
 
                 System.out.println("Product " + curr.Getname() + " added to box A.");
-            } //Doos B
+            } //Adding the product to box B
             else if (curr.Getsize() <= spaceLeftB) {
                 System.out.println("Box A full, using box B");
 
@@ -185,7 +194,7 @@ public class CompleteEnumeration extends MySQLbpp {
                 products.get(currP).SetBox(boxB.getIdBox());
 
                 System.out.println("Product " + curr.Getname() + " added to box B.");
-            } //Doos C
+            } //Adding the product to box C
             else if (curr.Getsize() <= spaceLeftC) {
                 System.out.println("Box A&B full, using box C");
 
@@ -201,6 +210,7 @@ public class CompleteEnumeration extends MySQLbpp {
             }
             System.out.print("\n");
 
+            //Closing the boxes
             if (boxA.getCovered() > 0) {
                 closeBox(boxA.getIdBox());
                 boxA.setStatus("ready");
