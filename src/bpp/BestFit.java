@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Marjolein
  */
 public class BestFit {
-    
+
     private Depository depository;
     private BoxDepository boxd;
     private ArrayList<Product> producten;
@@ -34,21 +34,19 @@ public class BestFit {
         return this.depository;
     }
 
-    public void BF(int idorder){
-    // controleren op order
+    public void BF(int idorder) {
         int boxnr = 0;
         int sizeproduct = 0;
         int productnr = 0;
-        int sizeorder = depository.GetSizeOrder();
+        int sizeorder = depository.GetTotalSizeOrder();
         int sizebox = 0;
-        
 
-        while(sizeorder>0){
+        while (sizeorder > 0) {
             int sizeb = 20;
             int covered;
             String status;
             int nrProduct;
-            
+
 //            if (sizeorder >0){
 //            sizeb = 20;
 //            }
@@ -66,88 +64,80 @@ public class BestFit {
 //            sizeb = 5;
 //            }  
 //            
-        // nieuwe box maken in database
-        boxnr = bpp.NewBox(sizeb, idorder);
-        
-        // nieuwe box maken in arraylist
-        Box box = new Box(boxnr, sizeb, 0, idorder, "busy");
-        arrayBox.add(box);
-        sizebox = sizeb;   
-        status = box.getStatus();
-            
-        // grootste product opvragen en productnr erbij zoeken  
-        sizeproduct = depository.GetBigProduct(); 
-        
-        // arraylist bij product en productnr opvragen.
-        nrProduct = depository.GetProductWithSize(sizeproduct);
-        p = producten.get(nrProduct);
-        productnr = p.GetidProduct();
-        
-         // boxnr aanpassen in arraylist
-        p.SetBox(boxnr);
-        
-        // boxnr bij product aanpassen in database
-        bpp.SetBox(boxnr, productnr);
-                
-        // boxcovered wordt aangepast in de arraylist
-        covered = box.getCovered();
-        box.setCovered(covered + sizeproduct);
-        
-  
+            // Make new Box in Database
+            boxnr = bpp.NewBox(sizeb, idorder);
 
-        sizeorder = sizeorder - sizeproduct;
-        sizebox = sizebox - sizeproduct;
-        System.out.println("ProductId: "+productnr+" Size: "+ sizeproduct +" is toegevoed" );
-        System.out.println("Sizebox :"+sizebox +" Sizeorder : "+sizeorder);
+            // Make new Box in Depository
+            Box box = new Box(boxnr, sizeb, 0, idorder, "busy");
+            arrayBox.add(box);
+            sizebox = sizeb;
+            status = box.getStatus();
+
+            // Get size form biggest product
+            sizeproduct = depository.GetBigProduct();
+
+            // Get productnummer form biggest product
+            nrProduct = depository.GetProductWithSize(sizeproduct);
+            p = producten.get(nrProduct);
+            productnr = p.GetidProduct();
+
+            //Place product in box
+            // Set boxnr in ArrayList
+            p.SetBox(boxnr);
+
+            // Set boxnr in Database
+            bpp.SetBox(boxnr, productnr);
+
+            // set coverd in ArrayList
+            covered = box.getCovered();
+            box.setCovered(covered + sizeproduct);
+
+            sizeorder = sizeorder - sizeproduct;
+            sizebox = sizebox - sizeproduct;
+            System.out.println("ProductId: " + productnr + " Size: " + sizeproduct + " is toegevoed");
+            System.out.println("Sizebox :" + sizebox + " Sizeorder : " + sizeorder);
 
             int sProduct;
-            
-        // kijk of er nog een product is die in de overgebleven ruimte past 
+
+            // Look if there is a product who fit into the box.  
             sProduct = depository.GetSmallProduct(sizebox);
-         
-        while (sizebox >= sProduct && sizeorder > 0 && sProduct != 0){
-            if (sProduct != 0){
-            
-       // grootste product opvragen en productnr erbij zoeken  
-        sizeproduct = depository.GetSmallProduct(sizebox);
-        
-        // arraylist bij product en productnr opvragen.
-        nrProduct = depository.GetProductWithSize(sizeproduct);
-        p = producten.get(nrProduct);
-        productnr = p.GetidProduct();
-    
-         // boxnr aanpassen in arraylist
-        p.SetBox(boxnr);
-        
-        // boxnr bij product aanpassen in database
-        bpp.SetBox(boxnr, productnr);
-                
-        // boxcovered wordt aangepast in de arraylist
-        covered = box.getCovered();
-        box.setCovered(covered + sizeproduct);
-        
-  
 
-        sizeorder = sizeorder - sizeproduct;
-        sizebox = sizebox - sizeproduct;
-        System.out.println("ProductId: "+productnr+" Size: "+ sProduct +" is toegevoed" );
-        System.out.println("Sizebox :"+sizebox +" Sizeorder : "+sizeorder);
+            while (sizebox >= sProduct && sizeorder > 0 && sProduct != 0) {
+                if (sProduct != 0) {
+
+                    // Get the size of the product who fit into the box. 
+                    sizeproduct = depository.GetSmallProduct(sizebox);
+
+                    // Get productnr from the product who fit into the box.
+                    nrProduct = depository.GetProductWithSize(sizeproduct);
+                    p = producten.get(nrProduct);
+                    productnr = p.GetidProduct();
+
+                    // SetBoxnr in Arraylist
+                    p.SetBox(boxnr);
+
+                    // Set boxnr in Database
+                    bpp.SetBox(boxnr, productnr);
+
+                    // Set coverd in ArrayList
+                    covered = box.getCovered();
+                    box.setCovered(covered + sizeproduct);
+
+                    sizeorder = sizeorder - sizeproduct;
+                    sizebox = sizebox - sizeproduct;
+                    System.out.println("ProductId: " + productnr + " Size: " + sProduct + " is toegevoed");
+                    System.out.println("Sizebox :" + sizebox + " Sizeorder : " + sizeorder);
+                }
+                sProduct = depository.GetSmallProduct(sizebox);
+            }
+            int c = (covered + sizeproduct);
+            // Update coverd in Database, And close Box in database
+            bpp.updateBox(c, true, boxnr);
+
+            // Close box in ArrayList
+            box.setStatus("ready");
+            System.out.println("box is dicht nr:" + boxnr + "\n\n");
+
         }
-        sProduct = depository.GetSmallProduct(sizebox);
-        } 
-        int c = (covered + sizeproduct);
-       // doos is zo vol mogelijk doos word gesloten database
-       bpp.updateBox(c, true, boxnr);
-       
-       // doos word gesloten in arraylist
-                box.setStatus("ready");
-                System.out.println("box is dicht nr:"+ boxnr);
-        }
-        }}
-               
-      
-         
-    
-
-    
-
+    }
+}

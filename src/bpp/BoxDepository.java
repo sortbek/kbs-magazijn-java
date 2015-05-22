@@ -21,12 +21,12 @@ public class BoxDepository extends BPPSimulatorGUI{
    box = new ArrayList<>();
    }
    
-   
-   public void addBox(Box b){
-   box.add(b);
+public void addBox(Box box){
+   box.add(box);
    }
    
-   public void ShowArrayList(){
+public void ShowArrayList(){
+       // Show al the boxen in the BoxDepository
 		while (box.size() > j) {
 			
                         b = box.get(j);
@@ -34,13 +34,13 @@ public class BoxDepository extends BPPSimulatorGUI{
                         System.out.println("**********************************");
                         j++;
 		}
-
    } 
+
 public int GetSizeArraylist(){
-return box.size()+1;
+return box.size();
 } 
    
-   public int GettotalSize(){
+public int GettotalSize(){
        int size = 0;
 		while (box.size() > j) {
 			

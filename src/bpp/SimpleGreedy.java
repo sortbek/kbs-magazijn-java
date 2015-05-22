@@ -100,7 +100,7 @@ public class SimpleGreedy extends MySQLbpp {
                         }
                     }
                 }
-                System.out.println("de opdracht is nog " + depository.GetSizeOrder() + " groot ");
+                System.out.println("de opdracht is nog " + depository.GetTotalSizeOrder() + " groot ");
             }
             i++;
         }

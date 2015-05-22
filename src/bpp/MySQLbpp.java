@@ -22,8 +22,6 @@ public class MySQLbpp {
     private String uPass;
     private Depository depository;
     private BoxDepository boxDepository;
-    private ArrayList<Product> array = new ArrayList<Product>();
-    private ArrayList<Box> arraybox = new ArrayList<Box>();
     private Product p;
     private Box b;
 
@@ -40,28 +38,28 @@ public class MySQLbpp {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
 
+            // Delete al the Products out the Robot_BPP
             PreparedStatement stmt_product = con.prepareStatement("Truncate `Robot_BPP`");
 
             stmt_product.execute(); 
             
+            // Delete al the Box out of the tabel Box
             PreparedStatement stmt_box = con.prepareStatement("Truncate `Box`");
 
             stmt_box.execute(); 
-            
-            
-//           System.out.println(array);
+            con.close();       
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("DeleteProductsAndBoxes: SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("DeleteProductsAndBoxes: Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
      }
     
     public void Products(Depository d) {
+        // Set the Depository with het products out of the Database
         depository = d;
-
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
@@ -70,23 +68,23 @@ public class MySQLbpp {
 
             ResultSet result = stmt.executeQuery();
             while (result.next()) {
-                String pNaam = "test" + result.getInt(1);
+                String pNaam = "Product:" + result.getInt(1);
                 Product p = new Product(pNaam, result.getInt(1), result.getInt(5));
                 p.SetBox(result.getInt(4));
                 d.addProduct(p);
             }
             con.close();
-//           System.out.println(array);
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("Products: SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("Products: Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
     }
 
     public void removeProduct(int productId) {
+        // Remove the Product with the Id productId
         try {
             Class.forName(myDriver);
             Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
@@ -95,13 +93,13 @@ public class MySQLbpp {
             stmt.setInt(1, productId);
             stmt.execute();
             System.out.println("Product removed from database.");
-//           System.out.println(array);
+            
             con.close();
         } catch (SQLException e) {
-            System.out.println("SQLException");
+            System.out.println("removeProduct: SQLException");
             System.out.println(e.getMessage());
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is the MySQL JDBC Driver?");
+            System.out.println("removeProduct: Where is the MySQL JDBC Driver?");
             System.out.println(e.getMessage());
         }
     }
@@ -179,7 +177,6 @@ public class MySQLbpp {
                 stmt.setInt(4, tsap);
                 stmt.setInt(5, tsab);
                 stmt.setString(6, a);
-//                stmt.setInt(3, boxId);
             
             stmt.executeUpdate();
             System.out.println("Update successful");
@@ -215,17 +212,17 @@ public class MySQLbpp {
     public int NewBox(int size, int idorder) {
         int boxnr = 0;
 
-        if (size == 5 | size == 10 | size == 20) {
-            //controleren om mogelijke maten 
+//        if (size == 5 | size == 10 | size == 20) {
+//            //controleren om mogelijke maten 
             try {
                 Class.forName(myDriver);
                 Connection con = DriverManager.getConnection(this.dbHost + this.dbName, this.uName, this.uPass);
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO `mydb`.`Box` (`Size`, `Covered`, `idorder`, `Status`) VALUES (?, '0', ?, 'busy');");
-                stmt.setInt(1, size);
-                stmt.setInt(2, idorder);
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO `mydb`.`Box` (`Size`, `Covered`, `idorder`, `Status`) VALUES (20, '0', ?, 'busy');");
+//                stmt.setInt(1, size);
+                stmt.setInt(1, idorder);
                 stmt.execute();
 
-                //boxnr opvragen
+                //Get boxnr from new Box
                 PreparedStatement stmt_box = con.prepareStatement("SELECT `idBox` FROM `Box` WHERE `Size` = ?");
                 stmt_box.setInt(1, size);
 
@@ -247,9 +244,9 @@ public class MySQLbpp {
                 System.out.println(e.getMessage());
             }
 
-        } else {
-            System.out.println("Kies een bestaande maat voor de box (5/10/20)");
-        }
+//        } else {
+//            System.out.println("Kies een bestaande maat voor de box (5/10/20)");
+//        }
         return boxnr;
     }
 
@@ -305,9 +302,7 @@ public class MySQLbpp {
             stmt.execute(); 
             System.out.println(SQL_s);
            
-            
-            
-//           System.out.println(array);
+            con.close();
         } catch (SQLException e) {
             System.out.println("SQLException");
             System.out.println(e.getMessage());
@@ -332,7 +327,7 @@ public class MySQLbpp {
             SQL = "INSERT INTO `mydb`.`Robot_BPP` (`ProductId`, `Check`, `Ordernr`, `idBox`, `Size`) VALUES (NULL, NULL,"+idorder+", '0', "+size+");";
             
             
-//           System.out.println(array);
+con.close();
         } catch (SQLException e) {
             System.out.println("SQLException");
             System.out.println(e.getMessage());
@@ -367,7 +362,7 @@ public void DeleteProducts (){
             stmt.execute(); 
             System.out.println("gelukt!! alle producten zijn verwijderd ");
                      
-//           System.out.println(array);
+con.close();
         } catch (SQLException e) {
             System.out.println("SQLException");
             System.out.println(e.getMessage());
@@ -386,9 +381,9 @@ public void DeleteBox (){
             PreparedStatement stmt = con.prepareStatement("DELETE FROM `Box` WHERE 1");
 
             stmt.execute(); 
-            System.out.println("gelukt!! alle producten zijn verwijderd ");
+            System.out.println("gelukt!! alle boxen zijn verwijderd ");
                      
-//           System.out.println(array);
+con.close();
         } catch (SQLException e) {
             System.out.println("SQLException");
             System.out.println(e.getMessage());
@@ -408,9 +403,9 @@ public String SetNewProductsDB (String sql){
                 stmt.setString(1,sql);
 
             stmt.execute(); 
-            System.out.println(sql + "gelukt!!");
+            System.out.println("gelukt!!");
                      
-//           System.out.println(array);
+con.close();
         } catch (SQLException e) {
             System.out.println("SQLException");
             System.out.println(e.getMessage());
@@ -420,7 +415,5 @@ public String SetNewProductsDB (String sql){
         }
         return sql;
      }
-
-
 
 }
