@@ -3,6 +3,7 @@ package tsp;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -20,12 +21,7 @@ public class TSPSimulatorGUI extends JFrame {
 	public TSPSimulatorGUI() {
 		
 		initComponents();
-		
-
-		
 	}
-	
-
 
 	private void stopButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
@@ -36,11 +32,14 @@ public class TSPSimulatorGUI extends JFrame {
 		
 		int row = (Integer)rowsSpinner.getValue();
 		int column = (Integer)columnsSpinner.getValue();
+		int indexComboBox = comboBox1.getSelectedIndex();
 		
-		drawGrid.reDraw(column, row);
+		drawGrid.reDraw(column, row, indexComboBox);
+		
+		
 		repaint();
 	}
-	
+
 	public void setLabelText(int row, int column){
 		customRowColumnLabel.setTextRC(row, column);
 	}
@@ -64,6 +63,8 @@ public class TSPSimulatorGUI extends JFrame {
 		statusPanel = new JPanel();
 		statusLabel = new JLabel();
 		stopButton = new JButton();
+		label3 = new JLabel();
+		comboBox1 = new JComboBox<>();
 		
 		
 		
@@ -86,7 +87,7 @@ public class TSPSimulatorGUI extends JFrame {
 				// JFormDesigner evaluation mark
 				orderPanel.setBorder(new javax.swing.border.CompoundBorder(
 					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-						"JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+						"", javax.swing.border.TitledBorder.CENTER,
 						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
 						java.awt.Color.red), orderPanel.getBorder())); orderPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
@@ -143,25 +144,40 @@ public class TSPSimulatorGUI extends JFrame {
 				//---- applyButton ----
 				applyButton.setText("Apply");
 				applyButton.addActionListener(e -> applyButtonActionPerformed(e));
+				
+				//---- label3 ----
+				label3.setText("Algorithm:");
 
+				//---- comboBox1 ----
+				comboBox1.setMaximumRowCount(3);
+				comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
+					"Volledige Enumeratie",
+					"Nearest neighbour Algorithm",
+					"Held–Karp algorithm"
+				}));
+				
 				GroupLayout settingsPanelLayout = new GroupLayout(settingsPanel);
 				settingsPanel.setLayout(settingsPanelLayout);
 				settingsPanelLayout.setHorizontalGroup(
 					settingsPanelLayout.createParallelGroup()
-						.addGroup(settingsPanelLayout.createSequentialGroup()
-							.addGap(23, 23, 23)
-							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-								.addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addGroup(settingsPanelLayout.createParallelGroup()
-								.addComponent(rowsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-								.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap(133, Short.MAX_VALUE))
 						.addGroup(GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
 							.addContainerGap(179, Short.MAX_VALUE)
 							.addComponent(applyButton)
 							.addContainerGap())
+						.addGroup(settingsPanelLayout.createSequentialGroup()
+							.addGap(23, 23, 23)
+							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+								.addComponent(label3)
+								.addGroup(settingsPanelLayout.createSequentialGroup()
+									.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+										.addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+									.addGroup(settingsPanelLayout.createParallelGroup()
+										.addComponent(rowsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+										.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(comboBox1))
+							.addContainerGap(133, Short.MAX_VALUE))
 				);
 				settingsPanelLayout.setVerticalGroup(
 					settingsPanelLayout.createParallelGroup()
@@ -174,7 +190,11 @@ public class TSPSimulatorGUI extends JFrame {
 							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
 								.addComponent(label2)
 								.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+							.addGap(18, 18, 18)
+							.addComponent(label3)
+							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+							.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
 							.addComponent(applyButton)
 							.addContainerGap())
 				);
@@ -183,6 +203,7 @@ public class TSPSimulatorGUI extends JFrame {
 
 			tabbedPanel.setSelectedIndex(2);
 		}
+
 
 		//======== scrollPanel ========
 		{
@@ -327,6 +348,7 @@ public class TSPSimulatorGUI extends JFrame {
 					.addGap(21, 21, 21))
 		);
 		setSize(825, 600);
+		pack();
 		setLocationRelativeTo(getOwner());
 		
 		
@@ -338,6 +360,8 @@ public class TSPSimulatorGUI extends JFrame {
 	private JPanel settingsPanel;
 	private JLabel label1;
 	private JLabel label2;
+	private JLabel label3;
+	private JComboBox<String> comboBox1;
 	private JSpinner rowsSpinner;
 	private JSpinner columnsSpinner;
 	private JButton applyButton;
