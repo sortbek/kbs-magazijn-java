@@ -27,7 +27,9 @@ public class BPP {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 
-                MySQLbpp bpp = new MySQLbpp();                
+                MySQLbpp bpp = new MySQLbpp(); 
+                bpp.DeleteProductsAndBoxes();
+                bpp.newProducts(3, 10);
 
                 int idorder = 10;
 

@@ -41,7 +41,7 @@ public class BestFit {
         int sizeorder = depository.GetTotalSizeOrder();
         int sizebox = 0;
 
-        while (sizeorder > 0) {
+        while (sizeorder > 0 && depository.GetBigProduct()!=0) {
             int sizeb = 20;
             int covered;
             String status;

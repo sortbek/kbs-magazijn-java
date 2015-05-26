@@ -2,7 +2,7 @@ package bpp;
 
 import java.util.ArrayList;
 
-public class SimpleGreedy extends MySQLbpp {
+public class SimpleGreedy1 extends MySQLbpp {
 
     private Depository depository;
     private BoxDepository boxd;
@@ -10,7 +10,7 @@ public class SimpleGreedy extends MySQLbpp {
     private ArrayList<Box> arrayBox;
     private MySQLbpp bpp = new MySQLbpp();
 
-    public SimpleGreedy() {
+    public SimpleGreedy1() {
     }
 
     public void setBoxDepository(BoxDepository b) {

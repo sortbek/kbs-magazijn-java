@@ -19,7 +19,7 @@ class random extends Random {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 
-                SQL_test rand = new SQL_test();
+                MySQLbpp rand = new MySQLbpp();
                 String sql = rand.SetNewProductsDB( 20, 129);
 //                rand.SetNewProductsDB(sql);
 

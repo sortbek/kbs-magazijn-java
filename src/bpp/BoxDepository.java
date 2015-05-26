@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Marjolein
  */
-public class BoxDepository extends BPPSimulatorGUI{
+public class BoxDepository extends BPPSimulatorGUI {
  
    private ArrayList<Box> box;
    private int j = 0;
