@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
+
 /**
  *
  * @author Marjolein
@@ -26,25 +27,24 @@ public class BPP {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                
-                MySQLbpp bpp = new MySQLbpp(); 
+
+                Depository d = new Depository();
+                BoxDepository b = new BoxDepository();
+
+                MySQLbpp bpp = new MySQLbpp();
                 bpp.DeleteProductsAndBoxes();
                 bpp.newProducts(3, 10);
 
                 int idorder = 10;
 
-                System.out.println("test");
-                
                 BPPSimulatorGUI GUI = new BPPSimulatorGUI();
-                System.out.println("test1");
-                
+
+                GUI.setBoxDepository(b);
+                GUI.setDepository(d);
+                GUI.SetTable();
                 GUI.setVisible(true);
-                System.out.println("test2");
-                
-                
-                
+
                 GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                
 
             }
         });
