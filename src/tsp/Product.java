@@ -6,24 +6,21 @@ import java.util.List;
 
 public class Product {
 	
-	private List<String> inputList;
+	private List<Integer> inputList;
 	private Rectangle cell;
-	private String input;
-	private String input2;
+	private Integer inter;
 	private Warehouse ware;
 	
-	public Product(String input, String input2,Rectangle cell, Warehouse ware){
+	public Product(Integer inter,Rectangle cell, Warehouse ware){
 		
 			this.ware = ware;
 			
 			this.cell = cell;
-			this.input = input;
-			this.input2 = input2; 
-					 
-			inputList = new ArrayList<String>();
+			this.inter = inter;
+
+			inputList = new ArrayList<Integer>();
 			 
-			inputList.add(input);
-			inputList.add(input2);
+			inputList.add(inter);
 			
 			 
 		 }
@@ -36,27 +33,12 @@ public class Product {
 		this.cell = cell;
 	}
 
-	public String getInput() {
-		return input;
-	}
-
-	public void setInput(String input) {
-		this.input = input;
-	}
-
-	public String getInput2() {
-		return input2;
-	}
-
-	public void setInput2(String input2) {
-		this.input2 = input2;
-	}
-
-	public List<String> getInputList() {
+	
+	public List<Integer> getInputList() {
 		return inputList;
 	}
 
-	public void setInputList(List<String> inputList) {
+	public void setInputList(List<Integer> inputList) {
 		this.inputList = inputList;
 	}
 

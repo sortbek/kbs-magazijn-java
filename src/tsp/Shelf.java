@@ -26,8 +26,7 @@ public class Shelf {
 		this.height = ware.getHeight();
 		
 		int j = 1;
-		String input = "";
-		String input2 = "a";
+		
 		
 		cells = new ArrayList<Rectangle>(rows*columns);
 		
@@ -50,10 +49,9 @@ public class Shelf {
 		}
 		
 		for(Rectangle cell : cells){
-			input = ""+j;
-			input2 = "a"+j;
+	
 			
-			product = new Product(input, input2, cell, ware);
+			product = new Product(j, cell, ware);
 			j++;
 			
 			ware.getCache().put(cell, product.getInputList());
