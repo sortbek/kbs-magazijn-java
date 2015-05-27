@@ -60,7 +60,7 @@ public enum Algorithm {
 			
 			double highestX = 0;
 					
-			if(coordinates.size() > 10){
+			if(coordinates.size() > 3){
 				
 				for (int i = 0; i < coordinates.size(); i++) {
 
@@ -104,7 +104,7 @@ public enum Algorithm {
 			}
 
 			double highestY = 0;
-			if (coordinates.size() > 10) {
+			if (coordinates.size() > 3) {
 
 				for (int i = 0; i < coordinates.size(); i++) {
 

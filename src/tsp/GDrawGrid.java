@@ -82,6 +82,7 @@ public class GDrawGrid extends JPanel {
 		this.addedproductsLabel = addedproductsLabel;
 		this.ball = new Ball(0, 600, 0, 600);
 		this.spinner = 0;
+		button3.setEnabled(false);
 		messageCount = 0;
 		startBall = 0;
 		stopBall = 0;
@@ -119,6 +120,7 @@ public class GDrawGrid extends JPanel {
 		cells = ware.getShelf().getCells();
 		updateComboBox();
 		start = false;
+		button3.setEnabled(false);
 		repaint();
 
 		// calculatePath(spinner);
@@ -584,6 +586,8 @@ public class GDrawGrid extends JPanel {
 					" There must be atleast one product in the list.", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
+		
+		button3.setEnabled(true);
 
 	}
 
@@ -854,6 +858,8 @@ public class GDrawGrid extends JPanel {
 						td23 = "<td>" + time3 + "</td>";
 
 					}
+					
+					System.out.println(distance1+"("+time1+" ms)\n"+distance2+"("+time2+" ms)\n"+distance3+"("+time3+" ms)\n");
 
 					JOptionPane.showMessageDialog(this, "<html>" + "<style>"
 							+ "table, th, td {" + "border: 1px solid black;"
@@ -865,8 +871,12 @@ public class GDrawGrid extends JPanel {
 							+ td23 + "</tr>" + "</table>"
 
 							+ "</html>", "Output", JOptionPane.PLAIN_MESSAGE);
+				
 
 				}
+				
+
+				
 
 			} else {
 				JOptionPane.showMessageDialog(this,
