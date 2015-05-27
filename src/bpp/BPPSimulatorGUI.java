@@ -27,8 +27,9 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private boolean ceB, sgB, bfB;
     private MySQLbpp bpp = new MySQLbpp();
     private int idorder;
-//    private int sizet;
+    DefaultTableModel model;
 
+//    private int sizet;
     /**
      * Creates new form BPPSimulatorGUI
      */
@@ -107,7 +108,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         algorithmLabel.setText("Algorithms");
 
-        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Complete Enumeration", "Simple Greedy", "Best Fit" }));
+        algorithmPicker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select algorithm", "Complete Enumeration", "Simple Greedy", "Best Fit" }));
         algorithmPicker.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 algorithmPickerActionPerformed(evt);
@@ -308,6 +309,13 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         // kiezen alogrimte 
         ceB = true;
         JComboBox ap = (JComboBox) evt.getSource();
+        
+        if (ap.getSelectedItem() == "Select algorithm") {
+            System.out.println("Please select an algorithm");
+            ceB = false;
+            sgB = false;
+            bfB = false;
+        }
         if (ap.getSelectedItem() == "Complete Enumeration") {
             ceB = true;
             sgB = false;
@@ -401,6 +409,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         if (evt.getSource() == startButton) {
+            if(ceB || sgB || bfB) {
             bpp.DeleteBox();
             bpp.DeleteProducts();
             bpp.newProducts(3, 10);
@@ -408,6 +417,9 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             idorder = 10;
 
             bpp.Products(depository);
+            }
+            tableReset();
+            SetTable();
             if (ceB) {
                 System.out.println("\nComplete Enumeration\n");
                 cE.setBoxDepository(boxd);
@@ -425,13 +437,20 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                 BF.setDepository(depository);
                 BF.BF(10);
             }
+
+            tableReset();
+            bpp.DeleteProducts();
+            bpp.newProducts(3, 10);
+            bpp.Products(depository);
             SetTable();
         }
     }//GEN-LAST:event_startButtonActionPerformed
 
     // de tabel tonen met de producten die op de band liggen.
     public void SetTable() {
+        model = (DefaultTableModel) productTable.getModel();
         sizet = producten.size();
+        model.setRowCount(0);
 
         for (int i = 0; sizet > i; i++) {
 
@@ -440,9 +459,16 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
             int data3 = this.producten.get(i).Getsize();
             int data4 = this.producten.get(i).GetBox();
 
-            DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-            model.addRow(new Object[]{data1, data2, data3, data4});
+            if (data4 == 0) {
+
+                model.addRow(new Object[]{data1, data2, data3, data4});
+            }
+
         }
+    }
+
+    public void tableReset() {
+        model.setRowCount(0);
     }
 
     // de tabel tonen met de producten die in een box zitten. 
@@ -485,7 +511,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
     private javax.swing.JTable productTable;
     public javax.swing.JButton startButton;
     // End of variables declaration//GEN-END:variables
-  
+
     public static void main(String[] args) {
         MySQLbpp bpp = new MySQLbpp();
         Depository d = new Depository();

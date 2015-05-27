@@ -143,10 +143,11 @@
     <Component class="javax.swing.JComboBox" name="algorithmPicker">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Complete Enumeration"/>
-            <StringItem index="1" value="Simple Greedy"/>
-            <StringItem index="2" value="Best Fit"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Select algorithm"/>
+            <StringItem index="1" value="Complete Enumeration"/>
+            <StringItem index="2" value="Simple Greedy"/>
+            <StringItem index="3" value="Best Fit"/>
           </StringArray>
         </Property>
       </Properties>
