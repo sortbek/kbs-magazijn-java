@@ -12,7 +12,7 @@ public class Warehouse {
 	private int columns;
 	private double width;
 	private double height;
-	private HashMap<Rectangle, List<String>> cache;
+	private HashMap<Rectangle, List<Integer>> cache;
 	private Shelf shelf;
 	/*private List<String> inputList;*/
 	
@@ -28,7 +28,7 @@ public class Warehouse {
 		
 		//initializing ArrayList && Hashmap
 		
-		cache = new HashMap<Rectangle, List<String>>();
+		cache = new HashMap<Rectangle, List<Integer>>();
 		
 		
 		//Calculating & creating shelfs
@@ -79,12 +79,12 @@ public class Warehouse {
 	}
 
 
-	public HashMap<Rectangle, List<String>> getCache() {
+	public HashMap<Rectangle, List<Integer>> getCache() {
 		return cache;
 	}
 
 
-	public void setCache(HashMap<Rectangle, List<String>> cache) {
+	public void setCache(HashMap<Rectangle, List<Integer>> cache) {
 		this.cache = cache;
 	}
 
@@ -105,7 +105,7 @@ public class Warehouse {
 		int i = 1;
 		for (Rectangle cell : shelf.getCells()) {
 		 	 
-			 List<String> value = cache.get(cell);
+			 List<Integer> value = cache.get(cell);
 			 toReturn = toReturn + i +" Key: " + cell +" value: "+ value+"\n";
 			 i++;
 			 
@@ -123,7 +123,7 @@ public class Warehouse {
 		
 			if(cell.equals(cellPut)){
 				
-				 List<String> value = cache.get(cell);
+				 List<Integer> value = cache.get(cell);
 				
 				 toReturn = toReturn + 1 +" Key: " + cell +" value: "+ value+"\n";
 			}

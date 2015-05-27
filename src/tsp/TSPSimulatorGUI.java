@@ -1,378 +1,808 @@
 package tsp;
 
-
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.PropertyChangeEvent;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
-
-	
 /**
  * @author Kubilay Durmusoglu & Anouk van der Veer
  */
 public class TSPSimulatorGUI extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public TSPSimulatorGUI() {
-		
 		initComponents();
 	}
 
-	private void stopButtonActionPerformed(ActionEvent e) {
+	private void testButtonActionPerformed(ActionEvent e) {
 		// TODO add your code here
+		panel1.testAlgorithms(enumBox.isSelected(), nearestBox.isSelected(), heldBox.isSelected(), (Integer)quantitySpinner.getValue(), (Integer)roundSpinner.getValue() );
+		
+		
 	}
 
-	private void applyButtonActionPerformed(ActionEvent e) {
-		// drawGrid Heigth: 520, Width 526:
+	private void startButtonActionPerformed(ActionEvent e) {
+		// TODO add your code here
+		panel1.calculatePath();
+	}
+
+	private void resetButtonActionPerformed(ActionEvent e) {
+		// TODO add your code here
+		panel1.resetList();
+	}
+
+	private void AddButtonActionPerformed(ActionEvent e) {
+		// TODO add your code here
+		panel1.addProductToList(Integer.parseInt(itemListBox.getSelectedItem()
+				.toString()));
+	}
+
+	private void saveButtonActionPerformed(ActionEvent e) {
+		// TODO add your code here
+
+		int row = (Integer) rowSpinner.getValue();
+		int column = (Integer) columnSpinner.getValue();
+		int indexComboBox = comboBox.getSelectedIndex();
+
+		panel1.reDraw(column, row, indexComboBox);
 		
-		int row = (Integer)rowsSpinner.getValue();
-		int column = (Integer)columnsSpinner.getValue();
-		int indexComboBox = comboBox1.getSelectedIndex();
-		
-		drawGrid.reDraw(column, row, indexComboBox);
-		
-		
+		JOptionPane.showMessageDialog(this,
+			    "Settings has been saved.");
+
 		repaint();
+
 	}
 
-	public void setLabelText(int row, int column){
-		customRowColumnLabel.setTextRC(row, column);
+	private void StopActionPerformed(ActionEvent e) {
+		// TODO add your code here
+		panel1.processStop();
 	}
 
 	private void initComponents() {
-		customRowColumnLabel = new CustomRowColumnLabel();
-		productInfoLabel = new ProductInfoLabel();
-		drawGrid = new GDrawGrid(5,5,customRowColumnLabel, productInfoLabel);
-		tabbedPanel = new JTabbedPane();
-		orderPanel = new JPanel();
-		productsPanel = new JPanel();
-		settingsPanel = new JPanel();
+
+		productsLabel = new ProductInfoLabel();
+		rcLabel = new CustomRowColumnLabel();
+		itemListBox = new JComboBox();
+		addedproductsLabel = new JLabel();
+		tabbedPane1 = new JTabbedPane();
+		testPanel = new JPanel();
+		enumBox = new JCheckBox();
+		nearestBox = new JCheckBox();
+		heldBox = new JCheckBox();
 		label1 = new JLabel();
+		testButton = new JButton();
 		label2 = new JLabel();
-		rowsSpinner = new JSpinner();
-		columnsSpinner = new JSpinner();
-		applyButton = new JButton();
-		scrollPanel = new JScrollPane();
-		informationPanel = new JPanel();
-		standardLabel1 = new JLabel();	
-		statusPanel = new JPanel();
-		statusLabel = new JLabel();
-		stopButton = new JButton();
+		quantitySpinner = new JSpinner();
 		label3 = new JLabel();
-		comboBox1 = new JComboBox<>();
-		
-		
-		
-
-		//======== this ========
-		setTitle("TSP-Simulator");
-		setIconImage(((ImageIcon)UIManager.getIcon("FileView.computerIcon")).getImage());
-		Container contentPane = getContentPane();
-		this.setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
-		//======== tabbedPanel ========
-		{
-
-			//======== orderPanel ========
-			{
-
-				// JFormDesigner evaluation mark
-				orderPanel.setBorder(new javax.swing.border.CompoundBorder(
-					new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-						"", javax.swing.border.TitledBorder.CENTER,
-						javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-						java.awt.Color.red), orderPanel.getBorder())); orderPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
-
-
-				GroupLayout orderPanelLayout = new GroupLayout(orderPanel);
-				orderPanel.setLayout(orderPanelLayout);
-				orderPanelLayout.setHorizontalGroup(
-					orderPanelLayout.createParallelGroup()
-						.addGap(0, 248, Short.MAX_VALUE)
-				);
-				orderPanelLayout.setVerticalGroup(
-					orderPanelLayout.createParallelGroup()
-						.addGap(0, 242, Short.MAX_VALUE)
-				);
-			}
-			tabbedPanel.addTab("Order", orderPanel);
-			tabbedPanel.setEnabledAt(0, false);
-
-			//======== productsPanel ========
-			{
-
-				GroupLayout productsPanelLayout = new GroupLayout(productsPanel);
-				productsPanel.setLayout(productsPanelLayout);
-				productsPanelLayout.setHorizontalGroup(
-					productsPanelLayout.createParallelGroup()
-						.addGap(0, 248, Short.MAX_VALUE)
-				);
-				productsPanelLayout.setVerticalGroup(
-					productsPanelLayout.createParallelGroup()
-						.addGap(0, 242, Short.MAX_VALUE)
-				);
-			}
-			tabbedPanel.addTab("Products", productsPanel);
-			tabbedPanel.setEnabledAt(1, false);
-
-			//======== settingsPanel ========
-			{
-
-				//---- label1 ----
-				label1.setText("Rows:");
-				label1.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- label2 ----
-				label2.setText("Columns:");
-				label2.setHorizontalAlignment(SwingConstants.RIGHT);
-
-				//---- rowsSpinner ----
-				rowsSpinner.setModel(new SpinnerNumberModel(5, 0, null, 1));
+		roundSpinner = new JSpinner();
+		customPanel = new JPanel();
+		startButton = new JButton();
+		resetButton = new JButton();
+		button4 = new JButton();
+		scrollPane2 = new JScrollPane();
+		panel7 = new JPanel();
+		label13 = new JLabel();
+		settingsPanel = new JPanel();
+		button2 = new JButton();
+		label9 = new JLabel();
+		label10 = new JLabel();
+		rowSpinner = new JSpinner();
+		columnSpinner = new JSpinner();
+		label11 = new JLabel();
+		comboBox = new JComboBox<>();
+		scrollPane1 = new JScrollPane();
+		panel5 = new JPanel();
+		label5 = new JLabel();
+		label7 = new JLabel();
+		button3 = new JButton();
+		panel6 = new JPanel();
+		label12 = new JLabel();
+		panel1 = new GDrawGrid(5, 5, rcLabel, productsLabel, itemListBox,
+				addedproductsLabel, resetButton, testButton, button2, button4,startButton,button3, panel6, label12);
 	
 
-				//---- columnsSpinner ----
-				columnsSpinner.setModel(new SpinnerNumberModel(5, 0, null, 1));
+		// ======== this ========
+		setTitle("TSP-Simulator");
+		setIconImage(((ImageIcon) UIManager.getIcon("FileView.computerIcon"))
+				.getImage());
+		setResizable(false);
+		Container contentPane = getContentPane();
 
-				//---- applyButton ----
-				applyButton.setText("Apply");
-				applyButton.addActionListener(e -> applyButtonActionPerformed(e));
-				
-				//---- label3 ----
-				label3.setText("Algorithm:");
+		// ======== panel1 ========
+		{
+			panel1.setBorder(new CompoundBorder(new BevelBorder(
+					BevelBorder.LOWERED), null));
 
-				//---- comboBox1 ----
-				comboBox1.setMaximumRowCount(3);
-				comboBox1.setModel(new DefaultComboBoxModel<>(new String[] {
-					"Volledige Enumeratie",
-					"Nearest neighbour Algorithm",
-					"Held–Karp algorithm"
-				}));
-				
-				GroupLayout settingsPanelLayout = new GroupLayout(settingsPanel);
-				settingsPanel.setLayout(settingsPanelLayout);
-				settingsPanelLayout.setHorizontalGroup(
-					settingsPanelLayout.createParallelGroup()
-						.addGroup(GroupLayout.Alignment.TRAILING, settingsPanelLayout.createSequentialGroup()
-							.addContainerGap(179, Short.MAX_VALUE)
-							.addComponent(applyButton)
-							.addContainerGap())
-						.addGroup(settingsPanelLayout.createSequentialGroup()
-							.addGap(23, 23, 23)
-							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-								.addComponent(label3)
-								.addGroup(settingsPanelLayout.createSequentialGroup()
-									.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-										.addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-									.addGroup(settingsPanelLayout.createParallelGroup()
-										.addComponent(rowsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-										.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(comboBox1))
-							.addContainerGap(133, Short.MAX_VALUE))
-				);
-				settingsPanelLayout.setVerticalGroup(
-					settingsPanelLayout.createParallelGroup()
-						.addGroup(settingsPanelLayout.createSequentialGroup()
-							.addGap(22, 22, 22)
-							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(label1)
-								.addComponent(rowsSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addGroup(settingsPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(label2)
-								.addComponent(columnsSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18, 18, 18)
-							.addComponent(label3)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-							.addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-							.addComponent(applyButton)
-							.addContainerGap())
-				);
-			}
-			tabbedPanel.addTab("Settings", settingsPanel);
-
-			tabbedPanel.setSelectedIndex(2);
+			GroupLayout panel1Layout = new GroupLayout(panel1);
+			panel1.setLayout(panel1Layout);
+			panel1Layout.setHorizontalGroup(panel1Layout.createParallelGroup()
+					.addGap(0, 596, Short.MAX_VALUE));
+			panel1Layout.setVerticalGroup(panel1Layout.createParallelGroup()
+					.addGap(0, 596, Short.MAX_VALUE));
 		}
 
-
-		//======== scrollPanel ========
+		// ======== tabbedPane1 ========
 		{
-			scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-			//======== informationPanel ========
+			// ======== testPanel ========
 			{
 
-				//---- standardLabel1 ----
-				standardLabel1.setText("Shelf contents:");
-				standardLabel1.setFont(standardLabel1.getFont().deriveFont(standardLabel1.getFont().getStyle() | Font.BOLD, standardLabel1.getFont().getSize() + 3f));
+				// ---- enumBox ----
+				enumBox.setText("Complete Enumeration");
 
-				//---- customRowColumnLabel ----
-				customRowColumnLabel.setText("<html> (ROWS <br> COLUMNS) </html>");
+				// ---- NearestBox ----
+				nearestBox.setText("Nearest Neighbour Algorithm");
 
-				//---- productInfoLabel ----
-				productInfoLabel.setText("Product info");
-				productInfoLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+				// ---- heldBox ----
+				heldBox.setText("3rd Algorithm");
 
+				// ---- label1 ----
+				label1.setText("Algorithms:");
 
-				GroupLayout informationPanelLayout = new GroupLayout(informationPanel);
-				informationPanel.setLayout(informationPanelLayout);
-				informationPanelLayout.setHorizontalGroup(
-					informationPanelLayout.createParallelGroup()
-						.addGroup(informationPanelLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(informationPanelLayout.createParallelGroup()
-								.addGroup(informationPanelLayout.createSequentialGroup()
-									.addGap(110, 110, 110)
-									.addComponent(customRowColumnLabel, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
-								.addComponent(standardLabel1, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
-								.addGroup(informationPanelLayout.createSequentialGroup()
-									.addGroup(informationPanelLayout.createParallelGroup()
-										.addComponent(productInfoLabel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-										)
-									.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-									.addGroup(informationPanelLayout.createParallelGroup()
-										
-										)))
-							.addContainerGap(41, Short.MAX_VALUE))
-				);
-				informationPanelLayout.setVerticalGroup(
-					informationPanelLayout.createParallelGroup()
-						.addGroup(informationPanelLayout.createSequentialGroup()
-							.addGap(32, 32, 32)
-							.addGroup(informationPanelLayout.createParallelGroup()
-								.addGroup(informationPanelLayout.createSequentialGroup()
-									.addGap(5, 5, 5)
-									.addComponent(customRowColumnLabel))
-								.addComponent(standardLabel1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-							.addGap(30, 30, 30)
-							.addGroup(informationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								.addComponent(productInfoLabel)
-								)
-							.addGap(1, 1, 1)
-							.addGroup(informationPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-								)
-							.addContainerGap(83, Short.MAX_VALUE))
-				);
+				// ---- testButton ----
+				testButton.setText("Test");
+				testButton.addActionListener(e -> testButtonActionPerformed(e));
+
+				// ---- label2 ----
+				label2.setText("Quantity of products:");
+
+				// ---- quantitySpinner ----
+				quantitySpinner.setModel(new SpinnerNumberModel(1, 1, null, 1));
+
+				// ---- label3 ----
+				label3.setText("Rounds:");
+
+				// ---- RoundSpinner ----
+				roundSpinner.setModel(new SpinnerNumberModel(1, 1, null, 1));
+
+				GroupLayout testPanelLayout = new GroupLayout(testPanel);
+				testPanel.setLayout(testPanelLayout);
+				testPanelLayout
+						.setHorizontalGroup(testPanelLayout
+								.createParallelGroup()
+								.addGroup(
+										testPanelLayout
+												.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(
+														testPanelLayout
+																.createParallelGroup()
+																.addComponent(
+																		heldBox)
+																.addComponent(
+																		nearestBox)
+																.addComponent(
+																		enumBox)
+																.addComponent(
+																		label1)
+																.addGroup(
+																		testPanelLayout
+																				.createSequentialGroup()
+																				.addGroup(
+																						testPanelLayout
+																								.createParallelGroup()
+																								.addComponent(
+																										label2)
+																								.addComponent(
+																										label3))
+																				.addPreferredGap(
+																						LayoutStyle.ComponentPlacement.UNRELATED)
+																				.addGroup(
+																						testPanelLayout
+																								.createParallelGroup()
+																								.addComponent(
+																										quantitySpinner,
+																										GroupLayout.PREFERRED_SIZE,
+																										44,
+																										GroupLayout.PREFERRED_SIZE)
+																								.addComponent(
+																										roundSpinner,
+																										GroupLayout.PREFERRED_SIZE,
+																										44,
+																										GroupLayout.PREFERRED_SIZE))))
+												.addContainerGap(31,
+														Short.MAX_VALUE))
+								.addGroup(
+										GroupLayout.Alignment.TRAILING,
+										testPanelLayout
+												.createSequentialGroup()
+												.addContainerGap(141,
+														Short.MAX_VALUE)
+												.addComponent(testButton)
+												.addContainerGap()));
+				testPanelLayout
+						.setVerticalGroup(testPanelLayout
+								.createParallelGroup()
+								.addGroup(
+										testPanelLayout
+												.createSequentialGroup()
+												.addGap(15, 15, 15)
+												.addComponent(label1)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.RELATED)
+												.addComponent(enumBox)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.UNRELATED)
+												.addComponent(nearestBox)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.UNRELATED)
+												.addComponent(heldBox)
+												.addGap(18, 18, 18)
+												.addGroup(
+														testPanelLayout
+																.createParallelGroup(
+																		GroupLayout.Alignment.BASELINE)
+																.addComponent(
+																		label2)
+																.addComponent(
+																		quantitySpinner,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.RELATED)
+												.addGroup(
+														testPanelLayout
+																.createParallelGroup(
+																		GroupLayout.Alignment.BASELINE)
+																.addComponent(
+																		label3)
+																.addComponent(
+																		roundSpinner,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.RELATED,
+														43, Short.MAX_VALUE)
+												.addComponent(testButton)
+												.addContainerGap()));
 			}
-			scrollPanel.setViewportView(informationPanel);
+			tabbedPane1.addTab("Test Algorithms", testPanel);
+
+			// ======== customPanel ========
+			{
+
+				// ---- startButton ----
+				startButton.setText("Start");
+				startButton
+						.addActionListener(e -> startButtonActionPerformed(e));
+
+				// ---- resetButton ----
+				resetButton.setText("Reset");
+				resetButton
+						.addActionListener(e -> resetButtonActionPerformed(e));
+
+				// ---- button4 ----
+				button4.setText("Add");
+				button4.addActionListener(e -> AddButtonActionPerformed(e));
+
+				// ======== scrollPane2 ========
+				{
+					scrollPane2
+							.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+					// ======== panel7 ========
+					{
+
+						// ---- label13 ----
+						label13.setText("Added product(s):");
+						label13.setFont(label13.getFont().deriveFont(
+								label13.getFont().getStyle() | Font.BOLD,
+								label13.getFont().getSize() + 1f));
+
+						// ---- addedproductsLabel ----
+						addedproductsLabel.setText("products");
+
+						GroupLayout panel7Layout = new GroupLayout(panel7);
+						panel7.setLayout(panel7Layout);
+						panel7Layout
+								.setHorizontalGroup(panel7Layout
+										.createParallelGroup()
+										.addGroup(
+												panel7Layout
+														.createSequentialGroup()
+														.addContainerGap()
+														.addGroup(
+																panel7Layout
+																		.createParallelGroup()
+																		.addComponent(
+																				label13)
+																		.addComponent(
+																				addedproductsLabel))
+														.addContainerGap(152,
+																Short.MAX_VALUE)));
+						panel7Layout
+								.setVerticalGroup(panel7Layout
+										.createParallelGroup()
+										.addGroup(
+												panel7Layout
+														.createSequentialGroup()
+														.addContainerGap()
+														.addComponent(label13)
+														.addPreferredGap(
+																LayoutStyle.ComponentPlacement.UNRELATED)
+														.addComponent(
+																addedproductsLabel)
+														.addContainerGap(105,
+																Short.MAX_VALUE)));
+					}
+					scrollPane2.setViewportView(panel7);
+				}
+
+				GroupLayout customPanelLayout = new GroupLayout(customPanel);
+				customPanel.setLayout(customPanelLayout);
+				customPanelLayout
+						.setHorizontalGroup(customPanelLayout
+								.createParallelGroup()
+								.addGroup(
+										customPanelLayout
+												.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(
+														customPanelLayout
+																.createParallelGroup()
+																.addComponent(
+																		scrollPane2,
+																		GroupLayout.PREFERRED_SIZE,
+																		184,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGroup(
+																		customPanelLayout
+																				.createSequentialGroup()
+																				.addGroup(
+																						customPanelLayout
+																								.createParallelGroup(
+																										GroupLayout.Alignment.TRAILING)
+																								.addComponent(
+																										itemListBox,
+																										GroupLayout.Alignment.LEADING)
+																								.addGroup(
+																										customPanelLayout
+																												.createSequentialGroup()
+																												.addGap(0,
+																														0,
+																														Short.MAX_VALUE)
+																												.addComponent(
+																														resetButton)))
+																				.addPreferredGap(
+																						LayoutStyle.ComponentPlacement.RELATED)
+																				.addGroup(
+																						customPanelLayout
+																								.createParallelGroup(
+																										GroupLayout.Alignment.LEADING,
+																										false)
+																								.addComponent(
+																										startButton,
+																										GroupLayout.DEFAULT_SIZE,
+																										GroupLayout.DEFAULT_SIZE,
+																										Short.MAX_VALUE)
+																								.addComponent(
+																										button4,
+																										GroupLayout.DEFAULT_SIZE,
+																										GroupLayout.DEFAULT_SIZE,
+																										Short.MAX_VALUE))))
+												.addContainerGap()));
+				customPanelLayout
+						.setVerticalGroup(customPanelLayout
+								.createParallelGroup()
+								.addGroup(
+										GroupLayout.Alignment.TRAILING,
+										customPanelLayout
+												.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(
+														customPanelLayout
+																.createParallelGroup(
+																		GroupLayout.Alignment.BASELINE)
+																.addComponent(
+																		itemListBox,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(
+																		button4))
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.UNRELATED)
+												.addComponent(
+														scrollPane2,
+														GroupLayout.DEFAULT_SIZE,
+														157, Short.MAX_VALUE)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.UNRELATED)
+												.addGroup(
+														customPanelLayout
+																.createParallelGroup(
+																		GroupLayout.Alignment.BASELINE)
+																.addComponent(
+																		startButton)
+																.addComponent(
+																		resetButton))
+												.addContainerGap()));
+			}
+			tabbedPane1.addTab("Custom Order", customPanel);
+
+			// ======== settingsPanel ========
+			{
+
+				// ---- button2 ----
+				button2.setText("Save");
+				button2.addActionListener(e -> saveButtonActionPerformed(e));
+
+				// ---- label9 ----
+				label9.setText("Rows:");
+				label9.setHorizontalAlignment(SwingConstants.RIGHT);
+				label9.setFont(label9.getFont().deriveFont(
+						label9.getFont().getStyle() | Font.BOLD,
+						label9.getFont().getSize() + 1f));
+
+				// ---- label10 ----
+				label10.setText("Columns:");
+				label10.setHorizontalAlignment(SwingConstants.RIGHT);
+				label10.setFont(label10.getFont().deriveFont(
+						label10.getFont().getStyle() | Font.BOLD,
+						label10.getFont().getSize() + 1f));
+
+				// ---- rowSpinner ----
+				rowSpinner.setModel(new SpinnerNumberModel(5, 5, null, 1));
+
+				// ---- columnsLabel ----
+				columnSpinner.setModel(new SpinnerNumberModel(5, 5, null, 1));
+
+				// ---- label11 ----
+				label11.setText("Algorithm:");
+				label11.setFont(label11.getFont().deriveFont(
+						label11.getFont().getStyle() | Font.BOLD,
+						label11.getFont().getSize() + 1f));
+
+				// ---- comboBox ----
+				comboBox.setMaximumRowCount(3);
+				comboBox.setModel(new DefaultComboBoxModel<>(new String[] {
+						"Complete enumeration", "Nearest neighbour Algorithm",
+						"3rd Algorithm" }));
+
+				GroupLayout settingsPanelLayout = new GroupLayout(settingsPanel);
+				settingsPanel.setLayout(settingsPanelLayout);
+				settingsPanelLayout
+						.setHorizontalGroup(settingsPanelLayout
+								.createParallelGroup()
+								.addGroup(
+										settingsPanelLayout
+												.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(
+														settingsPanelLayout
+																.createParallelGroup()
+																.addGroup(
+																		GroupLayout.Alignment.TRAILING,
+																		settingsPanelLayout
+																				.createSequentialGroup()
+																				.addGap(0,
+																						127,
+																						Short.MAX_VALUE)
+																				.addComponent(
+																						button2))
+																.addGroup(
+																		settingsPanelLayout
+																				.createSequentialGroup()
+																				.addGroup(
+																						settingsPanelLayout
+																								.createParallelGroup()
+																								.addGroup(
+																										settingsPanelLayout
+																												.createSequentialGroup()
+																												.addGroup(
+																														settingsPanelLayout
+																																.createParallelGroup()
+																																.addComponent(
+																																		label9,
+																																		GroupLayout.PREFERRED_SIZE,
+																																		56,
+																																		GroupLayout.PREFERRED_SIZE)
+																																.addComponent(
+																																		label10,
+																																		GroupLayout.Alignment.TRAILING)
+																																.addComponent(
+																																		label11,
+																																		GroupLayout.Alignment.TRAILING))
+																												.addPreferredGap(
+																														LayoutStyle.ComponentPlacement.UNRELATED)
+																												.addGroup(
+																														settingsPanelLayout
+																																.createParallelGroup()
+																																.addComponent(
+																																		rowSpinner,
+																																		GroupLayout.PREFERRED_SIZE,
+																																		40,
+																																		GroupLayout.PREFERRED_SIZE)
+																																.addComponent(
+																																		columnSpinner,
+																																		GroupLayout.PREFERRED_SIZE,
+																																		40,
+																																		GroupLayout.PREFERRED_SIZE)))
+																								.addComponent(
+																										comboBox,
+																										GroupLayout.PREFERRED_SIZE,
+																										148,
+																										GroupLayout.PREFERRED_SIZE))
+																				.addGap(0,
+																						36,
+																						Short.MAX_VALUE)))
+												.addContainerGap()));
+				settingsPanelLayout
+						.setVerticalGroup(settingsPanelLayout
+								.createParallelGroup()
+								.addGroup(
+										GroupLayout.Alignment.TRAILING,
+										settingsPanelLayout
+												.createSequentialGroup()
+												.addGap(27, 27, 27)
+												.addGroup(
+														settingsPanelLayout
+																.createParallelGroup(
+																		GroupLayout.Alignment.BASELINE)
+																.addComponent(
+																		label9)
+																.addComponent(
+																		rowSpinner,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.UNRELATED)
+												.addGroup(
+														settingsPanelLayout
+																.createParallelGroup(
+																		GroupLayout.Alignment.BASELINE)
+																.addComponent(
+																		columnSpinner,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE)
+																.addComponent(
+																		label10))
+												.addGap(18, 18, 18)
+												.addComponent(label11)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.RELATED)
+												.addComponent(
+														comboBox,
+														GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.RELATED,
+														76, Short.MAX_VALUE)
+												.addComponent(button2)
+												.addContainerGap()));
+			}
+			tabbedPane1.addTab("Settings", settingsPanel);
+
+			tabbedPane1.setSelectedIndex(1);
 		}
 
-		//======== statusPanel ========
+		// ======== scrollPane1 ========
 		{
-			statusPanel.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
-			statusPanel.setBackground(new Color(0, 255, 51));
+			scrollPane1
+					.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-			//---- statusLabel ----
-			statusLabel.setText("Status Label");
-			statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			// ======== panel5 ========
+			{
 
-			GroupLayout statusPanelLayout = new GroupLayout(statusPanel);
-			statusPanel.setLayout(statusPanelLayout);
-			statusPanelLayout.setHorizontalGroup(
-				statusPanelLayout.createParallelGroup()
-					.addGroup(statusPanelLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(statusLabel, GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-						.addContainerGap())
-			);
-			statusPanelLayout.setVerticalGroup(
-				statusPanelLayout.createParallelGroup()
-					.addGroup(statusPanelLayout.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(statusLabel)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-			);
+				// ---- label5 ----
+				label5.setText("Shelf contents:");
+				label5.setFont(label5.getFont().deriveFont(
+						label5.getFont().getStyle() | Font.BOLD,
+						label5.getFont().getSize() + 4f));
+
+				// ---- rcLabel ----
+				rcLabel.setText("Row & Column");
+
+				// ---- label7 ----
+				label7.setText("Product(s):");
+				label7.setFont(label7.getFont().deriveFont(
+						label7.getFont().getStyle() | Font.BOLD,
+						label7.getFont().getSize() + 4f));
+
+				// ---- productsLabel ----
+				productsLabel.setText("products");
+
+				GroupLayout panel5Layout = new GroupLayout(panel5);
+				panel5.setLayout(panel5Layout);
+				panel5Layout
+						.setHorizontalGroup(panel5Layout
+								.createParallelGroup()
+								.addGroup(
+										panel5Layout
+												.createSequentialGroup()
+												.addContainerGap()
+												.addGroup(
+														panel5Layout
+																.createParallelGroup()
+																.addComponent(
+																		label5)
+																.addComponent(
+																		rcLabel)
+																.addComponent(
+																		label7)
+																.addComponent(
+																		productsLabel))
+												.addContainerGap(201,
+														Short.MAX_VALUE)));
+				panel5Layout
+						.setVerticalGroup(panel5Layout
+								.createParallelGroup()
+								.addGroup(
+										panel5Layout
+												.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(label5)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.UNRELATED)
+												.addComponent(rcLabel)
+												.addGap(34, 34, 34)
+												.addComponent(label7)
+												.addPreferredGap(
+														LayoutStyle.ComponentPlacement.RELATED)
+												.addComponent(productsLabel)
+												.addContainerGap(137,
+														Short.MAX_VALUE)));
+			}
+			scrollPane1.setViewportView(panel5);
 		}
 
-		//---- stopButton ----
-		stopButton.setText("Stop the process");
-		stopButton.addActionListener(e -> stopButtonActionPerformed(e));
+		// ---- button3 ----
+		button3.setText("Stop process");
+		button3.addActionListener(e -> StopActionPerformed(e));
 
-		//======== paintPanel ========
+		// ======== panel6 ========
 		{
-			drawGrid.setBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED));
+			panel6.setBackground(new Color(51, 255, 51));
 
-			GroupLayout paintPanelLayout = new GroupLayout(drawGrid);
-			drawGrid.setLayout(paintPanelLayout);
-			paintPanelLayout.setHorizontalGroup(
-				paintPanelLayout.createParallelGroup()
-					.addGap(0, 520, Short.MAX_VALUE)
-			);
-			paintPanelLayout.setVerticalGroup(
-				paintPanelLayout.createParallelGroup()
-					.addGap(0, 0, Short.MAX_VALUE)
-			);
+			// ---- label12 ----
+			label12.setText("Status");
+			label12.setHorizontalAlignment(SwingConstants.CENTER);
+
+			GroupLayout panel6Layout = new GroupLayout(panel6);
+			panel6.setLayout(panel6Layout);
+			panel6Layout.setHorizontalGroup(panel6Layout.createParallelGroup()
+					.addComponent(label12, GroupLayout.DEFAULT_SIZE,
+							GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+			panel6Layout.setVerticalGroup(panel6Layout.createParallelGroup()
+					.addComponent(label12, GroupLayout.Alignment.TRAILING,
+							GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE));
 		}
 
 		GroupLayout contentPaneLayout = new GroupLayout(contentPane);
 		contentPane.setLayout(contentPaneLayout);
-		contentPaneLayout.setHorizontalGroup(
-			contentPaneLayout.createParallelGroup()
-				.addGroup(contentPaneLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(drawGrid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-					.addGroup(contentPaneLayout.createParallelGroup()
-						.addGroup(contentPaneLayout.createSequentialGroup()
-							.addComponent(statusPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(stopButton))
-						.addComponent(scrollPanel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-						.addComponent(tabbedPanel, GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		contentPaneLayout.setVerticalGroup(
-			contentPaneLayout.createParallelGroup()
-				.addGroup(contentPaneLayout.createSequentialGroup()
-					.addGap(23, 23, 23)
-					.addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-						.addComponent(drawGrid, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(contentPaneLayout.createSequentialGroup()
-							.addComponent(tabbedPanel, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(scrollPanel)
-							.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-							.addGroup(contentPaneLayout.createParallelGroup()
-								.addComponent(stopButton, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-								.addComponent(statusPanel, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGap(21, 21, 21))
-		);
-		setSize(825, 600);
+		contentPaneLayout
+				.setHorizontalGroup(contentPaneLayout
+						.createParallelGroup()
+						.addGroup(
+								GroupLayout.Alignment.TRAILING,
+								contentPaneLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(panel1,
+												GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(
+												LayoutStyle.ComponentPlacement.RELATED)
+										.addGroup(
+												contentPaneLayout
+														.createParallelGroup()
+														.addGroup(
+																contentPaneLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																				button3)
+																		.addPreferredGap(
+																				LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				panel6,
+																				GroupLayout.DEFAULT_SIZE,
+																				GroupLayout.DEFAULT_SIZE,
+																				Short.MAX_VALUE))
+														.addComponent(
+																tabbedPane1,
+																GroupLayout.PREFERRED_SIZE,
+																209,
+																GroupLayout.PREFERRED_SIZE)
+														.addComponent(
+																scrollPane1,
+																GroupLayout.PREFERRED_SIZE,
+																209,
+																GroupLayout.PREFERRED_SIZE))
+										.addGap(4, 14, Short.MAX_VALUE)));
+		contentPaneLayout
+				.setVerticalGroup(contentPaneLayout
+						.createParallelGroup()
+						.addGroup(
+								contentPaneLayout
+										.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(
+												contentPaneLayout
+														.createParallelGroup()
+														.addGroup(
+																contentPaneLayout
+																		.createSequentialGroup()
+																		.addComponent(
+																				tabbedPane1,
+																				GroupLayout.PREFERRED_SIZE,
+																				291,
+																				GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(
+																				LayoutStyle.ComponentPlacement.RELATED)
+																		.addComponent(
+																				scrollPane1,
+																				GroupLayout.PREFERRED_SIZE,
+																				252,
+																				GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(
+																				LayoutStyle.ComponentPlacement.RELATED)
+																		.addGroup(
+																				contentPaneLayout
+																						.createParallelGroup()
+																						.addComponent(
+																								button3,
+																								GroupLayout.PREFERRED_SIZE,
+																								45,
+																								GroupLayout.PREFERRED_SIZE)
+																						.addComponent(
+																								panel6,
+																								GroupLayout.DEFAULT_SIZE,
+																								GroupLayout.DEFAULT_SIZE,
+																								GroupLayout.PREFERRED_SIZE)))
+														.addComponent(
+																panel1,
+																GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE,
+																GroupLayout.PREFERRED_SIZE))
+										.addContainerGap(8, Short.MAX_VALUE)));
 		pack();
 		setLocationRelativeTo(getOwner());
-		
-		
+
 	}
 
-	private JTabbedPane tabbedPanel;
-	private JPanel orderPanel;
-	private JPanel productsPanel;
-	private JPanel settingsPanel;
+	private GDrawGrid panel1;
+	private JTabbedPane tabbedPane1;
+	private JPanel testPanel;
+	private JCheckBox enumBox;
+	private JCheckBox nearestBox;
+	private JCheckBox heldBox;
 	private JLabel label1;
+	private JButton testButton;
 	private JLabel label2;
+	private JSpinner quantitySpinner;
 	private JLabel label3;
-	private JComboBox<String> comboBox1;
-	private JSpinner rowsSpinner;
-	private JSpinner columnsSpinner;
-	private JButton applyButton;
-	private JScrollPane scrollPanel;
-	private JPanel informationPanel;
-	private JLabel standardLabel1;
-	public CustomRowColumnLabel customRowColumnLabel;
-	private ProductInfoLabel productInfoLabel;
-	private JPanel statusPanel;
-	private JLabel statusLabel;
-	private JButton stopButton;
-	private GDrawGrid drawGrid;
-
+	private JSpinner roundSpinner;
+	private JPanel customPanel;
+	private JButton startButton;
+	private JButton resetButton;
+	private JComboBox itemListBox;
+	private JButton button4;
+	private JScrollPane scrollPane2;
+	private JPanel panel7;
+	private JLabel label13;
+	private JLabel addedproductsLabel;
+	private JPanel settingsPanel;
+	private JButton button2;
+	private JLabel label9;
+	private JLabel label10;
+	private JSpinner rowSpinner;
+	private JSpinner columnSpinner;
+	private JLabel label11;
+	private JComboBox<String> comboBox;
+	private JScrollPane scrollPane1;
+	private JPanel panel5;
+	private JLabel label5;
+	private CustomRowColumnLabel rcLabel;
+	private JLabel label7;
+	private ProductInfoLabel productsLabel;
+	private JButton button3;
+	private JPanel panel6;
+	private JLabel label12;
+	// JFormDesigner - End of variables declaration //GEN-END:variables
 }
