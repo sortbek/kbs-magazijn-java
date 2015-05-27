@@ -110,11 +110,11 @@ public class CompleteEnumeration extends MySQLbpp {
                 if (i == prefix.length() - 1) {
                     System.out.println("Huidige beste optie - Volgorde: " + bestOptionOrder + " Gebruikte ruimte: " + bestOptionSpace);
                     if (spaceUsed < bestOptionSpace) {
-                        System.out.println("Volgorde: " + prefix + "\nGebruikte ruimte: " + spaceUsed);
+                        System.out.println("Volgorde: " + prefix + "\nGebruikte ruimte: " + spaceUsed + "\n");
                         bestOptionOrder = prefix;
                         bestOptionSpace = spaceUsed;
                     } else {
-                        System.out.println("Huidige volgorde is niet beter");
+                        System.out.println("Huidige volgorde is niet beter\n");
                     }
 
                 }
@@ -122,7 +122,7 @@ public class CompleteEnumeration extends MySQLbpp {
         } else {
             for (int i = 0; i < n; i++) {
                 calculateBestOption(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n));
-                System.out.println("\nTrying next option (resetting used space):");
+                
                 spaceUsed = 0;
 
             }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bpp;
 
 import java.awt.event.MouseEvent;
@@ -14,10 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Hugo
- */
 public class BPPSimulatorGUI extends javax.swing.JFrame {
 
     private Depository depository;
@@ -130,11 +121,11 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Nr.", "Size", "Check", "Box"
+                "Name", "Nr.", "Size", "Box"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -258,7 +249,7 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 10, Short.MAX_VALUE))
+                                .addGap(0, 22, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(startButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())))))
@@ -317,7 +308,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         // kiezen alogrimte 
         ceB = true;
         JComboBox ap = (JComboBox) evt.getSource();
-        System.out.println(ap.getSelectedItem());
         if (ap.getSelectedItem() == "Complete Enumeration") {
             ceB = true;
             sgB = false;
@@ -419,18 +409,18 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
             bpp.Products(depository);
             if (ceB) {
-                System.out.println("Complete Enumeration");
+                System.out.println("\nComplete Enumeration\n");
                 cE.setBoxDepository(boxd);
                 cE.setDepository(depository);
                 cE.setBoxes(10);
                 cE.runCe(10);
             } else if (sgB) {
-                System.out.println("Simple Greedy");
+                System.out.println("\nSimple Greedy\n");
                 sg.setBoxDepository(boxd);
                 sg.setDepository(depository);
                 sg.runSg(10);
             } else if (bfB) {
-                System.out.println("Best Fit");
+                System.out.println("\nBest Fit\n");
                 BF.setBoxDepository(boxd);
                 BF.setDepository(depository);
                 BF.BF(10);
@@ -445,15 +435,13 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
 
         for (int i = 0; sizet > i; i++) {
 
-//            if (this.producten.get(i).){
             String data1 = this.producten.get(i).Getname();
             int data2 = this.producten.get(i).GetidProduct();
             int data3 = this.producten.get(i).Getsize();
-            boolean data4 = this.producten.get(i).Getcheck();
-            int data5 = this.producten.get(i).GetBox();
+            int data4 = this.producten.get(i).GetBox();
 
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-            model.addRow(new Object[]{data1, data2, data3, data4, data5});
+            model.addRow(new Object[]{data1, data2, data3, data4});
         }
     }
 
@@ -513,14 +501,6 @@ public class BPPSimulatorGUI extends javax.swing.JFrame {
         GUI.SetTable();
 
         GUI.setVisible(true);
-
-        Date date_start = new Date();
-        System.out.println(dateFormat.format(date_start)); // 15:59:48
-
-        Date date_stop = new Date();
-        System.out.println(dateFormat.format(date_stop)); // 15:59:48
-        time = date_stop.getTime() - date_start.getTime();
-        time = time / 1000;
 
         GUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

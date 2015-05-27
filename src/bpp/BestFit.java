@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bpp;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Marjolein
- */
 public class BestFit {
 
     private Depository depository;
@@ -42,7 +33,7 @@ public class BestFit {
         int productnr = 0;
         int sizeorder = depository.GetSizeOrder();
         int sizebox = 0;
-        System.out.println(sizeorder);
+
         while (sizeorder > 0) {
             int sizeb;
             int covered;
@@ -83,7 +74,7 @@ public class BestFit {
             sizeorder = sizeorder - sizeproduct;
             sizebox = sizebox - sizeproduct;
             System.out.println("ProductId: " + productnr + " Size: " + sizeproduct + " was added");
-            System.out.println("Sizebox :" + sizebox + " Sizeorder : " + sizeorder);
+            System.out.println("Sizebox :" + sizebox + " Sizeorder : " + sizeorder + "\n");
 
             int sProduct;
 
@@ -114,7 +105,7 @@ public class BestFit {
                     sizeorder = sizeorder - sizeproduct;
                     sizebox = sizebox - sizeproduct;
                     System.out.println("ProductId: " + productnr + " Size: " + sProduct + " was added");
-                    System.out.println("Sizebox :" + sizebox + " Sizeorder : " + sizeorder);
+                    System.out.println("Sizebox :" + sizebox + " Sizeorder : " + sizeorder + "\n");
                 }
                 sProduct = depository.GetSmallProduct(sizebox);
             }

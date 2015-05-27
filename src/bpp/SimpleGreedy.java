@@ -32,10 +32,6 @@ public class SimpleGreedy extends MySQLbpp {
         return this.depository;
     }
 
-    public void setProducts(ArrayList<Product> p) {
-        this.products = p;
-    }
-
     public void runSg(int idorder) {
         int i = 0;
         int boxnr;
@@ -77,7 +73,6 @@ public class SimpleGreedy extends MySQLbpp {
                             bpp.closeBox(boxnr);
                             b.setStatus("ready");
                         }
-                        System.out.println("The product does not fit in " + b.getIdBox());
                         if (j + 1 < arrayBox.size()) {
                             j = j + 1;
                         } else {
@@ -98,7 +93,6 @@ public class SimpleGreedy extends MySQLbpp {
                         }
                     }
                 }
-                System.out.println("Only " + depository.GetTotalSizeOrder() + " products to go");
             }
             i++;
         }
