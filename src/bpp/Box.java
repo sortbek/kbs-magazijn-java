@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bpp;
 
-/**
- *
- * @author Marjolein
- */
 public class Box extends BoxDepository{
     private int idBox;
     private int size;
@@ -16,7 +7,7 @@ public class Box extends BoxDepository{
     private int idorder;
     private String status;
     
-    public Box(int idBox, int size, int covered, int idorder, String status) {
+      public Box(int idBox, int size, int covered, int idorder, String status) {
         this.idBox = idBox;
         this.size = size;
         this.covered = covered;
@@ -65,12 +56,7 @@ public class Box extends BoxDepository{
         return status;
     }
     
-    public int getSpaceLeft() {
-        return size - covered;
-    }
-    
-    
     public String toString(){
-    return ("Box: "+idBox + "\nSize: "+ size + "\nArea Covered: " + covered + "\nOrdernr: " +idorder + "\nStatus:" + status);
+    return ("Box: "+idBox + "\nSize: "+ size + "\nArea covered: " + covered + "\nOrdernr: " +idorder + "\nStatus:" + status);
     }  
 }

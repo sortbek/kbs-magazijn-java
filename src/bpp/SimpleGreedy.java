@@ -18,7 +18,7 @@ public class SimpleGreedy extends MySQLbpp {
         arrayBox = boxd.getList();
         int a = arrayBox.size();
         if (a > 2) {
-            System.out.println("Let op er zijn te veel dozen!!");
+            System.out.println("There are too many boxes");
         }
 
     }
@@ -30,10 +30,6 @@ public class SimpleGreedy extends MySQLbpp {
 
     public Depository getDepository() {
         return this.depository;
-    }
-
-    public void setProducts(ArrayList<Product> p) {
-        this.products = p;
     }
 
     public void runSg(int idorder) {
@@ -59,7 +55,7 @@ public class SimpleGreedy extends MySQLbpp {
                     int covered = b.getCovered();
 
                     if (((20 - covered) >= (product.Getsize())) && (b.getStatus() == "busy")) {
-                        System.out.println("Het product past in doos " + b.getIdBox());
+                        System.out.println("The product fits in box " + b.getIdBox());
 
                         updateBox(b.getCovered() + product.Getsize(), false, b.getIdBox());
                         SetBox(b.getIdBox(), products.get(i).GetidProduct());
@@ -77,17 +73,14 @@ public class SimpleGreedy extends MySQLbpp {
                             bpp.closeBox(boxnr);
                             b.setStatus("ready");
                         }
-                        System.out.println("Het product past NIET in doos " + b.getIdBox());
-                        System.out.println("nummer is nu " + j + " bestaat maar :" + arrayBox.size());
                         if (j + 1 < arrayBox.size()) {
                             j = j + 1;
-                            System.out.println("Er zijn nog meer boxen volgende box");
                         } else {
-                            System.out.println("Er is een nieuwe box aangemaakt");
+                            System.out.println("A new box was created");
                             boxnr = bpp.NewBox(20, idorder);
                             b = new Box(boxnr, 20, 0, idorder, "busy");
                             arrayBox.add(b);
-                            System.out.println("Het product past in doos " + b.getIdBox());
+                            System.out.println("The product fits in " + b.getIdBox());
 
                             updateBox(b.getCovered() + product.Getsize(), false, b.getIdBox());
                             SetBox(b.getIdBox(), products.get(i).GetidProduct());
@@ -100,7 +93,6 @@ public class SimpleGreedy extends MySQLbpp {
                         }
                     }
                 }
-                System.out.println("de opdracht is nog " + depository.GetTotalSizeOrder() + " groot ");
             }
             i++;
         }
