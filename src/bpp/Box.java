@@ -16,7 +16,7 @@ public class Box extends BoxDepository{
     private int idorder;
     private String status;
     
-    public Box(int idBox, int size, int covered, int idorder, String status) {
+      public Box(int idBox, int size, int covered, int idorder, String status) {
         this.idBox = idBox;
         this.size = size;
         this.covered = covered;
@@ -65,12 +65,7 @@ public class Box extends BoxDepository{
         return status;
     }
     
-    public int getSpaceLeft() {
-        return size - covered;
-    }
-    
-    
     public String toString(){
-    return ("Box: "+idBox + "\nSize: "+ size + "\nArea Covered: " + covered + "\nOrdernr: " +idorder + "\nStatus:" + status);
+    return ("Box: "+idBox + "\nSize: "+ size + "\nArea covered: " + covered + "\nOrdernr: " +idorder + "\nStatus:" + status);
     }  
 }
