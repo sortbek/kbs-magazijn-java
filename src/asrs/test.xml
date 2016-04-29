@@ -2,11 +2,11 @@
 <bestelling>
 	<ordernummer>1415</ordernummer>
 	<klant>
-		<voornaam>Chrtestis</voornaam>
-		<achternaam>MooyBoy</achternaam>
-		<adres>Kalverstraat 17</adres>
+		<voornaam>Steffen</voornaam>
+		<achternaam>Brem</achternaam>
+		<adres>A 1</adres>
 		<postcode>1012NX</postcode>
-		<plaats>Amsterdam</plaats>
+		<plaats>Ottoland</plaats>
 	</klant>
 	<datum>2014-03-28</datum>
 	<artikelnr>1</artikelnr>
